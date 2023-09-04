@@ -11,7 +11,7 @@ enum MarkdownUIParser {
       markupContent(markup: $0)
     }
   }
-  
+
   static func inlineMarkupContent(
     markup: some Markdown.InlineMarkup
   ) -> InlineMarkupContent {
@@ -45,7 +45,7 @@ enum MarkdownUIParser {
       fatalError()
     }
   }
-  
+
   static func markupContent(markup: some Markdown.Markup) -> MarkupContent {
     switch markup {
     case let link as Markdown.Link:
@@ -83,27 +83,29 @@ enum MarkdownUIParser {
     case let table as Markdown.Table:
       let head = table.children.first { $0 is Markdown.Table.Head }! as! Markdown.Table.Head
       let bodies = table.children.compactMap { $0 as? Markdown.Table.Body }
-      
+
       let headItems: [InlineMarkupContent] = head.children.reduce(into: []) { result, child in
         let cell = child as! Markdown.Table.Cell
         for child in cell.inlineChildren {
           result.append(inlineMarkupContent(markup: child))
         }
       }
-      
+
       let bodyItems: [[[InlineMarkupContent]]] = bodies.reduce(into: []) { result, head in
         for child in bodies.flatMap(\.children) {
           if let row = child as? Markdown.Table.Row {
             let cells: [[InlineMarkupContent]] = row.children.reduce(into: []) { cells, child in
               let cell = child as! Markdown.Table.Cell
-              cells.append(cell.inlineChildren.map { inlineMarkupContent(markup: $0)
-              })
+              cells.append(
+                cell.inlineChildren.map {
+                  inlineMarkupContent(markup: $0)
+                })
             }
             result.append(cells)
           }
         }
       }
-      
+
       return .table(headItems: headItems, bodyItems: bodyItems)
     case let codeBlock as Markdown.CodeBlock:
       return .codeBlock(language: codeBlock.language, sourceCode: codeBlock.code)

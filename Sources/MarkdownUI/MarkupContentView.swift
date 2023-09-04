@@ -2,25 +2,25 @@
 //  MarkupContentView.swift
 //
 
-import SwiftUI
 import Algorithms
+import SwiftUI
 
 struct MarkupContentView: View {
   let content: MarkupContent
   let listDepth: Int
-  
+
   var unorderedMark: [Int: String] = [
     0: "•",
     1: "◦",
-    2: "▫︎"
+    2: "▫︎",
   ]
-  
+
   var fonts: [Int: Font] = [
     1: .title,
     2: .title2,
     3: .title3,
   ]
-  
+
   var body: some View {
     switch content {
     case .text(let text):
@@ -36,7 +36,8 @@ struct MarkupContentView: View {
       }
     case .link(let destination, let children):
       if let destination,
-         let url = URL(string: destination) {
+        let url = URL(string: destination)
+      {
         SwiftUI.Link(destination: url) {
           ForEach(children.indexed(), id: \.index) { _, content in
             InlineMarkupContentView(content: content)
@@ -62,7 +63,7 @@ struct MarkupContentView: View {
           InlineMarkupContentView(content: content)
         }
       }
-      
+
     case .blockQuote(let blockChildren):
       HStack(alignment: .top, spacing: 10) {
         Rectangle()
@@ -106,7 +107,7 @@ struct MarkupContentView: View {
                     Text(unorderedMark[listDepth] ?? unorderedMark[unorderedMark.count - 1]!)
                   }
                 }
-                
+
                 MarkupContentView(content: child, listDepth: listDepth + 1)
               }
             }
@@ -120,9 +121,9 @@ struct MarkupContentView: View {
             InlineMarkupContentView(content: item)
           }
         }
-        
+
         Divider()
-        
+
         ForEach(bodyItems.indexed(), id: \.index) { _, items in
           GridRow {
             ForEach(items.indexed(), id: \.index) { _, items in
@@ -138,23 +139,24 @@ struct MarkupContentView: View {
       }
 
     case .softBreak:
-      EmptyView()// TODO
+      EmptyView()  // TODO
     }
   }
 }
 
-
-#Preview {
+#Preview{
   let items: [MarkupContent] = [
     .heading(level: 1, children: [.text(text: "Title1")]),
     .heading(level: 2, children: [.text(text: "Title2")]),
     .heading(level: 3, children: [.text(text: "Title3")]),
     .heading(level: 4, children: [.text(text: "Title4")]),
     .text(text: "Title5"),
-    .codeBlock(language: "swift", sourceCode: """
-import Foundation
-print("Hello")
-"""),
+    .codeBlock(
+      language: "swift",
+      sourceCode: """
+        import Foundation
+        print("Hello")
+        """),
     .orderedList(items: [
       .init(
         checkbox: nil,
@@ -169,7 +171,7 @@ print("Hello")
         ]
       ),
       .init(
-        checkbox:  nil,
+        checkbox: nil,
         children: [
           .text(text: "Item3")
         ]
@@ -194,9 +196,9 @@ print("Hello")
           .text(text: "Item3")
         ]
       ),
-    ])
+    ]),
   ]
-  
+
   return ScrollView {
     LazyVStack(alignment: .leading, spacing: 10) {
       ForEach(items.indexed(), id: \.index) { _, item in
@@ -205,17 +207,17 @@ print("Hello")
       }
     }
   }
-    .frame(maxWidth: 500, maxHeight: 500)
+  .frame(maxWidth: 500, maxHeight: 500)
 }
 
-private extension View {
+extension View {
   @ViewBuilder
-  func ifLet<Value, Content: View>(
+  fileprivate func ifLet<Value, Content: View>(
     _ value: Value?,
     @ViewBuilder content: (Self, Value) -> Content
   ) -> some View {
     if let value {
-      content(self,value)
+      content(self, value)
     } else {
       self
     }

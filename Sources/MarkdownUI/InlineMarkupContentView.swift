@@ -2,12 +2,12 @@
 //  InlineMarkupContentView.swift
 //
 
-import SwiftUI
 import Algorithms
+import SwiftUI
 
 struct InlineMarkupContentView: View {
   let content: InlineMarkupContent
-  
+
   var body: some View {
     switch content {
     case .text(let text):
@@ -15,30 +15,31 @@ struct InlineMarkupContentView: View {
     case .strong(let children):
       HStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, child in
-            InlineMarkupContentView(content: child)
+          InlineMarkupContentView(content: child)
         }
       }
       .bold()
     case .strikethrough(let children):
       HStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, child in
-            InlineMarkupContentView(content: child)
+          InlineMarkupContentView(content: child)
         }
       }
       .strikethrough(pattern: .dash, color: .secondary)
     case .emphasis(let children):
       HStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, child in
-            InlineMarkupContentView(content: child)
+          InlineMarkupContentView(content: child)
         }
       }
-        .italic()
+      .italic()
     case .inlineCode(let code):
       Text(code)
         .background(.thinMaterial)
     case .image(let title, let source):
       if let imageURL = source.map({ URL(string: $0) }),
-          let imageURL {
+        let imageURL
+      {
         VStack(alignment: .leading, spacing: 10) {
           AsyncImage(url: imageURL) { image in
             image
@@ -53,10 +54,11 @@ struct InlineMarkupContentView: View {
         }
       }
     case .softBreak:
-      EmptyView() // TODO
-    case .link(destination: let destination, children: let children):
+      EmptyView()  // TODO
+    case .link(let destination, let children):
       if let destination,
-         let url = URL(string: destination) {
+        let url = URL(string: destination)
+      {
         SwiftUI.Link(destination: url) {
           ForEach((children ?? []).indexed(), id: \.index) { _, content in
             InlineMarkupContentView(content: content)
