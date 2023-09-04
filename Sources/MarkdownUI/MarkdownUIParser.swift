@@ -6,6 +6,12 @@ import Foundation
 import Markdown
 
 enum MarkdownUIParser {
+  static func parse(document: Document) -> [MarkupContent] {
+    document.children.lazy.map {
+      markupContent(markup: $0)
+    }
+  }
+  
   static func inlineMarkupContent(
     markup: some Markdown.InlineMarkup
   ) -> InlineMarkupContent {

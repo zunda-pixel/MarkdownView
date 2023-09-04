@@ -9,9 +9,7 @@ struct MarkdownView: View {
   let markdown: String
   
   var contents: [MarkupContent] {
-    Document(parsing: markdown).children.map {
-      MarkdownUIParser.markupContent(markup: $0)
-    }
+    MarkdownUIParser.parse(document:Document(parsing: markdown))
   }
   
   var body: some View {

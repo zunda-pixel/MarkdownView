@@ -13,21 +13,21 @@ struct InlineMarkupContentView: View {
     case .text(let text):
       Text(text)
     case .strong(let children):
-      HStack {
+      HStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, child in
             InlineMarkupContentView(content: child)
         }
       }
       .bold()
     case .strikethrough(let children):
-      HStack {
+      HStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, child in
             InlineMarkupContentView(content: child)
         }
       }
       .strikethrough(pattern: .dash, color: .secondary)
     case .emphasis(let children):
-      HStack {
+      HStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, child in
             InlineMarkupContentView(content: child)
         }
@@ -39,7 +39,7 @@ struct InlineMarkupContentView: View {
     case .image(let title, let source):
       if let imageURL = source.map({ URL(string: $0) }),
           let imageURL {
-        VStack {
+        VStack(alignment: .leading, spacing: 10) {
           AsyncImage(url: imageURL) { image in
             image
               .resizable()
@@ -48,7 +48,7 @@ struct InlineMarkupContentView: View {
             ProgressView()
           }
 
-          SwiftUI.Text(title)
+          Text(title)
             .foregroundStyle(.secondary)
         }
       }
