@@ -16,12 +16,14 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-markdown", branch: "main"),
+    .package(url: "https://github.com/apple/swift-algorithms", .upToNextMajor(from: "1.0.0")),
   ],
   targets: [
     .target(
       name: "MarkdownUI",
       dependencies: [
         .product(name: "Markdown", package: "swift-markdown"),
+        .product(name: "Algorithms", package: "swift-algorithms"),
       ]
     ),
     .testTarget(
