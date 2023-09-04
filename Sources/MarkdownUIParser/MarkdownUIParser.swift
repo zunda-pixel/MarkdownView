@@ -7,7 +7,7 @@ import Markdown
 
 public enum MarkdownUIParser {
   public static func parse(document: Document) -> [MarkupContent] {
-    document.children.lazy.map {
+    document.children.map {
       markupContent(markup: $0)
     }
   }
