@@ -18,7 +18,7 @@ struct MarkupContentView: View {
   var fonts: [Int: Font] = [
     1: .title,
     2: .title2,
-    3: .title3
+    3: .title3,
   ]
   
   var body: some View {
@@ -53,8 +53,9 @@ struct MarkupContentView: View {
           InlineMarkupContentView(content: content)
         }
       }
-      .font(fonts[level] ?? .callout)
-      
+      .ifLet(fonts[level]) { view, font in
+        view.font(font)
+      }
     case .paragraph(let children):
       VStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, content in
@@ -76,7 +77,7 @@ struct MarkupContentView: View {
         }
       }
       .foregroundStyle(.secondary)
-      // TODO 縦棒が広がりすぎてしまうので、fixedSizeで最小になるようにしている。
+      // TODO 縦棒が縦に広がりすぎてしまうので、fixedSizeで最小になるようにしている。
       // これが正しいのかはわからない
       .fixedSize(horizontal: true, vertical: true)
     case .orderedList(let items):
@@ -145,6 +146,11 @@ struct MarkupContentView: View {
 
 #Preview {
   let items: [MarkupContent] = [
+    .heading(level: 1, children: [.text(text: "Title1")]),
+    .heading(level: 2, children: [.text(text: "Title2")]),
+    .heading(level: 3, children: [.text(text: "Title3")]),
+    .heading(level: 4, children: [.text(text: "Title4")]),
+    .text(text: "Title5"),
     .codeBlock(language: "swift", sourceCode: """
 import Foundation
 print("Hello")
@@ -191,11 +197,27 @@ print("Hello")
     ])
   ]
   
-  return VStack(alignment: .leading, spacing: 10) {
-    ForEach(items.indexed(), id: \.index) { _, item in
-      MarkupContentView(content: item, listDepth: 0)
-      Divider()
+  return ScrollView {
+    LazyVStack(alignment: .leading, spacing: 10) {
+      ForEach(items.indexed(), id: \.index) { _, item in
+        MarkupContentView(content: item, listDepth: 0)
+        Divider()
+      }
     }
   }
     .frame(maxWidth: 500, maxHeight: 500)
+}
+
+private extension View {
+  @ViewBuilder
+  func ifLet<Value, Content: View>(
+    _ value: Value?,
+    @ViewBuilder content: (Self, Value) -> Content
+  ) -> some View {
+    if let value {
+      content(self,value)
+    } else {
+      self
+    }
+  }
 }
