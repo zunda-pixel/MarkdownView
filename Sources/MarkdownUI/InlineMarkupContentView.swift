@@ -3,13 +3,17 @@
 //
 
 import Algorithms
-import SwiftUI
 import MarkdownUIParser
+import SwiftUI
 
-struct InlineMarkupContentView: View {
-  let content: InlineMarkupContent
+public struct InlineMarkupContentView: View {
+  public let content: InlineMarkupContent
 
-  var body: some View {
+  public init(content: InlineMarkupContent) {
+    self.content = content
+  }
+
+  public var body: some View {
     switch content {
     case .text(let text):
       Text(text)

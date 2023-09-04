@@ -6,7 +6,12 @@ import PackageDescription
 let package = Package(
   name: "MarkdownUI",
   platforms: [
-    .macOS(.v14),
+    .macOS(.v13),
+    .iOS(.v16),
+    .watchOS(.v10),
+    .tvOS(.v16),
+    .visionOS(.v1),
+    .macCatalyst(.v16),
   ],
   products: [
     .library(

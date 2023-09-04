@@ -3,63 +3,70 @@
 
 import Algorithms
 import Markdown
-import SwiftUI
 import MarkdownUIParser
+import SwiftUI
 
 struct MarkdownView: View {
-  let markdown: String
+  public let document: Document
 
-  var contents: [MarkupContent] {
-    MarkdownUIParser.parse(document: Document(parsing: markdown))
+  public init(document: Document) {
+    self.document = document
   }
 
-  var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      ForEach(contents.indexed(), id: \.index) { _, content in
-        MarkupContentView(content: content, listDepth: 0)
+  var contents: [MarkupContent] {
+    MarkdownUIParser.parse(document: document)
+  }
+
+  public var body: some View {
+    ScrollView {
+      LazyVStack(alignment: .leading, spacing: 10) {
+        ForEach(contents.indexed(), id: \.index) { _, content in
+          MarkupContentView(content: content, listDepth: 0)
+        }
       }
     }
   }
 }
 
 #Preview{
-  MarkdownView(
-    markdown: """
-# Title1
-## Title2
-## Title3
-## Title4
+  let document = Document(
+    parsing: """
+      # Title1
+      ## Title2
+      ## Title3
+      ## Title4
 
-> Text that is a quote
+      > Text that is a quote
 
-```
-git status
-git add
-git commit
-```
-
-
-> Text that is a quote
-> Text that is a quote
+      ```
+      git status
+      git add
+      git commit
+      ```
 
 
+      > Text that is a quote
+      > Text that is a quote
 
 
 
-| Head | Head | Head |
-| ---- | ---- | ---- |
-| Text | Text | Text |
-| Text | Text | Text |
 
-100. First list item
-       - First nested list item
-         - Second nested list item
 
-- First nested list item
-- Second nested list item
+      | Head | Head | Head |
+      | ---- | ---- | ---- |
+      | Text | Text | Text |
+      | Text | Text | Text |
+
+      100. First list item
+             - First nested list item
+               - Second nested list item
+
+      - First nested list item
+      - Second nested list item
 """
   )
-  .padding(10)
-  .frame(maxWidth: 500, maxHeight: 700, alignment: .center)
-  .border(.red)
+  return MarkdownView(document: document)
+    .padding(10)
+    .frame(maxWidth: 500, maxHeight: 700, alignment: .center)
+    .border(.red)
 }

@@ -3,26 +3,40 @@
 //
 
 import Algorithms
-import SwiftUI
 import MarkdownUIParser
+import SwiftUI
 
-struct MarkupContentView: View {
-  let content: MarkupContent
-  let listDepth: Int
+public struct MarkupContentView: View {
+  public let content: MarkupContent
+  public let listDepth: Int
+  public let unOrderedMark: [Int: String]
+  public let headingFonts: [Int: Font]
 
-  var unorderedMark: [Int: String] = [
+  public static let defaultUnOrderedMark: [Int: String] = [
     0: "•",
     1: "◦",
     2: "▫︎",
   ]
 
-  var fonts: [Int: Font] = [
+  public static let defaultHeadingFonts: [Int: Font] = [
     1: .title,
     2: .title2,
     3: .title3,
   ]
 
-  var body: some View {
+  public init(
+    content: MarkupContent,
+    listDepth: Int,
+    unOrderedMark: [Int: String] = defaultUnOrderedMark,
+    headingFonts: [Int: Font] = defaultHeadingFonts
+  ) {
+    self.content = content
+    self.listDepth = listDepth
+    self.unOrderedMark = unOrderedMark
+    self.headingFonts = headingFonts
+  }
+
+  public var body: some View {
     switch content {
     case .text(let text):
       SwiftUI.Text(text)
@@ -55,7 +69,7 @@ struct MarkupContentView: View {
           InlineMarkupContentView(content: content)
         }
       }
-      .ifLet(fonts[level]) { view, font in
+      .ifLet(headingFonts[level]) { view, font in
         view.font(font)
       }
     case .paragraph(let children):
@@ -105,7 +119,7 @@ struct MarkupContentView: View {
                   if let checkbox = item.checkbox {
                     Image(systemName: checkbox == .checked ? "checkmark.square" : "square")
                   } else {
-                    Text(unorderedMark[listDepth] ?? unorderedMark[unorderedMark.count - 1]!)
+                    Text(unOrderedMark[listDepth] ?? unOrderedMark[unOrderedMark.count - 1]!)
                   }
                 }
 
@@ -141,6 +155,20 @@ struct MarkupContentView: View {
 
     case .softBreak:
       EmptyView()  // TODO
+    }
+  }
+}
+
+extension View {
+  @ViewBuilder
+  fileprivate func ifLet<Value, Content: View>(
+    _ value: Value?,
+    @ViewBuilder content: (Self, Value) -> Content
+  ) -> some View {
+    if let value {
+      content(self, value)
+    } else {
+      self
     }
   }
 }
@@ -209,18 +237,4 @@ struct MarkupContentView: View {
     }
   }
   .frame(maxWidth: 500, maxHeight: 500)
-}
-
-extension View {
-  @ViewBuilder
-  fileprivate func ifLet<Value, Content: View>(
-    _ value: Value?,
-    @ViewBuilder content: (Self, Value) -> Content
-  ) -> some View {
-    if let value {
-      content(self, value)
-    } else {
-      self
-    }
-  }
 }
