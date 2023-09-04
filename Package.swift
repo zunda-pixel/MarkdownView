@@ -45,8 +45,10 @@ let package = Package(
       ]
     ),
     .testTarget(
-      name: "MarkdownUITests",
-      dependencies: ["MarkdownUI"]
+      name: "MarkdownUIParserTests",
+      dependencies: [
+        .target(name: "MarkdownUIParser"),
+      ]
     ),
   ]
 )

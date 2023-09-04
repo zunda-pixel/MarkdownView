@@ -1,9 +1,9 @@
 import Markdown
 import XCTest
 
-@testable import MarkdownUI
+@testable import MarkdownUIParser
 
-final class MarkdownUITests: XCTestCase {
+final class MarkdownUIParserTests: XCTestCase {
   func testExample() throws {
     // XCTest Documentation
     // https://developer.apple.com/documentation/xctest
