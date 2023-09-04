@@ -5,14 +5,14 @@
 import Foundation
 import Markdown
 
-enum MarkdownUIParser {
-  static func parse(document: Document) -> [MarkupContent] {
+public enum MarkdownUIParser {
+  public static func parse(document: Document) -> [MarkupContent] {
     document.children.lazy.map {
       markupContent(markup: $0)
     }
   }
 
-  static func inlineMarkupContent(
+  public static func inlineMarkupContent(
     markup: some Markdown.InlineMarkup
   ) -> InlineMarkupContent {
     switch markup {
@@ -46,7 +46,7 @@ enum MarkdownUIParser {
     }
   }
 
-  static func markupContent(markup: some Markdown.Markup) -> MarkupContent {
+  public static func markupContent(markup: some Markdown.Markup) -> MarkupContent {
     switch markup {
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }

@@ -4,6 +4,7 @@
 
 import Algorithms
 import SwiftUI
+import MarkdownUIParser
 
 struct MarkupContentView: View {
   let content: MarkupContent

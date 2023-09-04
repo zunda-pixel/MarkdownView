@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum InlineMarkupContent: Hashable, Sendable {
+public enum InlineMarkupContent: Hashable, Sendable {
   case image(title: String, source: String?)
   case text(text: String)
   case softBreak

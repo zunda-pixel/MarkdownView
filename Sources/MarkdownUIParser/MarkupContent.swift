@@ -4,7 +4,7 @@
 
 import Foundation
 
-enum MarkupContent: Hashable, Sendable {
+public enum MarkupContent: Hashable, Sendable {
   case text(text: String)
   case codeBlock(language: String?, sourceCode: String)
   case link(destination: String?, children: [InlineMarkupContent])

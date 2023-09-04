@@ -4,6 +4,7 @@
 import Algorithms
 import Markdown
 import SwiftUI
+import MarkdownUIParser
 
 struct MarkdownView: View {
   let markdown: String
@@ -24,39 +25,39 @@ struct MarkdownView: View {
 #Preview{
   MarkdownView(
     markdown: """
-      # Title1
-      ## Title2
-      ## Title3
-      ## Title4
+# Title1
+## Title2
+## Title3
+## Title4
 
-      > Text that is a quote
+> Text that is a quote
 
-      ```
-      git status
-      git add
-      git commit
-      ```
-
-
-      > Text that is a quote
-      > Text that is a quote
+```
+git status
+git add
+git commit
+```
 
 
+> Text that is a quote
+> Text that is a quote
 
 
 
-      | Head | Head | Head |
-      | ---- | ---- | ---- |
-      | Text | Text | Text |
-      | Text | Text | Text |
 
-      100. First list item
-             - First nested list item
-               - Second nested list item
 
-      - First nested list item
-      - Second nested list item
-      """
+| Head | Head | Head |
+| ---- | ---- | ---- |
+| Text | Text | Text |
+| Text | Text | Text |
+
+100. First list item
+       - First nested list item
+         - Second nested list item
+
+- First nested list item
+- Second nested list item
+"""
   )
   .padding(10)
   .frame(maxWidth: 500, maxHeight: 700, alignment: .center)
