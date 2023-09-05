@@ -42,6 +42,17 @@ public struct MarkupContentView: View {
       SwiftUI.Text(text)
     case .thematicBreak:
       Divider()
+    case .blockDirective(let name, let arguments, let children):
+      VStack(alignment: .leading, spacing: 0) {
+        Text("@\(name)(\(arguments.joined())) {")
+        ForEach(children.indexed(), id: \.index) { _, child in
+          HStack(alignment: .center, spacing: 0) {
+            Spacer().frame(maxWidth: 10)
+            MarkupContentView(content: child, listDepth: listDepth)
+          }
+        }
+        Text("}")
+      }
     case .htmlBlock(let text):
       SwiftUI.Text(text)
     case .codeBlock(let language, let sourceCode):
@@ -177,6 +188,14 @@ extension View {
 
 #Preview{
   let items: [MarkupContent] = [
+    .blockDirective(
+      name: "area",
+      arguments: ["x: Int, y: Int"],
+      children: [
+        .text(text: "let are = x * y"),
+        .text(text: "return area"),
+      ]
+    ),
     .heading(level: 1, children: [.text(text: "Title1")]),
     .heading(level: 2, children: [.text(text: "Title2")]),
     .heading(level: 3, children: [.text(text: "Title3")]),

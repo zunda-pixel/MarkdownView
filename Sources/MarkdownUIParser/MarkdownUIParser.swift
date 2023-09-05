@@ -58,6 +58,10 @@ public enum MarkdownUIParser {
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .link(destination: link.destination, children: Array(children))
+    case let blockDirective as Markdown.BlockDirective:
+      let arguments = blockDirective.argumentText.segments.map { $0.trimmedText }
+      let children = blockDirective.blockChildren.map { markupContent(markup: $0) }
+      return .blockDirective(name: blockDirective.name, arguments: arguments, children: Array(children))
     case _ as Markdown.ThematicBreak:
       return .thematicBreak
     case let heading as Markdown.Heading:

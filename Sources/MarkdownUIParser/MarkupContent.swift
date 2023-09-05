@@ -17,4 +17,5 @@ public enum MarkupContent: Hashable, Sendable {
   case table(headItems: [InlineMarkupContent], bodyItems: [[[InlineMarkupContent]]])
   case htmlBlock(text: String)
   case thematicBreak
+  case blockDirective(name: String, arguments: [Substring], children: [MarkupContent])
 }
