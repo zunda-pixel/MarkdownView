@@ -1,31 +1,14 @@
 # markdown-ui
 
-# Header 1 {#header1}
+# [Header 1](#section-i-want)
 
 [header 1へ](#header1)
 
 
 
+# Header 2(#header2)
 
-
-# Header 2 {#header2}
-
-[header 2へ](#header2)
-
-
-
-
-
-
-# Header 3 {#header3}
-
-[header 3へ](#header3)
-
-
-
-
-
-# Header 4 {#header4}
+# Header 4(#header4)
 
 A block directive can be used to tag wrapped block elements or be a novel block element in itself. The contents within may be more block directives or the other typical Markdown elements.
 For example, a block directive could serve as a placeholder for a table of contents that can be rendered and inlined later:
