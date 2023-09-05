@@ -11,4 +11,11 @@ final class MarkdownUIParserTests: XCTestCase {
     // Defining Test Cases and Test Methods
     // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
   }
+  
+  func testBlockQuoteKind() {
+    for kind in Aside.Kind.allCases {
+      let kind = BlockQuoteKind(rawValue: kind.rawValue)
+      XCTAssertNotNil(kind)
+    }
+  }
 }
