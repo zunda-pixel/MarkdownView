@@ -74,6 +74,8 @@ public struct InlineMarkupContentView: View {
       }
     case .softBreak:
       EmptyView()  // TODO
+    case .lineBreak:
+      EmptyView() // TODO
     case .link(let destination, let children):
       if let destination,
         let url = URL(string: destination)

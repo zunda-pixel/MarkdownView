@@ -29,6 +29,8 @@ public enum MarkdownUIParser {
       return .inlineHTML(html: inlineHTML.rawHTML)
     case _ as Markdown.SoftBreak:
       return .softBreak
+    case _ as Markdown.LineBreak:
+      return .lineBreak
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .link(destination: link.destination, children: Array(children))
