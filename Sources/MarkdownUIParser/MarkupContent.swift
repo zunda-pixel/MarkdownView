@@ -16,4 +16,5 @@ public enum MarkupContent: Hashable, Sendable {
   case unorderedList(items: [ListItemContent])
   case table(headItems: [InlineMarkupContent], bodyItems: [[[InlineMarkupContent]]])
   case htmlBlock(text: String)
+  case thematicBreak
 }

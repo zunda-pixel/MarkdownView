@@ -20,6 +20,13 @@ public enum MarkdownUIParser {
       return .image(title: image.plainText, source: image.source)
     case let text as Markdown.Text:
       return .text(text: text.string)
+    case let inlineAttributes as Markdown.InlineAttributes:
+      let children = inlineAttributes.inlineChildren.map { inlineMarkupContent(markup: $0) }
+      return .inlineAttributes(attributes: inlineAttributes.attributes, children: Array(children))
+    case let symbolLink as Markdown.SymbolLink:
+      return .symbolLink(destination: symbolLink.destination)
+    case let inlineHTML as Markdown.InlineHTML:
+      return .inlineHTML(html: inlineHTML.rawHTML)
     case _ as Markdown.SoftBreak:
       return .softBreak
     case let link as Markdown.Link:
@@ -51,6 +58,8 @@ public enum MarkdownUIParser {
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .link(destination: link.destination, children: Array(children))
+    case _ as Markdown.ThematicBreak:
+      return .thematicBreak
     case let heading as Markdown.Heading:
       let children = heading.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .heading(level: heading.level, children: Array(children))

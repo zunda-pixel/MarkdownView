@@ -17,6 +17,20 @@ public struct InlineMarkupContentView: View {
     switch content {
     case .text(let text):
       Text(text)
+    case .inlineAttributes(let attributes, let children):
+      HStack {
+        ForEach(children.indexed(), id: \.index) { _, child in
+          InlineMarkupContentView(content: child)
+        }
+      }
+      .markdownAttributes(attributes: attributes)
+    case .inlineHTML(let html):
+      Text(html)
+    case .symbolLink(let destination):
+      if let destination {
+        Text(destination)
+          .background(.regularMaterial)
+      }
     case .strong(let children):
       HStack(alignment: .center, spacing: 10) {
         ForEach(children.indexed(), id: \.index) { _, child in
@@ -40,7 +54,7 @@ public struct InlineMarkupContentView: View {
       .italic()
     case .inlineCode(let code):
       Text(code)
-        .background(.thinMaterial)
+        .background(.regularMaterial)
     case .image(let title, let source):
       if let imageURL = source.map({ URL(string: $0) }),
         let imageURL
@@ -75,5 +89,11 @@ public struct InlineMarkupContentView: View {
         }
       }
     }
+  }
+}
+
+extension View {
+  func markdownAttributes(attributes: String) -> some View {
+    self
   }
 }

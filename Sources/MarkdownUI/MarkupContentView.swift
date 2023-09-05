@@ -40,6 +40,8 @@ public struct MarkupContentView: View {
     switch content {
     case .text(let text):
       SwiftUI.Text(text)
+    case .thematicBreak:
+      Divider()
     case .htmlBlock(let text):
       SwiftUI.Text(text)
     case .codeBlock(let language, let sourceCode):
