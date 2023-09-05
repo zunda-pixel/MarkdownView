@@ -92,12 +92,14 @@ public struct MarkupContentView: View {
         }
       }
 
-    case .blockQuote(let blockChildren):
+    case .blockQuote(let kind, let blockChildren):
       HStack(alignment: .top, spacing: 10) {
         Rectangle()
           .fill(.secondary)
           .frame(maxWidth: 3)
         VStack(alignment: .leading, spacing: 10) {
+          Text(kind.rawValue)
+          
           ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
             ForEach(blockChild.indexed(), id: \.index) { _, children in
               MarkupContentView(content: children, listDepth: listDepth)
