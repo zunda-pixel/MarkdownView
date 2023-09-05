@@ -1,5 +1,7 @@
 # markdown-ui
 
+# [Heading Link](#section-i-want)
+
 # [Header 1](#header1)
 
 [> Header 1](#header1)
