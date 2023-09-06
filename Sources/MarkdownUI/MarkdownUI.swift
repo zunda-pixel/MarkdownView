@@ -18,10 +18,8 @@ struct MarkdownView: View {
   }
 
   public var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      ForEach(contents.indexed(), id: \.index) { _, content in
-        MarkupContentView(content: content, listDepth: 0)
-      }
+    ForEach(contents.indexed(), id: \.index) { _, content in
+      MarkupContentView(content: content, listDepth: 0)
     }
   }
 }

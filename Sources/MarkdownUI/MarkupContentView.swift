@@ -94,16 +94,7 @@ public struct MarkupContentView: View {
     case .blockQuote(let kind, let blockChildren):
       BlockQuoteView(kind: kind, blockChildren: blockChildren, listDepth: listDepth)
     case .orderedList(let items):
-      VStack(alignment: .leading, spacing: 10) {
-        ForEach(items.indexed(), id: \.index) { index, item in
-          HStack(alignment: .center, spacing: 5) {
-            Text("\(index + 1).")
-            ForEach(item.children.indexed(), id: \.index) { _, child in
-              MarkupContentView(content: child, listDepth: listDepth)
-            }
-          }
-        }
-      }
+      OrderedListView(items: items, listDepth: listDepth)
     case .unorderedList(let items):
       VStack(alignment: .leading, spacing: 10) {
         ForEach(items.indexed(), id: \.index) { _, item in
@@ -129,7 +120,7 @@ public struct MarkupContentView: View {
     case .table(let headItems, let bodyItems):
       TableView(headItems: headItems, bodyItems: bodyItems)
     case .softBreak:
-      EmptyView()  // TODO
+      EmptyView() // TODO
     }
   }
 }
