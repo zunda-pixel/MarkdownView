@@ -27,9 +27,9 @@ struct HeadingView: View {
   }
 }
 
-extension View {
+private extension View {
   @ViewBuilder
-  fileprivate func ifLet<Value, Content: View>(
+  func ifLet<Value, Content: View>(
     _ value: Value?,
     @ViewBuilder content: (Self, Value) -> Content
   ) -> some View {
