@@ -12,10 +12,23 @@ struct CodeBlockView: View {
     language?.split(separator: ":", maxSplits: 1).last
   }
   
+  var copyButton: some View {
+    Button {
+      #if canImport(AppKit)
+      NSPasteboard.general.setString(sourceCode, forType: .fileContents)
+      #else
+      UIPasteboard.general.string = sourceCode
+      #endif
+    } label: {
+      Image(systemName: "clipboard")
+        .foregroundStyle(.gray)
+    }
+  }
+  
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       if let fileName {
-        Text(fileName.trimming(while: \.isWhitespace))
+        SwiftUI.Text(fileName.trimming(while: \.isWhitespace))
           .padding(.horizontal, 5)
           .padding(.vertical, 2)
           .foregroundStyle(.background)
@@ -29,8 +42,7 @@ struct CodeBlockView: View {
             .foregroundStyle(.foreground.opacity(0.5))
           }
       }
-      Text(sourceCode)
-        .fixedSize(horizontal: true, vertical: true)
+      SwiftUI.Text(sourceCode)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(10)
         .foregroundStyle(.background)
@@ -42,6 +54,10 @@ struct CodeBlockView: View {
             bottomRightRadius: 8
           )
             .foregroundStyle(.foreground)
+        }
+        .overlay(alignment: .topTrailing) {
+          copyButton
+          .padding(10)
         }
     }
   }
