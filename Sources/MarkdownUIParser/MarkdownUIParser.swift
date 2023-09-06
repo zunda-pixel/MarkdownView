@@ -120,7 +120,7 @@ public enum MarkdownUIParser {
         }
       }
 
-      return .table(headItems: headItems, bodyItems: bodyItems)
+      return .table(head: headItems, body: bodyItems)
     case let codeBlock as Markdown.CodeBlock:
       return .codeBlock(language: codeBlock.language, sourceCode: codeBlock.code)
     case let htmlBlock as Markdown.HTMLBlock:

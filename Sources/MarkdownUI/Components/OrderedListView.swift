@@ -11,7 +11,7 @@ struct OrderedListView: View {
   let listDepth: Int
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: 5) {
       ForEach(items.indexed(), id: \.index) { index, item in
         HStack(alignment: .center, spacing: 5) {
           Text("\(index + 1).")

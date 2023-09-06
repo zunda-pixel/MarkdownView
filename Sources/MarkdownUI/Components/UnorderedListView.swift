@@ -15,11 +15,11 @@ struct UnorderedListView: View {
   ]
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: 5) {
       ForEach(items.indexed(), id: \.index) { _, item in
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 5) {
           ForEach(item.children.indexed(), id: \.index) { _, child in
-            HStack(alignment: .center, spacing: 10) {
+            HStack(alignment: .center, spacing: 5) {
               if case .unorderedList(_) = child {
                 Spacer().frame(width: 10)
               } else {

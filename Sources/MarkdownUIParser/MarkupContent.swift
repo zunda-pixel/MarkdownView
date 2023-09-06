@@ -14,7 +14,7 @@ public enum MarkupContent: Hashable, Sendable {
   case softBreak
   case orderedList(items: [ListItemContent])
   case unorderedList(items: [ListItemContent])
-  case table(headItems: [InlineMarkupContent], bodyItems: [[[InlineMarkupContent]]])
+  case table(head: [InlineMarkupContent], body: [[[InlineMarkupContent]]])
   case htmlBlock(text: String)
   case thematicBreak
   case blockDirective(name: String, arguments: [Substring], children: [MarkupContent])
