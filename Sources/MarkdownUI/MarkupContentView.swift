@@ -9,22 +9,14 @@ import SwiftUI
 public struct MarkupContentView: View {
   public let content: MarkupContent
   public let listDepth: Int
-  public let headingFonts: [Int: Font]
-
-  public static let defaultHeadingFonts: [Int: Font] = [
-    1: .title,
-    2: .title2,
-    3: .title3,
-  ]
+  
 
   public init(
     content: MarkupContent,
-    listDepth: Int,
-    headingFonts: [Int: Font] = defaultHeadingFonts
+    listDepth: Int
   ) {
     self.content = content
     self.listDepth = listDepth
-    self.headingFonts = headingFonts
   }
 
   public var body: some View {
@@ -67,15 +59,7 @@ public struct MarkupContentView: View {
         }
       }
     case .heading(let level, let children):
-      FlowLayout {
-        ForEach(children.indexed(), id: \.index) { _, content in
-          InlineMarkupContentView(content: content)
-        }
-      }
-      .bold()
-      .ifLet(headingFonts[level]) { view, font in
-        view.font(font)
-      }
+      HeadingView(level: level, children: children)
     case .paragraph(let children):
       FlowLayout {
         ForEach(children.indexed(), id: \.index) { _, content in
@@ -92,20 +76,6 @@ public struct MarkupContentView: View {
       TableView(headItems: headItems, bodyItems: bodyItems)
     case .softBreak:
       EmptyView() // TODO
-    }
-  }
-}
-
-extension View {
-  @ViewBuilder
-  fileprivate func ifLet<Value, Content: View>(
-    _ value: Value?,
-    @ViewBuilder content: (Self, Value) -> Content
-  ) -> some View {
-    if let value {
-      content(self, value)
-    } else {
-      self
     }
   }
 }
