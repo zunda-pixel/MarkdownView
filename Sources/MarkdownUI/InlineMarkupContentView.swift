@@ -74,12 +74,12 @@ public struct InlineMarkupContentView: View {
            let url = URL(string: destination)
         {
           SwiftUI.Link(destination: url) {
-            ForEach((children ?? []).indexed(), id: \.index) { _, content in
+            ForEach((children).indexed(), id: \.index) { _, content in
               InlineMarkupContentView(content: content)
             }
           }
         } else {
-          ForEach((children ?? []).indexed(), id: \.index) { _, content in
+          ForEach((children).indexed(), id: \.index) { _, content in
             InlineMarkupContentView(content: content)
           }
         }

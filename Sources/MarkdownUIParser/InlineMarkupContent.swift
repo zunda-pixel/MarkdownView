@@ -9,7 +9,7 @@ public enum InlineMarkupContent: Hashable, Sendable {
   case text(text: String)
   case lineBreak
   case softBreak
-  case link(destination: String?, children: [InlineMarkupContent]?) // TODO Optional Array
+  case link(destination: String?, children: [InlineMarkupContent])
   case strong(children: [InlineMarkupContent])
   case strikethrough(children: [InlineMarkupContent])
   case emphasis(children: [InlineMarkupContent])
