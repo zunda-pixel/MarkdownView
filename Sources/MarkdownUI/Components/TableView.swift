@@ -4,6 +4,7 @@
 
 import SwiftUI
 import MarkdownUIParser
+import Markdown
 
 struct TableView: View {
   let headItems: [InlineMarkupContent]
@@ -46,13 +47,7 @@ struct TableView: View {
       [
         [.text(text: "Body1"),],
         [.text(text: "Body2"),],
-        [
-          .text(text: "Body3"),
-          .link(
-            destination: "https://google.com",
-            children: [.text(text: "LINK")]
-          )
-        ],
+        [.text(text: "Body3"),],
       ],
       [
         [.text(text: "Body4"),],
@@ -63,3 +58,42 @@ struct TableView: View {
   )
   .padding(10)
 }
+
+#Preview {
+  let table = Markdown.Table(
+    header: .init([
+      Markdown.Table.Cell([Markdown.Text("Head1")]),
+      Markdown.Table.Cell([Markdown.Text("Head2")]),
+      Markdown.Table.Cell([Markdown.Text("Head3")]),
+    ]),
+    body: .init([
+      .init([
+        Markdown.Table.Cell([Markdown.Text("Body1")]),
+        Markdown.Table.Cell([Markdown.Text("Body2")]),
+        Markdown.Table.Cell([Markdown.Text("Body3")]),
+      ]),
+      .init([
+        Markdown.Table.Cell([Markdown.Text("Body4")]),
+        Markdown.Table.Cell([Markdown.Text("Body5")]),
+        Markdown.Table.Cell([Markdown.Text("Body6")]),
+      ]),
+    ])
+  )
+  
+  let document = Document([table])
+    
+  return MarkdownView(document: document).padding(10)
+}
+
+#Preview {
+  let document = Document(parsing: """
+
+| Head1 | Head2 | Head3 |
+| ----- | ----- | ----- |
+| Body1 | Body2 | Body3 |
+| Body4 | Body5 | Body6 |
+""")
+
+  return MarkdownView(document: document).padding(10)
+}
+

@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import Markdown
 
 struct CodeBlockView: View {
   let language: String?
@@ -47,4 +48,33 @@ private extension Array {
   subscript(safe index: Index) -> Element? {
     return indices.contains(index) ? self[index] : nil
   }
+}
+
+#Preview {
+  CodeBlockView(language: "swift: Sample.swift", sourceCode: """
+import Foundation
+print(Date.now)
+""")
+}
+
+#Preview {
+  let codeBlock = CodeBlock(language: "swift: Sample.swift", """
+import Foundation
+print(Date.now)
+""")
+  
+  let document = Document([codeBlock])
+    
+  return MarkdownView(document: document)
+}
+
+#Preview {
+  let document = Document(parsing: """
+```swift: Sample.swift
+import Foundation
+print(Date.now)
+```
+""")
+  
+  return MarkdownView(document: document)
 }

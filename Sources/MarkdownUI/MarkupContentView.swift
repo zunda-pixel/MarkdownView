@@ -9,7 +9,6 @@ import SwiftUI
 public struct MarkupContentView: View {
   public let content: MarkupContent
   public let listDepth: Int
-  
 
   public init(
     content: MarkupContent,

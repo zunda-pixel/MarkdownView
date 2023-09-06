@@ -4,6 +4,7 @@
 
 import SwiftUI
 import MarkdownUIParser
+import Markdown
 
 struct HeadingView: View {
   let level: Int
@@ -38,5 +39,37 @@ private extension View {
     } else {
       self
     }
+  }
+}
+
+#Preview {
+  List {
+    ForEach(1..<6) { level in
+      HeadingView(level: level, children: [.text(text: "Title\(level)")])
+    }
+  }
+}
+
+#Preview {
+  let document = Document((1..<6).map { i in
+    Heading(level: i, [Markdown.Text("Title\(i)")])
+  })
+    
+  return List {
+    MarkdownView(document: document)
+  }
+}
+
+#Preview {
+  let document = Document(parsing: """
+# Title1
+## Title2
+### Title3
+#### Title4
+##### Title5
+""")
+    
+  return List {
+    MarkdownView(document: document)
   }
 }

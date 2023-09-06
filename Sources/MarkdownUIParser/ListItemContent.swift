@@ -10,7 +10,7 @@ public struct ListItemContent: Hashable, Sendable {
   public let children: [MarkupContent]
 
   public init(
-    checkbox: Checkbox?,
+    checkbox: Checkbox? = nil,
     children: [MarkupContent]
   ) {
     self.checkbox = checkbox
