@@ -41,23 +41,7 @@ public struct MarkupContentView: View {
     case .codeBlock(let language, let sourceCode):
       CodeBlockView(language: language, sourceCode: sourceCode)
     case .link(let destination, let children):
-      if let destination,
-         let url = URL(string: destination)
-      {
-        Link(destination: url) {
-          FlowLayout {
-            ForEach(children.indexed(), id: \.index) { _, content in
-              InlineMarkupContentView(content: content)
-            }
-          }
-        }
-      } else {
-        FlowLayout {
-          ForEach(children.indexed(), id: \.index) { _, content in
-            InlineMarkupContentView(content: content)
-          }
-        }
-      }
+      LinkView(destination: destination, children: children)
     case .heading(let level, let children):
       HeadingView(level: level, children: children)
     case .paragraph(let children):
