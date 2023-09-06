@@ -13,14 +13,14 @@ struct BlockDirectiveView: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      Text("@\(name)(\(arguments.joined())) {")
+      SwiftUI.Text("@\(name)(\(arguments.joined())) {")
       ForEach(children.indexed(), id: \.index) { _, child in
         HStack(alignment: .center, spacing: 0) {
           Spacer().frame(maxWidth: 10)
           MarkupContentView(content: child, listDepth: listDepth)
         }
       }
-      Text("}")
+      SwiftUI.Text("}")
     }
   }
 }

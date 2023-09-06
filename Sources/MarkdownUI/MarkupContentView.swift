@@ -21,13 +21,13 @@ public struct MarkupContentView: View {
   public var body: some View {
     switch content {
     case .text(let text):
-      Text(text)
+      SwiftUI.Text(text)
     case .thematicBreak:
       Divider()
     case .blockDirective(let name, let arguments, let children):
       BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
     case .htmlBlock(let text):
-      Text(text)
+      SwiftUI.Text(text)
     case .codeBlock(let language, let sourceCode):
       CodeBlockView(language: language, sourceCode: sourceCode)
     case .link(let destination, let children):
@@ -52,8 +52,8 @@ public struct MarkupContentView: View {
       EmptyView() // TODO
     case .unknown(let plainText):
       VStack(alignment: .leading, spacing: 0) {
-        Text("MarkupContentView UnKnown")
-        Text(plainText)
+        SwiftUI.Text("MarkupContentView UnKnown")
+        SwiftUI.Text(plainText)
       }
     }
   }

@@ -17,17 +17,17 @@ public struct InlineMarkupContentView: View {
     FlowLayout {
       switch content {
       case .text(let text):
-        Text(text)
+        SwiftUI.Text(text)
       case .inlineAttributes(let attributes, let children):
         ForEach(children.indexed(), id: \.index) { _, child in
           InlineMarkupContentView(content: child)
         }
         .markdownAttributes(attributes: attributes)
       case .inlineHTML(let html):
-        Text(html)
+        SwiftUI.Text(html)
       case .symbolLink(let destination):
         if let destination {
-          Text(destination)
+          SwiftUI.Text(destination)
             .background(.red)
         }
       case .strong(let children):
@@ -46,7 +46,7 @@ public struct InlineMarkupContentView: View {
         }
         .italic()
       case .inlineCode(let code):
-        Text(code)
+        SwiftUI.Text(code)
           .background(.blue)
       case .image(let title, let source):
         if let imageURL = source.map({ URL(string: $0) }),
@@ -61,7 +61,7 @@ public struct InlineMarkupContentView: View {
               ProgressView()
             }
             
-            Text(title)
+            SwiftUI.Text(title)
               .foregroundStyle(.secondary)
           }
         }
@@ -85,8 +85,8 @@ public struct InlineMarkupContentView: View {
         }
       case .unknown(let plainText):
         VStack(alignment: .leading, spacing: 10) {
-          Text("InlineMarkupContentView Unknown")
-          Text(plainText)
+          SwiftUI.Text("InlineMarkupContentView Unknown")
+          SwiftUI.Text(plainText)
         }
       }
     }

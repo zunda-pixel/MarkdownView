@@ -26,7 +26,7 @@ struct UnorderedListView: View {
                 if let checkbox = item.checkbox {
                   Image(systemName: checkbox == .checked ? "checkmark.square" : "square")
                 } else {
-                  Text(unOrderedMark[listDepth] ?? unOrderedMark[unOrderedMark.count - 1]!)
+                  SwiftUI.Text(unOrderedMark[listDepth] ?? unOrderedMark[unOrderedMark.count - 1]!)
                 }
               }
 
