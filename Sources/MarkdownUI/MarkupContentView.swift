@@ -39,7 +39,7 @@ public struct MarkupContentView: View {
   public var body: some View {
     switch content {
     case .text(let text):
-      SwiftUI.Text(text)
+      Text(text)
     case .thematicBreak:
       Divider()
     case .blockDirective(let name, let arguments, let children):
@@ -56,61 +56,94 @@ public struct MarkupContentView: View {
     case .htmlBlock(let text):
       SwiftUI.Text(text)
     case .codeBlock(let language, let sourceCode):
-      VStack(alignment: .leading, spacing: 10) {
+      VStack(alignment: .leading, spacing: 0) {
         if let language {
           Text(language)
+            .padding(.horizontal, 5)
+            .padding(.vertical, 2)
+            .foregroundStyle(.background)
+            .background {
+              CustomRoundedRectangle(
+                topLeftRadius: 8,
+                topRightRadius: 8,
+                bottomLeftRadius: 0,
+                bottomRightRadius: 0
+              )
+              .foregroundStyle(.foreground.opacity(0.5))
+            }
         }
         Text(sourceCode)
+          .fixedSize(horizontal: true, vertical: true)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(10)
+          .foregroundStyle(.background)
+          .background {
+            CustomRoundedRectangle(
+              topLeftRadius: 0,
+              topRightRadius: 8,
+              bottomLeftRadius: 8,
+              bottomRightRadius: 8
+            )
+              .foregroundStyle(.foreground)
+          }
       }
     case .link(let destination, let children):
       if let destination,
-        let url = URL(string: destination)
+         let url = URL(string: destination)
       {
-        SwiftUI.Link(destination: url) {
+        Link(destination: url) {
+          FlowLayout {
+            ForEach(children.indexed(), id: \.index) { _, content in
+              InlineMarkupContentView(content: content)
+            }
+          }
+        }
+      } else {
+        FlowLayout {
           ForEach(children.indexed(), id: \.index) { _, content in
             InlineMarkupContentView(content: content)
           }
         }
-      } else {
-        ForEach(children.indexed(), id: \.index) { _, content in
-          InlineMarkupContentView(content: content)
-        }
       }
     case .heading(let level, let children):
-      HStack(alignment: .center, spacing: 10) {
+      FlowLayout {
         ForEach(children.indexed(), id: \.index) { _, content in
           InlineMarkupContentView(content: content)
         }
       }
+      .bold()
       .ifLet(headingFonts[level]) { view, font in
         view.font(font)
       }
     case .paragraph(let children):
-      VStack(alignment: .center, spacing: 10) {
+      FlowLayout {
         ForEach(children.indexed(), id: \.index) { _, content in
           InlineMarkupContentView(content: content)
         }
       }
-
     case .blockQuote(let kind, let blockChildren):
-      HStack(alignment: .top, spacing: 10) {
-        Rectangle()
-          .fill(.secondary)
-          .frame(maxWidth: 3)
-        VStack(alignment: .leading, spacing: 10) {
-          Text(kind.rawValue)
-          
-          ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
-            ForEach(blockChild.indexed(), id: \.index) { _, children in
-              MarkupContentView(content: children, listDepth: listDepth)
+      VStack(alignment: .leading, spacing: 10) {
+        if let label = kind.label {
+          Label(label.0, systemImage: label.1)
+            .foregroundStyle(label.2)
+        }
+        
+        ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
+          ForEach(blockChild.split(separator: .softBreak).indexed(), id: \.index) { _, children in
+            // TODO HStackでは長文に対応できない
+            HStack(alignment: .center, spacing: 0) {
+              ForEach(children.indexed(), id: \.index) { _, child in
+                MarkupContentView(content: child, listDepth: listDepth)
+              }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
           }
         }
       }
+      .frame(maxWidth: .infinity, alignment: .leading)
       .foregroundStyle(.secondary)
-      // TODO 縦棒が縦に広がりすぎてしまうので、fixedSizeで最小になるようにしている。
-      // これが正しいのかはわからない
-      .fixedSize(horizontal: true, vertical: true)
+      .padding(10)
+      .border(.secondary)
     case .orderedList(let items):
       VStack(alignment: .leading, spacing: 10) {
         ForEach(items.indexed(), id: \.index) { index, item in
@@ -188,8 +221,24 @@ extension View {
   }
 }
 
+#Preview {
+  MarkdownView(document: .init(parsing: """
+> Title1
+> Title2
+> Title3 Title3Title3Title3Title3Title3Titijijijjijijijijijijijijijijijijijijle3[Link](https://google.com) dfsfsdfs
+"""))
+}
+
 #Preview{
   let items: [MarkupContent] = [
+    .blockQuote(
+      kind: .attention,
+      children: [
+        [
+          .text(text: "Hello"),
+        ],
+      ]
+    ),
     .blockDirective(
       name: "area",
       arguments: ["x: Int, y: Int"],
@@ -204,7 +253,7 @@ extension View {
     .heading(level: 4, children: [.text(text: "Title4")]),
     .text(text: "Title5"),
     .codeBlock(
-      language: "swift",
+      language: "Sample.swift",
       sourceCode: """
         import Foundation
         print("Hello")
@@ -219,7 +268,7 @@ extension View {
       .init(
         checkbox: nil,
         children: [
-          .text(text: "Item2")
+          .text(text: "Item2"),
         ]
       ),
       .init(
@@ -229,35 +278,111 @@ extension View {
         ]
       ),
     ]),
+    .unorderedList(
+      items: [
+        .init(
+          checkbox: nil,
+          children: [.text(text: "Item1")]
+        ),
+        .init(
+          checkbox: nil,
+          children: [
+            .text(text: "Item2"),
+            .unorderedList(
+              items: [
+                .init(
+                  checkbox: nil,
+                  children: [
+                    .text(text: "Item3-1"),
+                    .unorderedList(
+                      items: [
+                        .init(
+                          checkbox: nil,
+                          children: [.text(text: "Item4"),]
+                        ),
+                      ]
+                    ),
+                    .text(text: "Item3-2"),
+                  ]
+                ),
+              ]
+            )
+          ]
+        ),
+        .init(
+          checkbox: nil,
+          children: [.text(text: "Item5")]
+        ),
+      ]
+    ),
     .unorderedList(items: [
       .init(
-        checkbox: nil,
-        children: [
-          .text(text: "Item1")
-        ]
+        checkbox: .checked,
+        children: [.text(text: "Item1")]
+      ),
+      .init(
+        checkbox: .unchecked,
+        children: [.text(text: "Item2")]
       ),
       .init(
         checkbox: .checked,
-        children: [
-          .text(text: "Item2")
-        ]
-      ),
-      .init(
-        checkbox: .checked,
-        children: [
-          .text(text: "Item3")
-        ]
+        children: [.text(text: "Item3")]
       ),
     ]),
   ]
 
   return ScrollView {
-    LazyVStack(alignment: .leading, spacing: 10) {
+    VStack(alignment: .leading, spacing: 10) {
       ForEach(items.indexed(), id: \.index) { _, item in
         MarkupContentView(content: item, listDepth: 0)
         Divider()
       }
     }
   }
-  .frame(maxWidth: 500, maxHeight: 500)
+  .padding(10)
+}
+
+extension BlockQuoteKind {
+  var label: (String, String, Color)? {
+    switch self {
+    case .note: return nil
+    case .tip: return("Tip", "lightbulb", .yellow)
+    case .important: return ("Important", "exclamationmark.circle", .orange)
+    case .experiment: return ("Experiment", "flame", .red)
+    case .warning: return ("Warning", "exclamationmark.triangle", .orange)
+    case .attention: return ("Attention", "exclamationmark.circle", .red)
+    case .author: return ("Author", "pencil", .blue)
+    case .authors: return ("Authors", "square.and.pencil", .blue)
+    case .bug: return("Bug", "hammer", .red)
+    case .complexity: return ("Complexity", "chart.bar.xaxis", .purple)
+    case .copyright: return ("Copyright", "info.circle", .gray)
+    case .date: return("Date", "calendar", .green)
+    case .invariant: return("Invariant", "arrow.up.left.and.arrow.down.right.circle", .blue)
+    case .mutatingVariant: return ("Mutating Variant", "arrow.triangle.turn.up.right.diamond.fill", .red)
+    case .nonMutatingVariant: return ("Non Mutating Variant", "arrow.triangle.turn.up.right.diamond", .gray)
+    case .postcondition: return ("Post Condition", "arrow.right.circle", .green)
+    case .precondition: return ("Pre Condition", "arrow.left.circle", .gray)
+    case .remark: return ("Remark", "quote.bubble", .gray)
+    case .requires: return ("Requires", "arrow.right.to.line.alt", .green)
+    case .since: return ("Since", "clock", .green)
+    case .toDo: return ("ToDo", "checkmark.circle", .green)
+    case .version: return ("Version", "square.and.arrow.up", .blue)
+    case .throws: return ("Throws", "exclamationmark.octagon", .orange)
+    case .seeAlso: return ("See Also", "arrow.right.doc.on.clipboard", .blue)
+    }
+  }
+}
+
+#Preview {
+  List {
+    ForEach(BlockQuoteKind.allCases, id: \.self) { kind in
+      let content = MarkupContent.blockQuote(kind: kind, children: [
+        [
+          .text(text: kind.rawValue)
+        ],
+      ])
+      MarkupContentView(content: content, listDepth: 0)
+    }
+  }
+  .frame(width: 300, height: 580)
 }

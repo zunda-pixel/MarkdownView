@@ -5,7 +5,7 @@
 import Foundation
 import Markdown
 
-public enum BlockQuoteKind: String, Sendable, Hashable {
+public enum BlockQuoteKind: String, Sendable, Hashable, CaseIterable {
   case note = "Note"
   case tip = "Tip"
   case important = "Important"
@@ -31,7 +31,7 @@ public enum BlockQuoteKind: String, Sendable, Hashable {
   case `throws` = "Throws"
   case seeAlso = "SeeAlso"
   
-  init(kind: Aside.Kind) {
+  public init(kind: Aside.Kind) {
     self.init(rawValue: kind.rawValue)!
   }
 }

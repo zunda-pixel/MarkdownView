@@ -18,11 +18,9 @@ struct MarkdownView: View {
   }
 
   public var body: some View {
-    ScrollView {
-      LazyVStack(alignment: .leading, spacing: 10) {
-        ForEach(contents.indexed(), id: \.index) { _, content in
-          MarkupContentView(content: content, listDepth: 0)
-        }
+    VStack(alignment: .leading, spacing: 10) {
+      ForEach(contents.indexed(), id: \.index) { _, content in
+        MarkupContentView(content: content, listDepth: 0)
       }
     }
   }
@@ -31,42 +29,40 @@ struct MarkdownView: View {
 #Preview{
   let document = Document(
     parsing: """
-      # Title1
-      ## Title2
-      ## Title3
-      ## Title4
+# Title1
+## Title2
+## Title3
+## Title4
 
-      > Text that is a quote
+> Text that is a quote
+> Text that is a quote[link](https://google.com)
 
-      ```
-      git status
-      git add
-      git commit
-      ```
+```shell
+import Foundation
 
+print("hello")
+```
 
-      > Text that is a quote
-      > Text that is a quote
+hello
 
+> Text that is a quote
+> Text that is a quote
 
+| Head | Head | Head |
+| ---- | ---- | ---- |
+| Text | Text | Text |
+| Text | Text | Text |
 
+1. First list item
+23. Second list item
+34. Third list item
 
-
-      | Head | Head | Head |
-      | ---- | ---- | ---- |
-      | Text | Text | Text |
-      | Text | Text | Text |
-
-      100. First list item
-             - First nested list item
-               - Second nested list item
-
-      - First nested list item
-      - Second nested list item
+- First nested list item
+- Second nested list item
 """
   )
+  
   return MarkdownView(document: document)
     .padding(10)
-    .frame(maxWidth: 500, maxHeight: 700, alignment: .center)
-    .border(.red)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
 }
