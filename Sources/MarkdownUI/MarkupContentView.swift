@@ -54,39 +54,9 @@ public struct MarkupContentView: View {
         Text("}")
       }
     case .htmlBlock(let text):
-      SwiftUI.Text(text)
+      Text(text)
     case .codeBlock(let language, let sourceCode):
-      VStack(alignment: .leading, spacing: 0) {
-        if let language {
-          Text(language)
-            .padding(.horizontal, 5)
-            .padding(.vertical, 2)
-            .foregroundStyle(.background)
-            .background {
-              CustomRoundedRectangle(
-                topLeftRadius: 8,
-                topRightRadius: 8,
-                bottomLeftRadius: 0,
-                bottomRightRadius: 0
-              )
-              .foregroundStyle(.foreground.opacity(0.5))
-            }
-        }
-        Text(sourceCode)
-          .fixedSize(horizontal: true, vertical: true)
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(10)
-          .foregroundStyle(.background)
-          .background {
-            CustomRoundedRectangle(
-              topLeftRadius: 0,
-              topRightRadius: 8,
-              bottomLeftRadius: 8,
-              bottomRightRadius: 8
-            )
-              .foregroundStyle(.foreground)
-          }
-      }
+      CodeBlockView(language: language, sourceCode: sourceCode)
     case .link(let destination, let children):
       if let destination,
          let url = URL(string: destination)
@@ -178,29 +148,7 @@ public struct MarkupContentView: View {
         }
       }
     case .table(let headItems, let bodyItems):
-      Grid {
-        GridRow {
-          ForEach(headItems.indexed(), id: \.index) { _, item in
-            InlineMarkupContentView(content: item)
-          }
-        }
-
-        Divider()
-
-        ForEach(bodyItems.indexed(), id: \.index) { _, items in
-          GridRow {
-            ForEach(items.indexed(), id: \.index) { _, items in
-              VStack {
-                ForEach(items.indexed(), id: \.index) { _, item in
-                  InlineMarkupContentView(content: item)
-                }
-              }
-            }
-          }
-          Divider()
-        }
-      }
-
+      TableView(headItems: headItems, bodyItems: bodyItems)
     case .softBreak:
       EmptyView()  // TODO
     }
@@ -253,7 +201,7 @@ extension View {
     .heading(level: 4, children: [.text(text: "Title4")]),
     .text(text: "Title5"),
     .codeBlock(
-      language: "Sample.swift",
+      language: "swift:  Sample.swift  ",
       sourceCode: """
         import Foundation
         print("Hello")
@@ -385,4 +333,10 @@ extension BlockQuoteKind {
     }
   }
   .frame(width: 300, height: 580)
+}
+
+extension Array {
+  subscript(safe index: Index) -> Element? {
+    return indices.contains(index) ? self[index] : nil
+  }
 }
