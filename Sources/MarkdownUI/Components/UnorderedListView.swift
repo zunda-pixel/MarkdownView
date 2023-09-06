@@ -30,7 +30,7 @@ struct UnorderedListView: View {
                 }
               }
 
-              MarkupContentView(content: child, listDepth: listDepth + 1)
+              MarkupContentView(content: child, listDepth: listDepth + 1, isNested: true)
             }
           }
         }

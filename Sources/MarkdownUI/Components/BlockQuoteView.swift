@@ -22,7 +22,7 @@ struct BlockQuoteView: View {
           // TODO HStackでは長文に対応できない
           HStack(alignment: .center, spacing: 0) {
             ForEach(children.indexed(), id: \.index) { _, child in
-              MarkupContentView(content: child, listDepth: listDepth)
+              MarkupContentView(content: child, listDepth: listDepth, isNested: true)
             }
           }
           .frame(maxWidth: .infinity, alignment: .leading)
@@ -75,7 +75,7 @@ private extension BlockQuoteKind {
           .text(text: kind.rawValue)
         ],
       ])
-      MarkupContentView(content: content, listDepth: 0)
+      MarkupContentView(content: content, listDepth: 0, isNested: false)
     }
   }
   .frame(width: 300, height: 580)

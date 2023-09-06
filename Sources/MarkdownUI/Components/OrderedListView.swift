@@ -16,7 +16,7 @@ struct OrderedListView: View {
         HStack(alignment: .center, spacing: 5) {
           SwiftUI.Text("\(index + 1).")
           ForEach(item.children.indexed(), id: \.index) { _, child in
-            MarkupContentView(content: child, listDepth: listDepth)
+            MarkupContentView(content: child, listDepth: listDepth, isNested: true)
           }
         }
       }

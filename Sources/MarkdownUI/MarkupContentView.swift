@@ -9,13 +9,16 @@ import SwiftUI
 public struct MarkupContentView: View {
   public let content: MarkupContent
   public let listDepth: Int
+  public let isNested: Bool
 
   public init(
     content: MarkupContent,
-    listDepth: Int
+    listDepth: Int,
+    isNested: Bool
   ) {
     self.content = content
     self.listDepth = listDepth
+    self.isNested = isNested
   }
 
   public var body: some View {
@@ -28,14 +31,14 @@ public struct MarkupContentView: View {
       FlowLayout {
         SwiftUI.Text("\\param \(name)")
         ForEach(children.indexed(), id: \.index) { _, child in
-          MarkupContentView(content: child, listDepth: listDepth)
+          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
         }
       }
     case .doxygenReturns(let children):
       FlowLayout {
         SwiftUI.Text("\\returns")
         ForEach(children.indexed(), id: \.index) { _, child in
-          MarkupContentView(content: child, listDepth: listDepth)
+          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
         }
       }
     case .blockDirective(let name, let arguments, let children):
@@ -49,9 +52,15 @@ public struct MarkupContentView: View {
     case .heading(let level, let children):
       HeadingView(level: level, children: children)
     case .paragraph(let children):
-      FlowLayout {
+      if isNested {
         ForEach(children.indexed(), id: \.index) { _, content in
           InlineMarkupContentView(content: content)
+        }
+      } else {
+        FlowLayout {
+          ForEach(children.indexed(), id: \.index) { _, content in
+            InlineMarkupContentView(content: content)
+          }
         }
       }
     case .blockQuote(let kind, let blockChildren):
