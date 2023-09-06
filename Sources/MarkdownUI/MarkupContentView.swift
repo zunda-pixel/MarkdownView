@@ -9,14 +9,7 @@ import SwiftUI
 public struct MarkupContentView: View {
   public let content: MarkupContent
   public let listDepth: Int
-  public let unOrderedMark: [Int: String]
   public let headingFonts: [Int: Font]
-
-  public static let defaultUnOrderedMark: [Int: String] = [
-    0: "•",
-    1: "◦",
-    2: "▫︎",
-  ]
 
   public static let defaultHeadingFonts: [Int: Font] = [
     1: .title,
@@ -27,12 +20,10 @@ public struct MarkupContentView: View {
   public init(
     content: MarkupContent,
     listDepth: Int,
-    unOrderedMark: [Int: String] = defaultUnOrderedMark,
     headingFonts: [Int: Font] = defaultHeadingFonts
   ) {
     self.content = content
     self.listDepth = listDepth
-    self.unOrderedMark = unOrderedMark
     self.headingFonts = headingFonts
   }
 
@@ -96,27 +87,7 @@ public struct MarkupContentView: View {
     case .orderedList(let items):
       OrderedListView(items: items, listDepth: listDepth)
     case .unorderedList(let items):
-      VStack(alignment: .leading, spacing: 10) {
-        ForEach(items.indexed(), id: \.index) { _, item in
-          VStack(alignment: .leading, spacing: 10) {
-            ForEach(item.children.indexed(), id: \.index) { _, child in
-              HStack(alignment: .center, spacing: 10) {
-                if case .unorderedList(_) = child {
-                  Spacer().frame(width: 10)
-                } else {
-                  if let checkbox = item.checkbox {
-                    Image(systemName: checkbox == .checked ? "checkmark.square" : "square")
-                  } else {
-                    Text(unOrderedMark[listDepth] ?? unOrderedMark[unOrderedMark.count - 1]!)
-                  }
-                }
-
-                MarkupContentView(content: child, listDepth: listDepth + 1)
-              }
-            }
-          }
-        }
-      }
+      UnorderedListView(items: items,  listDepth: listDepth)
     case .table(let headItems, let bodyItems):
       TableView(headItems: headItems, bodyItems: bodyItems)
     case .softBreak:
