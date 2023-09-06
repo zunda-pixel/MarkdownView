@@ -66,7 +66,7 @@ public struct InlineMarkupContentView: View {
           }
         }
       case .softBreak:
-        EmptyView()  // TODO
+        EmptyView() // TODO
       case .lineBreak:
         EmptyView() // TODO
       case .link(let destination, let children):

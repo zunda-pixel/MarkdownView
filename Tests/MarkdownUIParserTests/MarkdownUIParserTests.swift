@@ -1,3 +1,4 @@
+import Algorithms
 import Markdown
 import XCTest
 
@@ -17,5 +18,15 @@ final class MarkdownUIParserTests: XCTestCase {
       let kind = BlockQuoteKind(rawValue: kind.rawValue)
       XCTAssertNotNil(kind)
     }
+  }
+  
+  func testFileExtensionNameParse() {
+    let content = "swift: Sample.swift "
+    let elements = content.split(separator: ":", maxSplits: 1)
+    let fileExtension = elements[0]
+    let fileName = elements[1]
+    
+    XCTAssertEqual(fileExtension, "swift")
+    XCTAssertEqual(fileName.trimming(while: \.isWhitespace), "Sample.swift")
   }
 }
