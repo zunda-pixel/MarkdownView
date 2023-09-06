@@ -26,16 +26,7 @@ public struct MarkupContentView: View {
     case .thematicBreak:
       Divider()
     case .blockDirective(let name, let arguments, let children):
-      VStack(alignment: .leading, spacing: 0) {
-        Text("@\(name)(\(arguments.joined())) {")
-        ForEach(children.indexed(), id: \.index) { _, child in
-          HStack(alignment: .center, spacing: 0) {
-            Spacer().frame(maxWidth: 10)
-            MarkupContentView(content: child, listDepth: listDepth)
-          }
-        }
-        Text("}")
-      }
+      BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
     case .htmlBlock(let text):
       Text(text)
     case .codeBlock(let language, let sourceCode):
