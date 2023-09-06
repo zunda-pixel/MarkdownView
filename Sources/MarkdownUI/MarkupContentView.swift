@@ -24,6 +24,20 @@ public struct MarkupContentView: View {
       SwiftUI.Text(text)
     case .thematicBreak:
       Divider()
+    case .doxygenParameter(let name, let children):
+      FlowLayout {
+        SwiftUI.Text("\\param \(name)")
+        ForEach(children.indexed(), id: \.index) { _, child in
+          MarkupContentView(content: child, listDepth: listDepth)
+        }
+      }
+    case .doxygenReturns(let children):
+      FlowLayout {
+        SwiftUI.Text("\\returns")
+        ForEach(children.indexed(), id: \.index) { _, child in
+          MarkupContentView(content: child, listDepth: listDepth)
+        }
+      }
     case .blockDirective(let name, let arguments, let children):
       BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
     case .htmlBlock(let text):
