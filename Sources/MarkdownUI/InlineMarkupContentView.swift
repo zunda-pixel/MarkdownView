@@ -83,6 +83,11 @@ public struct InlineMarkupContentView: View {
             InlineMarkupContentView(content: content)
           }
         }
+      case .unknown(let plainText):
+        VStack(alignment: .leading, spacing: 10) {
+          Text("InlineMarkupContentView Unknown")
+          Text(plainText)
+        }
       }
     }
   }

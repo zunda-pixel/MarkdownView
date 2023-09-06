@@ -5,7 +5,7 @@
 import SwiftUI
 import MarkdownUIParser
 
-public struct UnorderedListView: View {
+struct UnorderedListView: View {
   let items: [ListItemContent]
   let listDepth: Int
   let unOrderedMark: [Int: String] = [
@@ -14,7 +14,7 @@ public struct UnorderedListView: View {
     2: "▫︎",
   ]
 
-  public var body: some View {
+  var body: some View {
     VStack(alignment: .leading, spacing: 10) {
       ForEach(items.indexed(), id: \.index) { _, item in
         VStack(alignment: .leading, spacing: 10) {

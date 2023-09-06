@@ -50,6 +50,11 @@ public struct MarkupContentView: View {
       TableView(headItems: headItems, bodyItems: bodyItems)
     case .softBreak:
       EmptyView() // TODO
+    case .unknown(let plainText):
+      VStack(alignment: .leading, spacing: 0) {
+        Text("MarkupContentView UnKnown")
+        Text(plainText)
+      }
     }
   }
 }

@@ -87,7 +87,6 @@ struct TableView: View {
 
 #Preview {
   let document = Document(parsing: """
-
 | Head1 | Head2 | Head3 |
 | ----- | ----- | ----- |
 | Body1 | Body2 | Body3 |

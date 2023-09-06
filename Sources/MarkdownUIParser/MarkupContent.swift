@@ -18,4 +18,5 @@ public enum MarkupContent: Hashable, Sendable {
   case htmlBlock(text: String)
   case thematicBreak
   case blockDirective(name: String, arguments: [Substring], children: [MarkupContent])
+  case unknown(plainText: String)
 }

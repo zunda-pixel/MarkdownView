@@ -17,4 +17,5 @@ public enum InlineMarkupContent: Hashable, Sendable {
   case inlineHTML(html: String)
   case symbolLink(destination: String?)
   case inlineAttributes(attributes: String, children: [InlineMarkupContent])
+  case unknown(plainText: String)
 }

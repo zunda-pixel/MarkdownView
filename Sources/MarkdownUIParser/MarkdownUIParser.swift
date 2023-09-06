@@ -48,10 +48,7 @@ public enum MarkdownUIParser {
     case let inlineCode as Markdown.InlineCode:
       return .inlineCode(code: inlineCode.code)
     default:
-      print("Error inlineMarkupContent")
-      print(type(of: markup))
-      print(markup.debugDescription())
-      fatalError()
+      return .unknown(plainText: markup.format())
     }
   }
 
@@ -129,10 +126,7 @@ public enum MarkdownUIParser {
     case let htmlBlock as Markdown.HTMLBlock:
       return .htmlBlock(text: htmlBlock.rawHTML)
     default:
-      print("Error markupContent")
-      print(type(of: markup))
-      print(markup.debugDescription().description)
-      fatalError()
+      return .unknown(plainText: markup.format())
     }
   }
 }
