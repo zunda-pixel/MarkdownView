@@ -52,17 +52,7 @@ public struct MarkupContentView: View {
     case .heading(let level, let children):
       HeadingView(level: level, children: children)
     case .paragraph(let children):
-      if isNested {
-        ForEach(children.indexed(), id: \.index) { _, content in
-          InlineMarkupContentView(content: content)
-        }
-      } else {
-        FlowLayout {
-          ForEach(children.indexed(), id: \.index) { _, content in
-            InlineMarkupContentView(content: content)
-          }
-        }
-      }
+      ParagraphView(children: children, isNested: isNested)
     case .blockQuote(let kind, let blockChildren):
       BlockQuoteView(kind: kind, blockChildren: blockChildren, listDepth: listDepth)
     case .orderedList(let items):
