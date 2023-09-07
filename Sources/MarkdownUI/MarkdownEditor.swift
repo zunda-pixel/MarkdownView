@@ -8,7 +8,7 @@ import Markdown
 struct MarkdownEditor: View {
   @State var sourceCode: String
   var document: Document {
-    Document(parsing: sourceCode)
+    Document(parsing: sourceCode, options: [.disableSmartOpts, .parseBlockDirectives, .parseMinimalDoxygen, .parseSymbolLinks])
   }
   var body: some View {
     HStack {
@@ -39,6 +39,19 @@ Content1
 
 ## Title4
 
+*italic*
+**bold**
+~~strikethrough~~
+`code`
+
+> *italic1*italic2
+> **bold**
+> ~~strikethrough~~
+> `code`
+
+`Markdown` is a lightweight markup language for creating formatted text using a plain-text editor.
+John Gruber created Markdown in 2004 as a markup language that is easy to read in its source code form.
+
 > Text that is a quote
 > Text that is a quote[link](https://google.com)
 
@@ -47,8 +60,6 @@ import Foundation
 
 print("hello")
 ```
-
-hello
 
 ![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png)
 

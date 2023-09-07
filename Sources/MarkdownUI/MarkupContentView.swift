@@ -27,6 +27,30 @@ public struct MarkupContentView: View {
       SwiftUI.Text(text)
     case .thematicBreak:
       Divider()
+    case .inlineCode(let code):
+      SwiftUI.Text(code)
+        .background(.gray)
+    case .strong(let children):
+      VStack {
+        ForEach(children.indexed(), id: \.index) { _, child in
+          InlineMarkupContentView(content: child)
+        }
+      }
+      .bold()
+    case .strikethrough(let children):
+      VStack {
+        ForEach(children.indexed(), id: \.index) { _, child in
+          InlineMarkupContentView(content: child)
+        }
+      }
+      .strikethrough(pattern: .dash, color: .secondary)
+    case .emphasis(let children):
+      VStack {
+        ForEach(children.indexed(), id: \.index) { _, child in
+          InlineMarkupContentView(content: child)
+        }
+      }
+      .italic()
     case .doxygenParameter(let name, let children):
       FlowLayout {
         SwiftUI.Text("\\param \(name)")

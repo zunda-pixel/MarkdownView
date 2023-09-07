@@ -20,5 +20,9 @@ public enum MarkupContent: Hashable, Sendable {
   case blockDirective(name: String, arguments: [Substring], children: [MarkupContent])
   case doxygenParameter(name: String, children: [MarkupContent])
   case doxygenReturns(children: [MarkupContent])
+  case emphasis(children: [InlineMarkupContent])
+  case strong(children: [InlineMarkupContent])
+  case strikethrough(children: [InlineMarkupContent])
+  case inlineCode(code: String)
   case unknown(plainText: String)
 }

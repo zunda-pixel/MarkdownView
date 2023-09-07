@@ -44,7 +44,7 @@ public enum MarkdownUIParser {
       return .strikethrough(children: Array(children))
     case let emphasis as Markdown.Emphasis:
       let children = emphasis.inlineChildren.map { inlineMarkupContent(markup: $0) }
-      return .strong(children: Array(children))
+      return .emphasis(children: Array(children))
     case let inlineCode as Markdown.InlineCode:
       return .inlineCode(code: inlineCode.code)
     default:
@@ -54,6 +54,19 @@ public enum MarkdownUIParser {
 
   public static func markupContent(markup: some Markdown.Markup) -> MarkupContent {
     switch markup {
+    case let inlineCode as Markdown.InlineCode:
+      return .inlineCode(code: inlineCode.code)
+    case let strong as Markdown.Strong:
+      let children = strong.inlineChildren.map { inlineMarkupContent(markup: $0) }
+      return .strong(children: Array(children))
+    case let strikethrough as Markdown.Strikethrough:
+      let children = strikethrough.inlineChildren.map {
+        inlineMarkupContent(markup: $0)
+      }
+      return .strikethrough(children: Array(children))
+    case let emphasis as Markdown.Emphasis:
+      let children = emphasis.inlineChildren.map { inlineMarkupContent(markup: $0) }
+      return .emphasis(children: Array(children))
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .link(destination: link.destination, children: Array(children))
