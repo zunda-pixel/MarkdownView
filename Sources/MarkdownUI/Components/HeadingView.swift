@@ -16,12 +16,21 @@ struct HeadingView: View {
   ]
   
   var body: some View {
-    FlowLayout {
-      ForEach(children.indexed(), id: \.index) { _, content in
-        InlineMarkupContentView(content: content)
+    VStack(alignment: .leading, spacing: 0) {
+      FlowLayout(alignment: .leading, spacing: 0) {
+        ForEach(children.indexed(), id: \.index) { _, content in
+          InlineMarkupContentView(content: content)
+        }
+      }
+      .bold()
+      .frame(maxWidth: .infinity, alignment: .leading)
+      
+      if level < 3 {
+        Rectangle()
+          .fill(.secondary)
+          .frame(maxHeight: 1)
       }
     }
-    .bold()
     .ifLet(headingFonts[level]) { view, font in
       view.font(font)
     }
@@ -43,16 +52,26 @@ private extension View {
 }
 
 #Preview {
-  List {
+  VStack {
     ForEach(1..<6) { level in
-      HeadingView(level: level, children: [.text(text: "Title\(level)")])
+      HeadingView(
+        level: level,
+        children: [
+          .text(text: "Title\(level)"),
+          .link(destination: "https://apple.com", children: [.text(text: "Apple Link")])
+        ]
+      )
     }
   }
 }
 
 #Preview {
   let document = Document((1..<6).map { i in
-    Heading(level: i, [Markdown.Text("Title\(i)")])
+    Heading(
+      level: i, [
+        Markdown.Text("Title\(i)"),
+      ]
+    )
   })
     
   return List {
@@ -62,14 +81,14 @@ private extension View {
 
 #Preview {
   let document = Document(parsing: """
-# Title1
+# Title1[Apple Link](https://apple.com)`code`*italic*
 ## Title2
 ### Title3
 #### Title4
 ##### Title5
 """)
     
-  return List {
+  return VStack {
     MarkdownView(document: document)
   }
 }
