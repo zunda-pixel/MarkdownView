@@ -7,7 +7,7 @@ import MarkdownUIParser
 import Algorithms
 
 enum ParagraphElement: Hashable, Sendable {
-  case elements(element: [InlineMarkupContent])
+  case elements(element: [Array<InlineMarkupContent>.SubSequence])
   case image(InlineMarkupContent)
 }
 
@@ -23,7 +23,8 @@ struct ParagraphView: View {
     for child in children {
       if case .image(_, _) = child {
         if !tempElements.isEmpty {
-          elements.append(.elements(element: tempElements))
+          let newElements = tempElements.split(separator: .softBreak)
+          elements.append(.elements(element: newElements))
           tempElements = []
         }
         elements.append(.image(child))
@@ -32,7 +33,8 @@ struct ParagraphView: View {
       }
     }
     if !tempElements.isEmpty {
-      elements.append(.elements(element: tempElements))
+      let newElements = tempElements.split(separator: .softBreak)
+      elements.append(.elements(element: newElements))
     }
     
     self.elements = elements
@@ -46,7 +48,9 @@ struct ParagraphView: View {
           InlineMarkupContentView(content: content)
         case .elements(let elements):
           ForEach(elements.indexed(), id: \.index) { _, element in
-            InlineMarkupContentView(content: element)
+            ForEach(element.indexed(), id: \.index) { _, content in
+              InlineMarkupContentView(content: content)
+            }
           }
         }
       }
@@ -57,9 +61,11 @@ struct ParagraphView: View {
           case .image(let element):
             InlineMarkupContentView(content: element)
           case .elements(let elements):
-            FlowLayout {
-              ForEach(elements.indexed(), id: \.index) { _, item in
-                InlineMarkupContentView(content: item)
+            ForEach(elements.indexed(), id: \.index) { _, element in
+              FlowLayout {
+                ForEach(element.indexed(), id: \.index) { _, content in
+                  InlineMarkupContentView(content: content)
+                }
               }
             }
           }
