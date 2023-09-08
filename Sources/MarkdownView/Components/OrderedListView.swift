@@ -6,11 +6,19 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-struct OrderedListView: View {
-  let items: [ListItemContent]
-  let listDepth: Int
+public struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+  public let items: [ListItemContent]
+  public let listDepth: Int
   
-  var body: some View {
+  public init(
+    items: [ListItemContent],
+    listDepth: Int
+  ) {
+    self.items = items
+    self.listDepth = listDepth
+  }
+  
+  public var body: some View {
     VStack(alignment: .leading, spacing: 5) {
       ForEach(items.indexed(), id: \.index) { index, item in
         var unorderedListContains: Bool {
@@ -28,7 +36,7 @@ struct OrderedListView: View {
             if let child = item.children.first {
               FlowLayout {
                 SwiftUI.Text("\(index + 1).")
-                MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+                MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth, isNested: true)
               }
             }
             
@@ -37,7 +45,7 @@ struct OrderedListView: View {
                 let child = item.children[i]
                 HStack(alignment: .center, spacing: 5) {
                   Spacer().frame(width: 10)
-                  MarkupContentView(content: child, listDepth: listDepth + 1, isNested: true)
+                  MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth + 1, isNested: true)
                 }
               }
             }
@@ -46,7 +54,7 @@ struct OrderedListView: View {
           HStack(alignment: .center, spacing: 5) {
             SwiftUI.Text("\(index + 1).")
             ForEach(item.children.indexed(), id: \.index) { _, child in
-              MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+              MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth, isNested: true)
             }
           }
         }
@@ -57,7 +65,7 @@ struct OrderedListView: View {
 
 #Preview {
   List {
-    OrderedListView(
+    OrderedListView<InlineMarkupContentView>(
       items: [
         .init(children: [.text(text: "Hello1"),]),
         .init(children: [.text(text: "Hello2"),]),

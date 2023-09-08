@@ -6,13 +6,21 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-struct TableView: View {
-  let headItems: [InlineMarkupContent]
-  let bodyItems: [[[InlineMarkupContent]]]
-  let horizontalSpacing: CGFloat = 10
-  let verticalSpacing: CGFloat = 8
+public struct TableView: View {
+  public let headItems: [InlineMarkupContent]
+  public let bodyItems: [[[InlineMarkupContent]]]
+  public let horizontalSpacing: CGFloat = 10
+  public let verticalSpacing: CGFloat = 8
   
-  var body: some View {
+  public init(
+    headItems: [InlineMarkupContent],
+    bodyItems: [[[InlineMarkupContent]]]
+  ) {
+    self.headItems = headItems
+    self.bodyItems = bodyItems
+  }
+  
+  public var body: some View {
     Grid(verticalSpacing: verticalSpacing) {
       GridRow {
         ForEach(headItems.indexed(), id: \.index) { index, item in

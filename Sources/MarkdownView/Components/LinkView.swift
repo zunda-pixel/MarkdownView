@@ -6,11 +6,19 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-struct LinkView: View {
+public struct LinkView: View {
   let destination: String?
   let children: [InlineMarkupContent]
   
-  var body: some View {
+  public init(
+    destination: String?,
+    children: [InlineMarkupContent]
+  ) {
+    self.destination = destination
+    self.children = children
+  }
+  
+  public var body: some View {
     if let destination,
        let url = URL(string: destination)
     {

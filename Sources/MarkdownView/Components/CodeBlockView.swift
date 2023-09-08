@@ -5,11 +5,21 @@
 import SwiftUI
 import Markdown
 
-struct CodeBlockView: View {
-  let language: String?
-  let sourceCode: String
-  var fileName: String.SubSequence? {
-    language?.split(separator: ":", maxSplits: 1).last
+public struct CodeBlockView: View {
+  public let language: String?
+  public let sourceCode: String
+  public let cornerRadius: CGFloat = 8
+  
+  public var fileName: String.SubSequence? {
+    language?.split(separator: ":", maxSplits: 1)[safe: 1]
+  }
+  
+  public init(
+    language: String?,
+    sourceCode: String
+  ) {
+    self.language = language
+    self.sourceCode = sourceCode
   }
   
   var copyButton: some View {
@@ -26,22 +36,22 @@ struct CodeBlockView: View {
     }
   }
   
-  var body: some View {
+  public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       if let fileName {
         SwiftUI.Text(fileName.trimming(while: \.isWhitespace))
           .padding(.horizontal, 5)
           .padding(.vertical, 2)
           .foregroundStyle(.background)
-          .background {
-            CustomRoundedRectangle(
-              topLeftRadius: 8,
-              topRightRadius: 8,
+          .background(
+            .foreground.opacity(0.5),
+            in: CustomRoundedRectangle(
+              topLeftRadius: cornerRadius,
+              topRightRadius: cornerRadius,
               bottomLeftRadius: 0,
               bottomRightRadius: 0
             )
-            .foregroundStyle(.foreground.opacity(0.5))
-          }
+          )
       }
       SwiftUI.Text(sourceCode)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -49,10 +59,10 @@ struct CodeBlockView: View {
         .foregroundStyle(.background)
         .background {
           CustomRoundedRectangle(
-            topLeftRadius: fileName == nil ? 8 : 0,
-            topRightRadius: 8,
-            bottomLeftRadius: 8,
-            bottomRightRadius: 8
+            topLeftRadius: fileName == nil ? cornerRadius : 0,
+            topRightRadius: cornerRadius,
+            bottomLeftRadius: cornerRadius,
+            bottomRightRadius: cornerRadius
           )
             .foregroundStyle(.foreground)
         }
@@ -61,6 +71,12 @@ struct CodeBlockView: View {
           .padding(10)
         }
     }
+  }
+}
+
+private extension Array {
+  subscript(safe index: Index) -> Element? {
+    return indices.contains(index) ? self[index] : nil
   }
 }
 

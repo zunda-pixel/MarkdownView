@@ -6,16 +6,16 @@ import SwiftUI
 import MarkdownViewParser
 import Algorithms
 
-enum ParagraphElement: Hashable, Sendable {
+public enum ParagraphElement: Hashable, Sendable {
   case elements(element: [Array<InlineMarkupContent>.SubSequence])
   case image(InlineMarkupContent)
 }
 
-struct ParagraphView: View {
-  let elements: [ParagraphElement]
-  let isNested: Bool
+public struct ParagraphView: View {
+  public let elements: [ParagraphElement]
+  public let isNested: Bool
   
-  init(children: [InlineMarkupContent], isNested: Bool) {
+  public init(children: [InlineMarkupContent], isNested: Bool) {
     self.isNested = isNested
     var elements: [ParagraphElement] = []
     var tempElements: [InlineMarkupContent] = []
@@ -40,7 +40,7 @@ struct ParagraphView: View {
     self.elements = elements
   }
   
-  var body: some View {
+  public var body: some View {
     if isNested {
       ForEach(elements.indexed(), id: \.index) { _, element in
         switch element {

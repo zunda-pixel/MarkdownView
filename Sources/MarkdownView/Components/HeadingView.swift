@@ -6,16 +6,22 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-struct HeadingView: View {
-  let level: Int
-  let children: [InlineMarkupContent]
-  let headingFonts: [Int: Font] = [
-    1: .title,
-    2: .title2,
-    3: .title3,
-  ]
+public struct HeadingView: View {
+  public let level: Int
+  public let children: [InlineMarkupContent]
+  public let headingFonts: [Int: Font]
   
-  var body: some View {
+  public init(
+    level: Int,
+    children: [InlineMarkupContent],
+    headingFonts: [Int: Font] = [1: .title, 2: .title2, 3: .title3,]
+  ) {
+    self.level = level
+    self.children = children
+    self.headingFonts = headingFonts
+  }
+  
+  public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       FlowLayout(alignment: .leading, spacing: 0) {
         ForEach(children.indexed(), id: \.index) { _, content in
