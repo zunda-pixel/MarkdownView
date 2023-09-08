@@ -49,16 +49,12 @@ public struct InlineMarkupContentView: View {
     case .image(let title, let source):
       if let imageURL = source.map({ URL(string: $0) }),
          let imageURL {
-        VStack(alignment: .leading, spacing: 10) {
-          AsyncImage(url: imageURL) { image in
-            image
-              .resizable()
-              .scaledToFit()
-          } placeholder: {
-            ProgressView()
-          }
-          SwiftUI.Text(title)
-            .foregroundStyle(.secondary)
+        AsyncImage(url: imageURL) { image in
+          image
+            .resizable()
+            .scaledToFit()
+        } placeholder: {
+          Text(title)
         }
       }
     case .softBreak:
