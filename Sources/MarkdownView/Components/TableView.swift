@@ -9,9 +9,10 @@ import Markdown
 struct TableView: View {
   let headItems: [InlineMarkupContent]
   let bodyItems: [[[InlineMarkupContent]]]
+  let verticalSpacing: CGFloat = 8
   
   var body: some View {
-    Grid {
+    Grid(verticalSpacing: verticalSpacing) {
       GridRow {
         ForEach(headItems.indexed(), id: \.index) { _, item in
           InlineMarkupContentView(content: item)
@@ -19,8 +20,9 @@ struct TableView: View {
       }
 
       Divider()
+        .background(.secondary)
 
-      ForEach(bodyItems.indexed(), id: \.index) { _, items in
+      ForEach(bodyItems.indexed(), id: \.index) { index, items in
         GridRow {
           ForEach(items.indexed(), id: \.index) { _, items in
             HStack(alignment: .center, spacing: 0) {
@@ -30,9 +32,15 @@ struct TableView: View {
             }
           }
         }
-        Divider()
+        
+        if index < bodyItems.count - 1 {
+          Divider()
+            .background(.secondary)
+        }
       }
     }
+    .padding(.vertical, verticalSpacing)
+    .border(.secondary)
   }
 }
 
@@ -91,8 +99,9 @@ struct TableView: View {
 | ----- | ----- | ----- |
 | Body1 | Body2 | Body3 |
 | Body4 | Body5 | Body6 |
+| Body7 | Body8 | Body9 |
 """)
 
-  return MarkdownView(document: document).padding(10)
+  return MarkdownView(document: document).padding(50)
 }
 
