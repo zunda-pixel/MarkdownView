@@ -15,7 +15,8 @@ struct CodeBlockView: View {
   var copyButton: some View {
     Button {
       #if canImport(AppKit)
-      NSPasteboard.general.setString(sourceCode, forType: .fileContents)
+      NSPasteboard.general.clearContents()
+      NSPasteboard.general.setString(sourceCode, forType: .string)
       #else
       UIPasteboard.general.string = sourceCode
       #endif
