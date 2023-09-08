@@ -6,7 +6,7 @@ import Algorithms
 import MarkdownViewParser
 import SwiftUI
 
-public struct MarkupContentView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+public struct MarkupContentView: View {
   public let content: MarkupContent
   public let listDepth: Int
   public let isNested: Bool
@@ -32,21 +32,21 @@ public struct MarkupContentView<InlineMarkupContent: InlineMarkupContentViewProt
     case .strong(let children):
       VStack {
         ForEach(children.indexed(), id: \.index) { _, child in
-          InlineMarkupContent(content: child)
+          InlineMarkupContentView(content: child)
         }
       }
       .bold()
     case .strikethrough(let children):
       VStack {
         ForEach(children.indexed(), id: \.index) { _, child in
-          InlineMarkupContent(content: child)
+          InlineMarkupContentView(content: child)
         }
       }
       .strikethrough(pattern: .dash, color: .secondary)
     case .emphasis(let children):
       VStack {
         ForEach(children.indexed(), id: \.index) { _, child in
-          InlineMarkupContent(content: child)
+          InlineMarkupContentView(content: child)
         }
       }
       .italic()
@@ -65,7 +65,7 @@ public struct MarkupContentView<InlineMarkupContent: InlineMarkupContentViewProt
         }
       }
     case .blockDirective(let name, let arguments, let children):
-      BlockDirectiveView<InlineMarkupContent>(name: name, arguments: arguments, children: children, listDepth: listDepth)
+      BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
     case .htmlBlock(let text):
       SwiftUI.Text(text)
     case .codeBlock(let language, let sourceCode):
@@ -77,11 +77,11 @@ public struct MarkupContentView<InlineMarkupContent: InlineMarkupContentViewProt
     case .paragraph(let children):
       ParagraphView(children: children, isNested: isNested)
     case .blockQuote(let kind, let blockChildren):
-      BlockQuoteView<InlineMarkupContent>(kind: kind, blockChildren: blockChildren, listDepth: listDepth)
+      BlockQuoteView(kind: kind, blockChildren: blockChildren, listDepth: listDepth)
     case .orderedList(let items):
-      OrderedListView<InlineMarkupContent>(items: items, listDepth: listDepth)
+      OrderedListView(items: items, listDepth: listDepth)
     case .unorderedList(let items):
-      UnorderedListView<InlineMarkupContent>(items: items,  listDepth: listDepth)
+      UnorderedListView(items: items,  listDepth: listDepth)
     case .table(let head, let body):
       TableView(headItems: head, bodyItems: body)
     case .softBreak:

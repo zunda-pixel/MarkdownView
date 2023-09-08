@@ -6,7 +6,7 @@ import Algorithms
 import MarkdownViewParser
 import SwiftUI
 
-public struct InlineMarkupContentView: InlineMarkupContentViewProtocol {
+public struct InlineMarkupContentView: View {
   public let content: InlineMarkupContent
 
   public init(content: InlineMarkupContent) {
