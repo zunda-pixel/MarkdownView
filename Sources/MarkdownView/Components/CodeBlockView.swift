@@ -22,7 +22,7 @@ public struct CodeBlockView: View {
     self.sourceCode = sourceCode
   }
   
-  public var copyButton: some View {
+  var copyButton: some View {
     Button {
       #if canImport(AppKit)
       NSPasteboard.general.clearContents()
