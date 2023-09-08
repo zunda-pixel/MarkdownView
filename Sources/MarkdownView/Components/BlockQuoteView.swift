@@ -5,7 +5,7 @@
 import SwiftUI
 import MarkdownViewParser
 
-public struct BlockQuoteView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+public struct BlockQuoteView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
   public let kind: BlockQuoteKind
   public let blockChildren: [[MarkupContent]]
   public let listDepth: Int
@@ -37,7 +37,7 @@ public struct BlockQuoteView<InlineMarkupContent: InlineMarkupContentViewProtoco
             // TODO HStackでは長文に対応できない
             HStack(alignment: .center, spacing: 0) {
               ForEach(children.indexed(), id: \.index) { _, child in
-                MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth, isNested: true)
+                MarkupContentView<InlineMarkupContentView>(content: child, listDepth: listDepth, isNested: true)
               }
             }
             .frame(maxWidth: .infinity, alignment: .leading)

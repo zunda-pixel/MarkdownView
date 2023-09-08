@@ -6,7 +6,7 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-public struct LinkView: View {
+public struct LinkView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
   let destination: String?
   let children: [InlineMarkupContent]
   
@@ -40,7 +40,7 @@ public struct LinkView: View {
 }
 
 #Preview {
-  LinkView(destination: "https://apple.com", children: [
+  LinkView<InlineMarkupContentView>(destination: "https://apple.com", children: [
     .text(text: "Apple Link")
   ])
 }

@@ -5,7 +5,7 @@
 import SwiftUI
 import MarkdownViewParser
 
-public struct BlockDirectiveView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+public struct BlockDirectiveView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
   public let name: String
   public let arguments: [Substring]
   public let children: [MarkupContent]
@@ -29,7 +29,7 @@ public struct BlockDirectiveView<InlineMarkupContent: InlineMarkupContentViewPro
       ForEach(children.indexed(), id: \.index) { _, child in
         HStack(alignment: .center, spacing: 0) {
           Spacer().frame(maxWidth: 10)
-          MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth, isNested: true)
+          MarkupContentView<InlineMarkupContentView>(content: child, listDepth: listDepth, isNested: true)
         }
       }
       SwiftUI.Text("}")

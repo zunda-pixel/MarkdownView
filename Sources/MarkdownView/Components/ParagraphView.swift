@@ -11,7 +11,7 @@ public enum ParagraphElement: Hashable, Sendable {
   case image(InlineMarkupContent)
 }
 
-public struct ParagraphView: View {
+public struct ParagraphView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
   public let elements: [ParagraphElement]
   public let isNested: Bool
   
@@ -78,7 +78,7 @@ public struct ParagraphView: View {
 #Preview {
   ScrollView {
     LazyVStack {
-      ParagraphView(
+      ParagraphView<InlineMarkupContentView>(
         children: [
           .text(text: "Text1"),
           .image(title: "GitHub Header", source: "https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"),

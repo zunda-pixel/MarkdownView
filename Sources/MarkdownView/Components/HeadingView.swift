@@ -6,7 +6,7 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-public struct HeadingView: View {
+public struct HeadingView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
   public let level: Int
   public let children: [InlineMarkupContent]
   public let headingFonts: [Int: Font]
@@ -60,7 +60,7 @@ private extension View {
 #Preview {
   VStack {
     ForEach(1..<6) { level in
-      HeadingView(
+      HeadingView<InlineMarkupContentView>(
         level: level,
         children: [
           .text(text: "Title\(level)"),
