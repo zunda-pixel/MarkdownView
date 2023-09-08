@@ -44,10 +44,8 @@ Content1
 ~~strikethrough~~
 `code`
 
-> *italic1*italic2
-> **bold**
-> ~~strikethrough~~
-> `code`
+> Text that is a `quote`
+> Text that is a `quote`
 
 > Tip: Tip Description
 > Tip Description
@@ -69,8 +67,6 @@ print("hello")
 
 ![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png)
 
-> Text that is a quote
-> Text that is a quote
 
 | Head | Head | Head |
 | ---- | ---- | ---- |
