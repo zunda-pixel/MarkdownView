@@ -53,7 +53,7 @@ public struct InlineMarkupContentView: View {
           AsyncImage(url: imageURL) { image in
             image
               .resizable()
-              .frame(maxWidth: 300)
+              .scaledToFit()
           } placeholder: {
             ProgressView()
           }
