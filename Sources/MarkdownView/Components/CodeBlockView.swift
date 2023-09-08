@@ -5,14 +5,22 @@
 import SwiftUI
 import Markdown
 
-struct CodeBlockView: View {
-  let language: String?
-  let sourceCode: String
-  var fileName: String.SubSequence? {
+public struct CodeBlockView: View {
+  public let language: String?
+  public let sourceCode: String
+  public var fileName: String.SubSequence? {
     language?.split(separator: ":", maxSplits: 1).last
   }
   
-  var copyButton: some View {
+  public init(
+    language: String?,
+    sourceCode: String
+  ) {
+    self.language = language
+    self.sourceCode = sourceCode
+  }
+  
+  public var copyButton: some View {
     Button {
       #if canImport(AppKit)
       NSPasteboard.general.clearContents()
@@ -26,7 +34,7 @@ struct CodeBlockView: View {
     }
   }
   
-  var body: some View {
+  public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       if let fileName {
         SwiftUI.Text(fileName.trimming(while: \.isWhitespace))

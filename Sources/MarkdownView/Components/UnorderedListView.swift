@@ -5,16 +5,22 @@
 import SwiftUI
 import MarkdownViewParser
 
-struct UnorderedListView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
-  let items: [ListItemContent]
-  let listDepth: Int
-  let unOrderedMark: [Int: String] = [
-    0: "•",
-    1: "◦",
-    2: "▫︎",
-  ]
+public struct UnorderedListView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+  public let items: [ListItemContent]
+  public let listDepth: Int
+  public let unOrderedMark: [Int: String]
 
-  var body: some View {
+  public init(
+    items: [ListItemContent],
+    listDepth: Int,
+    unOrderedMark: [Int: String] = [0: "•", 1: "◦", 2: "▫︎"]
+  ) {
+    self.items = items
+    self.listDepth = listDepth
+    self.unOrderedMark = unOrderedMark
+  }
+  
+  public var body: some View {
     VStack(alignment: .leading, spacing: 5) {
       ForEach(items.indexed(), id: \.index) { _, item in
         VStack(alignment: .leading, spacing: 5) {

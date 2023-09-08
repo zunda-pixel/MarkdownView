@@ -6,11 +6,19 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
-  let items: [ListItemContent]
-  let listDepth: Int
+public struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+  public let items: [ListItemContent]
+  public let listDepth: Int
   
-  var body: some View {
+  public init(
+    items: [ListItemContent],
+    listDepth: Int
+  ) {
+    self.items = items
+    self.listDepth = listDepth
+  }
+  
+  public var body: some View {
     VStack(alignment: .leading, spacing: 5) {
       ForEach(items.indexed(), id: \.index) { index, item in
         var unorderedListContains: Bool {

@@ -5,9 +5,13 @@
 import SwiftUI
 
 struct InlineCodeView: View {
-  let code: String
+  public let code: String
 
-  var body: some View {
+  public init(code: String) {
+    self.code = code
+  }
+  
+  public var body: some View {
     Text(code)
       .padding(.vertical, 2)
       .padding(.horizontal, 4)
