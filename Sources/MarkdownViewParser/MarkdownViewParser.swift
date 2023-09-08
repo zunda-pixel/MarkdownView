@@ -1,11 +1,11 @@
 //
-//  MarkdownUIParser.swift
+//  MarkdownViewParser.swift
 //
 
 import Foundation
 import Markdown
 
-public enum MarkdownUIParser {
+public enum MarkdownViewParser {
   public static func parse(document: Document) -> [MarkupContent] {
     document.children.map {
       markupContent(markup: $0)

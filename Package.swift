@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "MarkdownUI",
+  name: "MarkdownView",
   platforms: [
     .macOS(.v13),
     .iOS(.v16),
@@ -15,12 +15,12 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "MarkdownUI",
-      targets: ["MarkdownUI"]
+      name: "MarkdownView",
+      targets: ["MarkdownView"]
     ),
     .library(
-      name: "MarkdownUIParser",
-      targets: ["MarkdownUIParser"]
+      name: "MarkdownViewParser",
+      targets: ["MarkdownViewParser"]
     ),
   ],
   dependencies: [
@@ -30,24 +30,24 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "MarkdownUI",
+      name: "MarkdownView",
       dependencies: [
         .product(name: "Markdown", package: "swift-markdown"),
         .product(name: "Algorithms", package: "swift-algorithms"),
-        .target(name: "MarkdownUIParser"),
+        .target(name: "MarkdownViewParser"),
       ]
     ),
     .target(
-      name: "MarkdownUIParser",
+      name: "MarkdownViewParser",
       dependencies: [
         .product(name: "Markdown", package: "swift-markdown"),
         .product(name: "Algorithms", package: "swift-algorithms"),
       ]
     ),
     .testTarget(
-      name: "MarkdownUIParserTests",
+      name: "MarkdownViewParserTests",
       dependencies: [
-        .target(name: "MarkdownUIParser"),
+        .target(name: "MarkdownViewParser"),
       ]
     ),
   ]

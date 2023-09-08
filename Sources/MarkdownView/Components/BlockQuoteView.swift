@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import MarkdownUIParser
+import MarkdownViewParser
 
 struct BlockQuoteView: View {
   let kind: BlockQuoteKind

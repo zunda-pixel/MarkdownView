@@ -4,7 +4,7 @@
 
 import Algorithms
 import Markdown
-import MarkdownUIParser
+import MarkdownViewParser
 import SwiftUI
 
 struct MarkdownView: View {
@@ -15,7 +15,7 @@ struct MarkdownView: View {
   }
 
   var contents: [MarkupContent] {
-    MarkdownUIParser.parse(document: document)
+    MarkdownViewParser.parse(document: document)
   }
 
   public var body: some View {

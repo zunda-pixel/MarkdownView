@@ -3,7 +3,7 @@
 //
 
 import Algorithms
-import MarkdownUIParser
+import MarkdownViewParser
 import SwiftUI
 
 public struct MarkupContentView: View {

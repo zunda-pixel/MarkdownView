@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import MarkdownUIParser
+import MarkdownViewParser
 import Markdown
 
 struct HeadingView: View {

@@ -2,9 +2,9 @@ import Algorithms
 import Markdown
 import XCTest
 
-@testable import MarkdownUIParser
+@testable import MarkdownViewParser
 
-final class MarkdownUIParserTests: XCTestCase {
+final class MarkdownViewParserTests: XCTestCase {
   func testExample() throws {
     // XCTest Documentation
     // https://developer.apple.com/documentation/xctest
