@@ -7,7 +7,7 @@ import Markdown
 import MarkdownViewParser
 import SwiftUI
 
-struct MarkdownView: View {
+public struct MarkdownView: View {
   public let document: Document
 
   public init(document: Document) {
