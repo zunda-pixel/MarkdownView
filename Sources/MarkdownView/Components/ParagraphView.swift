@@ -62,7 +62,7 @@ struct ParagraphView: View {
             InlineMarkupContentView(content: element)
           case .elements(let elements):
             ForEach(elements.indexed(), id: \.index) { _, element in
-              FlowLayout {
+              FlowLayout(alignment: .leading) {
                 ForEach(element.indexed(), id: \.index) { _, content in
                   InlineMarkupContentView(content: content)
                 }
@@ -71,7 +71,6 @@ struct ParagraphView: View {
           }
         }
       }
-      .frame(maxWidth: .infinity, alignment: .leading)
     }
   }
 }
