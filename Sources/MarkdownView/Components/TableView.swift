@@ -9,38 +9,65 @@ import Markdown
 struct TableView: View {
   let headItems: [InlineMarkupContent]
   let bodyItems: [[[InlineMarkupContent]]]
+  let horizontalSpacing: CGFloat = 10
   let verticalSpacing: CGFloat = 8
   
   var body: some View {
     Grid(verticalSpacing: verticalSpacing) {
       GridRow {
-        ForEach(headItems.indexed(), id: \.index) { _, item in
+        ForEach(headItems.indexed(), id: \.index) { index, item in
           InlineMarkupContentView(content: item)
+            .if(index == 0) {
+              $0.padding(.leading, horizontalSpacing)
+            }
+            .if(index == headItems.count - 1) {
+              $0.padding(.trailing, horizontalSpacing)
+            }
         }
       }
+      .bold()
 
       Divider()
+        .gridCellUnsizedAxes(.horizontal)
         .background(.secondary)
 
       ForEach(bodyItems.indexed(), id: \.index) { index, items in
         GridRow {
-          ForEach(items.indexed(), id: \.index) { _, items in
+          ForEach(items.indexed(), id: \.index) { index, items in
             HStack(alignment: .center, spacing: 0) {
               ForEach(items.indexed(), id: \.index) { _, item in
                 InlineMarkupContentView(content: item)
               }
+            }
+            .if(index == 0) {
+              $0.padding(.leading, horizontalSpacing)
+            }
+            .if(index == headItems.count - 1) {
+              $0.padding(.trailing, horizontalSpacing)
             }
           }
         }
         
         if index < bodyItems.count - 1 {
           Divider()
+            .gridCellUnsizedAxes(.horizontal)
             .background(.secondary)
         }
       }
     }
     .padding(.vertical, verticalSpacing)
     .border(.secondary)
+  }
+}
+
+private extension View {
+  @ViewBuilder
+  func `if`<Content: View>(_ condition: Bool, @ViewBuilder content: (Self) -> Content) -> some View {
+    if condition {
+      content(self)
+    } else {
+      self
+    }
   }
 }
 
