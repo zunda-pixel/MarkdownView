@@ -11,28 +11,32 @@ struct BlockQuoteView: View {
   let listDepth: Int
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      if let label = kind.label {
-        Label(label.0, systemImage: label.1)
-          .foregroundStyle(label.2)
-      }
+    HStack(alignment: .top, spacing: 10) {
+      Rectangle()
+        .fill(kind.label?.2 ?? .secondary)
+        .frame(width: 2)
       
-      ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
-        ForEach(blockChild.split(separator: .softBreak).indexed(), id: \.index) { _, children in
-          // TODO HStackでは長文に対応できない
-          HStack(alignment: .center, spacing: 0) {
-            ForEach(children.indexed(), id: \.index) { _, child in
-              MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+      VStack(alignment: .leading, spacing: 10) {
+        if let label = kind.label {
+          Label(label.0, systemImage: label.1)
+            .foregroundStyle(label.2)
+        }
+        
+        ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
+          ForEach(blockChild.split(separator: .softBreak).indexed(), id: \.index) { _, children in
+            // TODO HStackでは長文に対応できない
+            HStack(alignment: .center, spacing: 0) {
+              ForEach(children.indexed(), id: \.index) { _, child in
+                MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+              }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
           }
-          .frame(maxWidth: .infinity, alignment: .leading)
         }
       }
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .foregroundStyle(.secondary)
     }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .foregroundStyle(.secondary)
-    .padding(10)
-    .border(.secondary)
   }
 }
 
@@ -68,15 +72,18 @@ private extension BlockQuoteKind {
 }
 
 #Preview {
-  List {
-    ForEach(BlockQuoteKind.allCases, id: \.self) { kind in
-      let content = MarkupContent.blockQuote(kind: kind, children: [
-        [
-          .text(text: kind.rawValue)
-        ],
-      ])
-      MarkupContentView(content: content, listDepth: 0, isNested: false)
+  ScrollView {
+    VStack(spacing: 10) {
+      ForEach(BlockQuoteKind.allCases, id: \.self) { kind in
+        let content = MarkupContent.blockQuote(kind: kind, children: [
+          [
+            .text(text: kind.rawValue)
+          ],
+        ])
+        MarkupContentView(content: content, listDepth: 0, isNested: false)
+      }
     }
+    .padding(10)
   }
   .frame(width: 300, height: 580)
 }
