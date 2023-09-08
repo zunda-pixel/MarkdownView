@@ -28,8 +28,7 @@ public struct MarkupContentView: View {
     case .thematicBreak:
       Divider()
     case .inlineCode(let code):
-      SwiftUI.Text(code)
-        .background(.gray)
+      InlineCodeView(code: code)
     case .strong(let children):
       VStack {
         ForEach(children.indexed(), id: \.index) { _, child in

@@ -46,8 +46,7 @@ public struct InlineMarkupContentView: View {
         }
         .italic()
       case .inlineCode(let code):
-        SwiftUI.Text(code)
-          .background(.gray)
+        InlineCodeView(code: code)
       case .image(let title, let source):
         if let imageURL = source.map({ URL(string: $0) }),
            let imageURL {
