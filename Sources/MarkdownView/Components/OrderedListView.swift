@@ -6,7 +6,7 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-public struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+public struct OrderedListView: View {
   public let items: [ListItemContent]
   public let listDepth: Int
   
@@ -36,7 +36,7 @@ public struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtoc
             if let child = item.children.first {
               FlowLayout {
                 SwiftUI.Text("\(index + 1).")
-                MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth, isNested: true)
+                MarkupContentView(content: child, listDepth: listDepth, isNested: true)
               }
             }
             
@@ -45,7 +45,7 @@ public struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtoc
                 let child = item.children[i]
                 HStack(alignment: .center, spacing: 5) {
                   Spacer().frame(width: 10)
-                  MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth + 1, isNested: true)
+                  MarkupContentView(content: child, listDepth: listDepth + 1, isNested: true)
                 }
               }
             }
@@ -54,7 +54,7 @@ public struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtoc
           HStack(alignment: .center, spacing: 5) {
             SwiftUI.Text("\(index + 1).")
             ForEach(item.children.indexed(), id: \.index) { _, child in
-              MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth, isNested: true)
+              MarkupContentView(content: child, listDepth: listDepth, isNested: true)
             }
           }
         }
@@ -65,7 +65,7 @@ public struct OrderedListView<InlineMarkupContent: InlineMarkupContentViewProtoc
 
 #Preview {
   List {
-    OrderedListView<InlineMarkupContentView>(
+    OrderedListView(
       items: [
         .init(children: [.text(text: "Hello1"),]),
         .init(children: [.text(text: "Hello2"),]),
