@@ -49,6 +49,12 @@ Content1
 > ~~strikethrough~~
 > `code`
 
+> Tip: Tip Description
+> Tip Description
+
+> Attention: Attention Description
+> Attention Description
+
 `Markdown` is a lightweight markup language for creating formatted text using a plain-text editor.
 John Gruber created Markdown in 2004 as a markup language that is easy to read in its source code form.
 
