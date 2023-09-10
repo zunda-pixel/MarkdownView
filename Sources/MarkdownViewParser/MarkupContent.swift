@@ -13,7 +13,7 @@ public enum MarkupContent: Hashable, Sendable {
   case paragraph(children: [InlineMarkupContent])
   case blockQuote(kind:Aside.Kind, children: [[MarkupContent]])
   case softBreak
-  case orderedList(items: [ListItemContent])
+  case orderedList(startIndex: UInt, items: [ListItemContent])
   case unorderedList(items: [ListItemContent])
   case table(head: [InlineMarkupContent], body: [[[InlineMarkupContent]]])
   case htmlBlock(text: String)

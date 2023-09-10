@@ -105,7 +105,7 @@ public enum MarkdownViewParser {
         }
         return ListItemContent(checkbox: item.checkbox, children: children)
       }
-      return .orderedList(items: Array(items))
+      return .orderedList(startIndex: orderedList.startIndex, items: Array(items))
     case let unorderedList as Markdown.UnorderedList:
       let items = unorderedList.listItems.map { item in
         let children = item.children.map { markupContent(markup: $0) }

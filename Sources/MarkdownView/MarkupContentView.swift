@@ -66,8 +66,8 @@ public struct MarkupContentView: View {
       ParagraphView(children: children, isNested: isNested)
     case .blockQuote(let kind, let blockChildren):
       BlockQuoteView(kind: kind, blockChildren: blockChildren, listDepth: listDepth)
-    case .orderedList(let items):
-      OrderedListView(items: items, listDepth: listDepth)
+    case .orderedList(let startIndex, let items):
+      OrderedListView(startIndex: startIndex, items: items, listDepth: listDepth)
     case .unorderedList(let items):
       UnorderedListView(items: items,  listDepth: listDepth)
     case .table(let head, let body):
