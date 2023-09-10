@@ -5,7 +5,7 @@
 import SwiftUI
 import MarkdownViewParser
 
-public struct UnorderedListView<InlineMarkupContent: InlineMarkupContentViewProtocol>: View {
+public struct UnorderedListView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
   public let items: [ListItemContent]
   public let listDepth: Int
   public let unOrderedMark: [Int: String]
@@ -36,7 +36,7 @@ public struct UnorderedListView<InlineMarkupContent: InlineMarkupContentViewProt
                 }
               }
 
-              MarkupContentView<InlineMarkupContent>(content: child, listDepth: listDepth + 1, isNested: true)
+              MarkupContentView<InlineMarkupContentView>(content: child, listDepth: listDepth + 1, isNested: true)
             }
           }
         }

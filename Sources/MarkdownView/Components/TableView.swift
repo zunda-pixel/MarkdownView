@@ -6,7 +6,7 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-public struct TableView: View {
+public struct TableView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
   public let headItems: [InlineMarkupContent]
   public let bodyItems: [[[InlineMarkupContent]]]
   public let horizontalSpacing: CGFloat = 10
@@ -80,7 +80,7 @@ private extension View {
 }
 
 #Preview {
-  TableView(
+  TableView<InlineMarkupContentView>(
     headItems: [
       .text(text: "Head1"),
       .text(text: "Head2"),
