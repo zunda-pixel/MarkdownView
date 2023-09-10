@@ -80,12 +80,10 @@ private extension Aside.Kind {
   ScrollView {
     VStack(spacing: 10) {
       ForEach(Aside.Kind.allCases, id: \.self) { kind in
-        let content = MarkupContent.blockQuote(kind: kind, children: [
-          [
-            .text(text: kind.rawValue)
-          ],
+        let blockQuote: MarkupContent = .blockQuote(kind: kind, children: [
+          .text(text: kind.rawValue),
         ])
-        MarkupContentView(content: content, listDepth: 0, isNested: false)
+        MarkupContentView(content: blockQuote, listDepth: 0, isNested: false)
       }
     }
     .padding(10)
