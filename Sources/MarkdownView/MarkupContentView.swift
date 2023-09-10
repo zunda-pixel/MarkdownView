@@ -73,7 +73,7 @@ public struct MarkupContentView: View {
     case .table(let head, let body):
       TableView(headItems: head, bodyItems: body)
     case .softBreak:
-      EmptyView() // TODO
+      EmptyView()
     }
   }
 }

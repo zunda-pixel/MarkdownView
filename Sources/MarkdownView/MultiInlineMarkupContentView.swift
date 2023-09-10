@@ -14,13 +14,7 @@ struct MultiInlineMarkupContentView: View {
     var container = AttributeContainer()
     container.font = font
     let contents = inlineContents.split { content in
-      if case .softBreak = content {
-        return true
-      } else if case .lineBreak = content {
-        return true
-      } else {
-        return false
-      }
+      return content == .softBreak || content == .lineBreak
     }
     
     return contents.map { content in
