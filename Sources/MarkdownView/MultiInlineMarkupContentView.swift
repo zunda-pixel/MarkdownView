@@ -70,14 +70,6 @@ struct MultiInlineMarkupContentView: View {
           } else {
             Text(html)
           }
-        case .unknown(let plainText, let link):
-          if let link {
-            SwiftUI.Link(destination: link) {
-              Text(plainText)
-            }
-          } else {
-            Text(plainText)
-          }
         }
       }
     }

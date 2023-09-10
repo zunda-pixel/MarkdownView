@@ -74,11 +74,6 @@ public struct MarkupContentView: View {
       TableView(headItems: head, bodyItems: body)
     case .softBreak:
       EmptyView() // TODO
-    case .unknown(let plainText):
-      VStack(alignment: .leading, spacing: 0) {
-        SwiftUI.Text("MarkupContentView UnKnown")
-        SwiftUI.Text(plainText)
-      }
     }
   }
 }

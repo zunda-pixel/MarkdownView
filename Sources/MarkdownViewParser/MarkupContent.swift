@@ -24,5 +24,4 @@ public enum MarkupContent: Hashable, Sendable {
   case strong(children: [InlineMarkupContent])
   case strikethrough(children: [InlineMarkupContent])
   case inlineCode(code: String)
-  case unknown(plainText: String)
 }

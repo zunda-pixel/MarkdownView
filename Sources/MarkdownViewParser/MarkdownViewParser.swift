@@ -48,7 +48,7 @@ public enum MarkdownViewParser {
     case let inlineCode as Markdown.InlineCode:
       return .inlineCode(code: inlineCode.code)
     default:
-      return .unknown(plainText: markup.format())
+      fatalError()
     }
   }
 
@@ -145,7 +145,7 @@ public enum MarkdownViewParser {
     case let htmlBlock as Markdown.HTMLBlock:
       return .htmlBlock(text: htmlBlock.rawHTML)
     default:
-      return .unknown(plainText: markup.format())
+      fatalError()
     }
   }
 }

@@ -9,7 +9,6 @@ public enum MultiContent {
   case attributedString(AttributedString)
   case image(title: String, source: String?, link: URL?)
   case inlineHTML(html: String, link: URL?)
-  case unknown(plainText: String, link: URL?)
 }
 
 public enum MultiContentParser {
@@ -70,8 +69,6 @@ public enum MultiContentParser {
         continue
       case .inlineHTML(let html):
         multiContents.append(.inlineHTML(html: html, link: container.link))
-      case .unknown(let plainText):
-        multiContents.append(.unknown(plainText: plainText, link: container.link))
       }
     }
     
