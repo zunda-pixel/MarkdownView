@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import Markdown
 
 public enum MarkupContent: Hashable, Sendable {
   case text(text: String)
@@ -10,7 +11,7 @@ public enum MarkupContent: Hashable, Sendable {
   case link(destination: String?, children: [InlineMarkupContent])
   case heading(level: Int, children: [InlineMarkupContent])
   case paragraph(children: [InlineMarkupContent])
-  case blockQuote(kind: BlockQuoteKind, children: [[MarkupContent]])
+  case blockQuote(kind:Aside.Kind, children: [[MarkupContent]])
   case softBreak
   case orderedList(items: [ListItemContent])
   case unorderedList(items: [ListItemContent])

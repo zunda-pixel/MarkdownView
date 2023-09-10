@@ -4,14 +4,15 @@
 
 import SwiftUI
 import MarkdownViewParser
+import Markdown
 
 public struct BlockQuoteView: View {
-  public let kind: BlockQuoteKind
+  public let kind: Aside.Kind
   public let blockChildren: [[MarkupContent]]
   public let listDepth: Int
   
   public init(
-    kind: BlockQuoteKind,
+    kind: Aside.Kind,
     blockChildren: [[MarkupContent]],
     listDepth: Int
   ) {
@@ -45,7 +46,7 @@ public struct BlockQuoteView: View {
   }
 }
 
-private extension BlockQuoteKind {
+private extension Aside.Kind {
   var label: (String, String, Color)? {
     switch self {
     case .note: return nil
@@ -68,10 +69,11 @@ private extension BlockQuoteKind {
     case .remark: return ("Remark", "quote.bubble", .gray)
     case .requires: return ("Requires", "arrow.right.to.line.alt", .green)
     case .since: return ("Since", "clock", .green)
-    case .toDo: return ("ToDo", "checkmark.circle", .green)
+    case .todo: return ("ToDo", "checkmark.circle", .green)
     case .version: return ("Version", "square.and.arrow.up", .blue)
     case .throws: return ("Throws", "exclamationmark.octagon", .orange)
     case .seeAlso: return ("See Also", "arrow.right.doc.on.clipboard", .blue)
+    default: return nil
     }
   }
 }
@@ -79,7 +81,7 @@ private extension BlockQuoteKind {
 #Preview {
   ScrollView {
     VStack(spacing: 10) {
-      ForEach(BlockQuoteKind.allCases, id: \.self) { kind in
+      ForEach(Aside.Kind.allCases, id: \.self) { kind in
         let content = MarkupContent.blockQuote(kind: kind, children: [
           [
             .text(text: kind.rawValue)

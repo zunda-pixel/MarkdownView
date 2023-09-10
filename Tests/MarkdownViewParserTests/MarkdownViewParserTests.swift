@@ -13,13 +13,6 @@ final class MarkdownViewParserTests: XCTestCase {
     // https://developer.apple.com/documentation/xctest/defining_test_cases_and_test_methods
   }
   
-  func testBlockQuoteKind() {
-    for kind in Aside.Kind.allCases {
-      let kind = BlockQuoteKind(rawValue: kind.rawValue)
-      XCTAssertNotNil(kind)
-    }
-  }
-  
   func testFileExtensionNameParse() {
     let content = "swift: Sample.swift "
     let elements = content.split(separator: ":", maxSplits: 1)
