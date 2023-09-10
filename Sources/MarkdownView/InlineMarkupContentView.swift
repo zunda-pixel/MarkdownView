@@ -83,9 +83,3 @@ public struct InlineMarkupContentView: InlineMarkupContentViewProtocol {
     }
   }
 }
-
-extension View {
-  func markdownAttributes(attributes: String) -> some View {
-    self
-  }
-}
