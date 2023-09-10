@@ -33,14 +33,9 @@ public struct BlockQuoteView: View {
         }
         
         ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
-          ForEach(blockChild.split(separator: .softBreak).indexed(), id: \.index) { _, children in
-            // TODO HStackでは長文に対応できない
-            HStack(alignment: .center, spacing: 0) {
-              ForEach(children.indexed(), id: \.index) { _, child in
-                MarkupContentView(content: child, listDepth: listDepth, isNested: true)
-              }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
+          ForEach(blockChild.indexed(), id: \.index) { _, children in
+            MarkupContentView(content: children, listDepth: listDepth, isNested: true)
+              .frame(maxWidth: .infinity, alignment: .leading)
           }
         }
       }
