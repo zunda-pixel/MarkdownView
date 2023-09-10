@@ -10,7 +10,10 @@ public struct ParagraphView: View {
   public let children: [InlineMarkupContent]
   public let isNested: Bool
   
-  public init(children: [InlineMarkupContent], isNested: Bool) {
+  public init(
+    children: [InlineMarkupContent],
+    isNested: Bool
+  ) {
     self.isNested = isNested
     self.children = children
   }
