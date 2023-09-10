@@ -6,7 +6,7 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-public struct HeadingView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
+public struct HeadingView: View {
   public let level: Int
   public let children: [InlineMarkupContent]
   public let headingFonts: [Int: Font]
@@ -23,11 +23,7 @@ public struct HeadingView<InlineMarkupContentView: InlineMarkupContentViewProtoc
   
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      FlowLayout(alignment: .leading, spacing: 0) {
-        ForEach(children.indexed(), id: \.index) { _, content in
-          InlineMarkupContentView(content: content)
-        }
-      }
+      MultiInlineMarkupContentView(inlineContents: children)
       .bold()
       .frame(maxWidth: .infinity, alignment: .leading)
       
@@ -60,7 +56,7 @@ private extension View {
 #Preview {
   VStack {
     ForEach(1..<6) { level in
-      HeadingView<InlineMarkupContentView>(
+      HeadingView(
         level: level,
         children: [
           .text(text: "Title\(level)"),
@@ -80,7 +76,7 @@ private extension View {
     )
   })
     
-  return List {
+  return VStack {
     MarkdownView(document: document)
   }
 }

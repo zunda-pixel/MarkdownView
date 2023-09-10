@@ -6,7 +6,7 @@ import Algorithms
 import MarkdownViewParser
 import SwiftUI
 
-public struct MarkupContentView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
+public struct MarkupContentView: View {
   public let content: MarkupContent
   public let listDepth: Int
   public let isNested: Bool
@@ -30,26 +30,14 @@ public struct MarkupContentView<InlineMarkupContentView: InlineMarkupContentView
     case .inlineCode(let code):
       InlineCodeView(code: code)
     case .strong(let children):
-      VStack {
-        ForEach(children.indexed(), id: \.index) { _, child in
-          InlineMarkupContentView(content: child)
-        }
-      }
-      .bold()
+      MultiInlineMarkupContentView(inlineContents: children)
+        .bold()
     case .strikethrough(let children):
-      VStack {
-        ForEach(children.indexed(), id: \.index) { _, child in
-          InlineMarkupContentView(content: child)
-        }
-      }
-      .strikethrough(pattern: .dash, color: .secondary)
+      MultiInlineMarkupContentView(inlineContents: children)
+        .strikethrough(pattern: .dash, color: .secondary)
     case .emphasis(let children):
-      VStack {
-        ForEach(children.indexed(), id: \.index) { _, child in
-          InlineMarkupContentView(content: child)
-        }
-      }
-      .italic()
+      MultiInlineMarkupContentView(inlineContents: children)
+        .italic()
     case .doxygenParameter(let name, let children):
       FlowLayout {
         SwiftUI.Text("\\param \(name)")
@@ -65,25 +53,25 @@ public struct MarkupContentView<InlineMarkupContentView: InlineMarkupContentView
         }
       }
     case .blockDirective(let name, let arguments, let children):
-      BlockDirectiveView<InlineMarkupContentView>(name: name, arguments: arguments, children: children, listDepth: listDepth)
+      BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
     case .htmlBlock(let text):
       SwiftUI.Text(text)
     case .codeBlock(let language, let sourceCode):
       CodeBlockView(language: language, sourceCode: sourceCode)
     case .link(let destination, let children):
-      LinkView<InlineMarkupContentView>(destination: destination, children: children)
+      LinkView(destination: destination, children: children)
     case .heading(let level, let children):
-      HeadingView<InlineMarkupContentView>(level: level, children: children)
+      HeadingView(level: level, children: children)
     case .paragraph(let children):
-      ParagraphView<InlineMarkupContentView>(children: children, isNested: isNested)
+      ParagraphView(children: children, isNested: isNested)
     case .blockQuote(let kind, let blockChildren):
-      BlockQuoteView<InlineMarkupContentView>(kind: kind, blockChildren: blockChildren, listDepth: listDepth)
+      BlockQuoteView(kind: kind, blockChildren: blockChildren, listDepth: listDepth)
     case .orderedList(let items):
-      OrderedListView<InlineMarkupContentView>(items: items, listDepth: listDepth)
+      OrderedListView(items: items, listDepth: listDepth)
     case .unorderedList(let items):
-      UnorderedListView<InlineMarkupContentView>(items: items,  listDepth: listDepth)
+      UnorderedListView(items: items,  listDepth: listDepth)
     case .table(let head, let body):
-      TableView<InlineMarkupContentView>(headItems: head, bodyItems: body)
+      TableView(headItems: head, bodyItems: body)
     case .softBreak:
       EmptyView() // TODO
     case .unknown(let plainText):
