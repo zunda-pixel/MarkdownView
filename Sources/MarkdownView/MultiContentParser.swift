@@ -14,7 +14,7 @@ public enum MultiContent {
 
 public enum MultiContentParser {
   public static func multiContents(
-    contents: [InlineMarkupContent],
+    contents: some Sequence<InlineMarkupContent>,
     container: AttributeContainer,
     customAttribute: (String, AttributeContainer) -> AttributeContainer
   ) -> [MultiContent] {
