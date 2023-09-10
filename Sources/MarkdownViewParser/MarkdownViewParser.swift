@@ -87,8 +87,8 @@ public enum MarkdownViewParser {
       return .heading(level: heading.level, children: Array(children))
     case let blockQuote as Markdown.BlockQuote:
       let aside = Aside(blockQuote)
-      let children = aside.content.map { blockChild in
-        blockChild.children.map { markupContent(markup: $0) }
+      let children = aside.content.map { child in
+        markupContent(markup: child)
       }
       return .blockQuote(kind: aside.kind, children: children)
     case let paragraph as Markdown.Paragraph:

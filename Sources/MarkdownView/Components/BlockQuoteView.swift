@@ -8,16 +8,16 @@ import Markdown
 
 public struct BlockQuoteView: View {
   public let kind: Aside.Kind
-  public let blockChildren: [[MarkupContent]]
+  public let children: [MarkupContent]
   public let listDepth: Int
   
   public init(
     kind: Aside.Kind,
-    blockChildren: [[MarkupContent]],
+    children: [MarkupContent],
     listDepth: Int
   ) {
     self.kind = kind
-    self.blockChildren = blockChildren
+    self.children = children
     self.listDepth = listDepth
   }
   
@@ -33,11 +33,9 @@ public struct BlockQuoteView: View {
             .foregroundStyle(label.2)
         }
         
-        ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
-          ForEach(blockChild.indexed(), id: \.index) { _, children in
-            MarkupContentView(content: children, listDepth: listDepth, isNested: true)
-              .frame(maxWidth: .infinity, alignment: .leading)
-          }
+        ForEach(children.indexed(), id: \.index) { _, child in
+          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)
