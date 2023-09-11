@@ -19,6 +19,12 @@ public struct CodeBlockView: View {
     sourceCode: String
   ) {
     self.language = language
+    var sourceCode = sourceCode
+
+    if !sourceCode.suffix(2).allSatisfy(\.isNewline) && sourceCode.last?.isNewline == true {
+      sourceCode.removeLast()
+    }
+
     self.sourceCode = sourceCode
   }
   
