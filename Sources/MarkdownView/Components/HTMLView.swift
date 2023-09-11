@@ -6,21 +6,28 @@ import SwiftUI
 
 public struct HTMLView: View {
   public let html: String
+  public let failure: (String) -> AttributedString
   
-  public init(html: String) {
+  public init(
+    html: String,
+    failure: @escaping (String) -> AttributedString = { AttributedString($0) }
+  ) {
     self.html = html
+    self.failure = failure
   }
   
   var attributedString: AttributedString {
     let data = Data(html.utf8)
-    
-    let attributedString = try! NSAttributedString(
+
+    let nsAttributedString = try? NSAttributedString(
       data: data,
       options: [.documentType: NSAttributedString.DocumentType.html],
       documentAttributes: nil
     )
-    
-    return AttributedString(attributedString)
+
+    let attributedString = nsAttributedString.map { AttributedString($0) } ?? failure(html)
+
+    return attributedString
   }
   
   public var body: some View {
