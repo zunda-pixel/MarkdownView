@@ -2,7 +2,7 @@ import Algorithms
 import Markdown
 import XCTest
 
-@testable import MarkdownViewParser
+@testable import MarkdownView
 
 final class MarkdownViewParserTests: XCTestCase {
   func testExample() throws {
