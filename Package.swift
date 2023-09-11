@@ -18,10 +18,6 @@ let package = Package(
       name: "MarkdownView",
       targets: ["MarkdownView"]
     ),
-    .library(
-      name: "MarkdownViewParser",
-      targets: ["MarkdownViewParser"]
-    ),
   ],
   dependencies: [
     .package(url: "https://github.com/zunda-pixel/swift-markdown", branch: "main"), // TODO replace to apple
@@ -34,20 +30,12 @@ let package = Package(
       dependencies: [
         .product(name: "Markdown", package: "swift-markdown"),
         .product(name: "Algorithms", package: "swift-algorithms"),
-        .target(name: "MarkdownViewParser"),
-      ]
-    ),
-    .target(
-      name: "MarkdownViewParser",
-      dependencies: [
-        .product(name: "Markdown", package: "swift-markdown"),
-        .product(name: "Algorithms", package: "swift-algorithms"),
       ]
     ),
     .testTarget(
-      name: "MarkdownViewParserTests",
+      name: "MarkdownViewTests",
       dependencies: [
-        .target(name: "MarkdownViewParser"),
+        .target(name: "MarkdownView"),
       ]
     ),
   ]
