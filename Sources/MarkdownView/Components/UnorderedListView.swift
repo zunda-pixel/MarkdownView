@@ -2,8 +2,8 @@
 //  UnorderedListView.swift
 //
 
-import SwiftUI
 import MarkdownViewParser
+import SwiftUI
 
 public struct UnorderedListView: View {
   public let items: [ListItemContent]
@@ -19,7 +19,7 @@ public struct UnorderedListView: View {
     self.listDepth = listDepth
     self.unOrderedMark = unOrderedMark
   }
-  
+
   public var body: some View {
     VStack(alignment: .leading, spacing: 5) {
       ForEach(items.indexed(), id: \.index) { _, item in

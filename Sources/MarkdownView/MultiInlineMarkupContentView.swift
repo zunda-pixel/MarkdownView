@@ -2,29 +2,31 @@
 //  MultiInlineMarkupContentView.swift
 //
 
-import SwiftUI
 import MarkdownViewParser
+import SwiftUI
 
 struct MultiInlineMarkupContentView: View {
   @Environment(\.font) var font
-  
+
   let inlineContents: [InlineMarkupContent]
-  
+
   var contents: [[MultiContent]] {
     var container = AttributeContainer()
     container.font = font
     let contents = inlineContents.split { content in
       return content == .softBreak || content == .lineBreak
     }
-    
+
     return contents.map { content in
-      let multiContents = MultiContentParser.multiContents(contents: Array(content), container: container) { _, container in return container }
-      let compressedMultiContents = MultiContentParser.compressMultiContents(multiContents: multiContents)
+      let multiContents = MultiContentParser.multiContents(
+        contents: Array(content), container: container
+      ) { _, container in return container }
+      let compressedMultiContents = MultiContentParser.compressMultiContents(
+        multiContents: multiContents)
       return compressedMultiContents
     }
   }
-  
-  
+
   var body: some View {
     ForEach(contents.indexed(), id: \.index) { _, element in
       ForEach(element.indexed(), id: \.index) { _, content in
@@ -33,7 +35,8 @@ struct MultiInlineMarkupContentView: View {
           Text(string)
         case .image(let title, let source, let link):
           if let imageURL = source.map({ URL(string: $0) }),
-             let imageURL {
+            let imageURL
+          {
             if let link {
               Link(destination: link) {
                 AsyncImage(url: imageURL) { image in
@@ -59,10 +62,10 @@ struct MultiInlineMarkupContentView: View {
         case .inlineHTML(let html, let link):
           if let link {
             SwiftUI.Link(destination: link) {
-              Text(html)
+              HTMLView(html: html)
             }
           } else {
-            Text(html)
+            HTMLView(html: html)
           }
         }
       }

@@ -2,15 +2,15 @@
 //  OrderedListView.swift
 //
 
-import SwiftUI
-import MarkdownViewParser
 import Markdown
+import MarkdownViewParser
+import SwiftUI
 
 public struct OrderedListView: View {
   public let startIndex: UInt
   public let items: [ListItemContent]
   public let listDepth: Int
-  
+
   public init(
     startIndex: UInt,
     items: [ListItemContent],
@@ -20,7 +20,7 @@ public struct OrderedListView: View {
     self.items = items
     self.listDepth = listDepth
   }
-  
+
   public var body: some View {
     VStack(alignment: .leading, spacing: 5) {
       ForEach(items.indexed(), id: \.index) { index, item in
@@ -33,7 +33,7 @@ public struct OrderedListView: View {
             }
           }
         }
-        
+
         if unorderedListContains {
           VStack(alignment: .leading, spacing: 5) {
             if let child = item.children.first {
@@ -42,7 +42,7 @@ public struct OrderedListView: View {
                 MarkupContentView(content: child, listDepth: listDepth, isNested: true)
               }
             }
-            
+
             if item.children.count > 1 {
               ForEach(1..<item.children.count, id: \.self) { i in
                 let child = item.children[i]
@@ -66,36 +66,38 @@ public struct OrderedListView: View {
   }
 }
 
-#Preview {
+#Preview{
   List {
     OrderedListView(
       startIndex: 1,
       items: [
-        .init(children: [.text(text: "Hello1"),]),
-        .init(children: [.text(text: "Hello2"),]),
-        .init(children: [.text(text: "Hello3"),]),
-        .init(children: [.text(text: "Hello4"),]),
-        .init(children: [.text(text: "Hello5"),]),
+        .init(children: [.text(text: "Hello1")]),
+        .init(children: [.text(text: "Hello2")]),
+        .init(children: [.text(text: "Hello3")]),
+        .init(children: [.text(text: "Hello4")]),
+        .init(children: [.text(text: "Hello5")]),
       ],
       listDepth: 0
     )
   }
 }
 
-#Preview {
-  let orderedList = OrderedList((1..<6).map { i in
-    ListItem(Paragraph([Markdown.Text("Hello\(i)")]))
-  })
-  
+#Preview{
+  let orderedList = OrderedList(
+    (1..<6).map { i in
+      ListItem(Paragraph([Markdown.Text("Hello\(i)")]))
+    })
+
   let document = Document([orderedList])
-    
+
   return List {
     MarkdownView(document: document)
   }
 }
 
-#Preview {
-  let document = Document(parsing: """
+#Preview{
+  let document = Document(
+    parsing: """
 1. First list item
    - First nested list item
      - Second nested list item

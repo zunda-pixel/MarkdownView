@@ -2,18 +2,18 @@
 //  CodeBlockView.swift
 //
 
-import SwiftUI
 import Markdown
+import SwiftUI
 
 public struct CodeBlockView: View {
   public let language: String?
   public let sourceCode: String
   public let cornerRadius: CGFloat = 8
-  
+
   public var fileName: String.SubSequence? {
     language?.split(separator: ":", maxSplits: 1)[safe: 1]
   }
-  
+
   public init(
     language: String?,
     sourceCode: String
@@ -27,21 +27,21 @@ public struct CodeBlockView: View {
 
     self.sourceCode = sourceCode
   }
-  
+
   var copyButton: some View {
     Button {
       #if canImport(AppKit)
-      NSPasteboard.general.clearContents()
-      NSPasteboard.general.setString(sourceCode, forType: .string)
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(sourceCode, forType: .string)
       #else
-      UIPasteboard.general.string = sourceCode
+        UIPasteboard.general.string = sourceCode
       #endif
     } label: {
       Image(systemName: "clipboard")
         .foregroundStyle(.gray)
     }
   }
-  
+
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       if let fileName {
@@ -70,41 +70,46 @@ public struct CodeBlockView: View {
             bottomLeftRadius: cornerRadius,
             bottomRightRadius: cornerRadius
           )
-            .foregroundStyle(.foreground)
+          .foregroundStyle(.foreground)
         }
         .overlay(alignment: .topTrailing) {
           copyButton
-          .padding(10)
+            .padding(10)
         }
     }
   }
 }
 
-#Preview {
-  CodeBlockView(language: "swift: Sample.swift", sourceCode: """
-import Foundation
-print(Date.now)
-""")
+#Preview{
+  CodeBlockView(
+    language: "swift: Sample.swift",
+    sourceCode: """
+      import Foundation
+      print(Date.now)
+      """)
 }
 
-#Preview {
-  let codeBlock = CodeBlock(language: "swift: Sample.swift", """
-import Foundation
-print(Date.now)
-""")
-  
+#Preview{
+  let codeBlock = CodeBlock(
+    language: "swift: Sample.swift",
+    """
+    import Foundation
+    print(Date.now)
+    """)
+
   let document = Document([codeBlock])
-    
+
   return MarkdownView(document: document)
 }
 
-#Preview {
-  let document = Document(parsing: """
+#Preview{
+  let document = Document(
+    parsing: """
 ```swift: Sample.swift
 import Foundation
 print(Date.now)
 ```
 """)
-  
+
   return MarkdownView(document: document)
 }

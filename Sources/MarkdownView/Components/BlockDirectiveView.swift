@@ -2,15 +2,15 @@
 //  BlockDirectiveView.swift
 //
 
-import SwiftUI
 import MarkdownViewParser
+import SwiftUI
 
 public struct BlockDirectiveView: View {
   public let name: String
   public let arguments: [Substring]
   public let children: [MarkupContent]
   public let listDepth: Int
-  
+
   public init(
     name: String,
     arguments: [Substring],
@@ -22,7 +22,7 @@ public struct BlockDirectiveView: View {
     self.children = children
     self.listDepth = listDepth
   }
-  
+
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       SwiftUI.Text("@\(name)(\(arguments.joined())) {")

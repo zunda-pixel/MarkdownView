@@ -25,7 +25,7 @@ public struct MarkdownView: View {
   }
 }
 
-#Preview {
+#Preview{
   let source = """
 # Title1
 
@@ -78,9 +78,10 @@ print("hello")
    - First nested list item
      - Second nested list item
 """
-  
-  let document = Document(parsing: source, options: [.parseBlockDirectives, .parseMinimalDoxygen, .parseSymbolLinks])
-  
+
+  let document = Document(
+    parsing: source, options: [.parseBlockDirectives, .parseMinimalDoxygen, .parseSymbolLinks])
+
   return ScrollView {
     LazyVStack(alignment: .leading, spacing: 10) {
       MarkdownView(document: document)
