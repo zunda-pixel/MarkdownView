@@ -105,11 +105,11 @@ public struct CodeBlockView: View {
 #Preview{
   let document = Document(
     parsing: """
-      ```swift: Sample.swift
-      import Foundation
-      print(Date.now)
-      ```
-      """)
+```swift: Sample.swift
+import Foundation
+print(Date.now)
+```
+""")
 
   return MarkdownView(document: document)
 }

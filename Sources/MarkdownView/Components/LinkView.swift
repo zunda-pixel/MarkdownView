@@ -46,10 +46,7 @@ public struct LinkView: View {
 }
 
 #Preview{
-  let document = Document(
-    parsing: """
-      [Apple Link](https://apple.com)
-      """)
+  let document = Document(parsing: "[Apple Link](https://apple.com)")
 
   return MarkdownView(document: document)
 }

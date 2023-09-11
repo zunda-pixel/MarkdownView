@@ -27,56 +27,56 @@ public struct MarkdownView: View {
 
 #Preview{
   let source = """
-    # Title1
+# Title1
 
-    Content1
+Content1
 
-    ## Title2
+## Title2
 
-    ### Title3
+### Title3
 
-    #### Title4
+#### Title4
 
-    ##### Title5
+##### Title5
 
-    *italic*
-    **bold**
-    ~~strikethrough~~
-    `code`
+*italic*
+**bold**
+~~strikethrough~~
+`code`
 
-    > Text that is a `quote`
-    > Text that is a `quote`
+> Text that is a `quote`
+> Text that is a `quote`
 
-    > Tip: Tip Description
-    > Tip Description
+> Tip: Tip Description
+> Tip Description
 
-    > Attention: Attention Description
-    > Attention Description
+> Attention: Attention Description
+> Attention Description
 
-    ```swift: Sample.swift
-    import Foundation
+```swift: Sample.swift
+import Foundation
 
-    print("hello")
-    ```
+print("hello")
+```
 
-    ![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png)
+![GitHub Logo](https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png)
 
 
-    | Head | Head | Head |
-    | ---- | ---- | ---- |
-    | Text | Text | Text |
-    | Text | Text | Text |
+| Head | Head | Head |
+| ---- | ---- | ---- |
+| Text | Text | Text |
+| Text | Text | Text |
 
-    1. First list item
-    23. Second list item
-    34. Third list item
+1. First list item
+23. Second list item
+34. Third list item
 
-    - First nested list item
-    - Second nested list item
+- First nested list item
+- Second nested list item
 
-    1. First list item
-       - First nested list item
-         - Second nested list item
+1. First list item
+   - First nested list item
+     - Second nested list item
 """
 
   let document = Document(

@@ -86,12 +86,12 @@ extension View {
 #Preview{
   let document = Document(
     parsing: """
-      # Title1[Apple Link](https://apple.com)`code`*italic*
-      ## Title2
-      ### Title3
-      #### Title4
-      ##### Title5
-      """)
+# Title1 [Apple Link](https://apple.com) `code` *italic*
+## Title2
+### Title3
+#### Title4
+##### Title5
+""")
 
   return VStack {
     MarkdownView(document: document)
