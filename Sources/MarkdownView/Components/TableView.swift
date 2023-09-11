@@ -6,7 +6,7 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-public struct TableView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
+public struct TableView: View {
   public let headItems: [InlineMarkupContent]
   public let bodyItems: [[[InlineMarkupContent]]]
   public let horizontalSpacing: CGFloat = 10
@@ -24,7 +24,7 @@ public struct TableView<InlineMarkupContentView: InlineMarkupContentViewProtocol
     Grid(verticalSpacing: verticalSpacing) {
       GridRow {
         ForEach(headItems.indexed(), id: \.index) { index, item in
-          InlineMarkupContentView(content: item)
+          MultiInlineMarkupContentView(inlineContents: [item])
             .if(index == 0) {
               $0.padding(.leading, horizontalSpacing)
             }
@@ -42,11 +42,7 @@ public struct TableView<InlineMarkupContentView: InlineMarkupContentViewProtocol
       ForEach(bodyItems.indexed(), id: \.index) { index, items in
         GridRow {
           ForEach(items.indexed(), id: \.index) { index, items in
-            HStack(alignment: .center, spacing: 0) {
-              ForEach(items.indexed(), id: \.index) { _, item in
-                InlineMarkupContentView(content: item)
-              }
-            }
+            MultiInlineMarkupContentView(inlineContents: items)
             .if(index == 0) {
               $0.padding(.leading, horizontalSpacing)
             }
@@ -80,7 +76,7 @@ private extension View {
 }
 
 #Preview {
-  TableView<InlineMarkupContentView>(
+  TableView(
     headItems: [
       .text(text: "Head1"),
       .text(text: "Head2"),

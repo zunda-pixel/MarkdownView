@@ -74,12 +74,6 @@ public struct CodeBlockView: View {
   }
 }
 
-private extension Array {
-  subscript(safe index: Index) -> Element? {
-    return indices.contains(index) ? self[index] : nil
-  }
-}
-
 #Preview {
   CodeBlockView(language: "swift: Sample.swift", sourceCode: """
 import Foundation

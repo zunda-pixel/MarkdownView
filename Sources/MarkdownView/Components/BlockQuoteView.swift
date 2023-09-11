@@ -4,19 +4,20 @@
 
 import SwiftUI
 import MarkdownViewParser
+import Markdown
 
-public struct BlockQuoteView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
-  public let kind: BlockQuoteKind
-  public let blockChildren: [[MarkupContent]]
+public struct BlockQuoteView: View {
+  public let kind: Aside.Kind
+  public let children: [MarkupContent]
   public let listDepth: Int
   
   public init(
-    kind: BlockQuoteKind,
-    blockChildren: [[MarkupContent]],
+    kind: Aside.Kind,
+    children: [MarkupContent],
     listDepth: Int
   ) {
     self.kind = kind
-    self.blockChildren = blockChildren
+    self.children = children
     self.listDepth = listDepth
   }
   
@@ -32,16 +33,9 @@ public struct BlockQuoteView<InlineMarkupContentView: InlineMarkupContentViewPro
             .foregroundStyle(label.2)
         }
         
-        ForEach(blockChildren.indexed(), id: \.index) { _, blockChild in
-          ForEach(blockChild.split(separator: .softBreak).indexed(), id: \.index) { _, children in
-            // TODO HStackでは長文に対応できない
-            HStack(alignment: .center, spacing: 0) {
-              ForEach(children.indexed(), id: \.index) { _, child in
-                MarkupContentView<InlineMarkupContentView>(content: child, listDepth: listDepth, isNested: true)
-              }
-            }
+        ForEach(children.indexed(), id: \.index) { _, child in
+          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
             .frame(maxWidth: .infinity, alignment: .leading)
-          }
         }
       }
       .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,7 +44,7 @@ public struct BlockQuoteView<InlineMarkupContentView: InlineMarkupContentViewPro
   }
 }
 
-private extension BlockQuoteKind {
+private extension Aside.Kind {
   var label: (String, String, Color)? {
     switch self {
     case .note: return nil
@@ -73,10 +67,11 @@ private extension BlockQuoteKind {
     case .remark: return ("Remark", "quote.bubble", .gray)
     case .requires: return ("Requires", "arrow.right.to.line.alt", .green)
     case .since: return ("Since", "clock", .green)
-    case .toDo: return ("ToDo", "checkmark.circle", .green)
+    case .todo: return ("ToDo", "checkmark.circle", .green)
     case .version: return ("Version", "square.and.arrow.up", .blue)
     case .throws: return ("Throws", "exclamationmark.octagon", .orange)
     case .seeAlso: return ("See Also", "arrow.right.doc.on.clipboard", .blue)
+    default: return nil
     }
   }
 }
@@ -84,13 +79,11 @@ private extension BlockQuoteKind {
 #Preview {
   ScrollView {
     VStack(spacing: 10) {
-      ForEach(BlockQuoteKind.allCases, id: \.self) { kind in
-        let content = MarkupContent.blockQuote(kind: kind, children: [
-          [
-            .text(text: kind.rawValue)
-          ],
+      ForEach(Aside.Kind.allCases, id: \.self) { kind in
+        let blockQuote: MarkupContent = .blockQuote(kind: kind, children: [
+          .text(text: kind.rawValue),
         ])
-        MarkupContentView<InlineMarkupContentView>(content: content, listDepth: 0, isNested: false)
+        MarkupContentView(content: blockQuote, listDepth: 0, isNested: false)
       }
     }
     .padding(10)

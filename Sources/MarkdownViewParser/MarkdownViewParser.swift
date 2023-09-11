@@ -48,7 +48,7 @@ public enum MarkdownViewParser {
     case let inlineCode as Markdown.InlineCode:
       return .inlineCode(code: inlineCode.code)
     default:
-      return .unknown(plainText: markup.format())
+      fatalError()
     }
   }
 
@@ -87,11 +87,10 @@ public enum MarkdownViewParser {
       return .heading(level: heading.level, children: Array(children))
     case let blockQuote as Markdown.BlockQuote:
       let aside = Aside(blockQuote)
-      let kind: BlockQuoteKind = .init(kind: aside.kind)
-      let children = aside.content.map { blockChild in
-        blockChild.children.map { markupContent(markup: $0) }
+      let children = aside.content.map { child in
+        markupContent(markup: child)
       }
-      return .blockQuote(kind: kind, children: children)
+      return .blockQuote(kind: aside.kind, children: children)
     case let paragraph as Markdown.Paragraph:
       let children = paragraph.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .paragraph(children: Array(children))
@@ -106,7 +105,7 @@ public enum MarkdownViewParser {
         }
         return ListItemContent(checkbox: item.checkbox, children: children)
       }
-      return .orderedList(items: Array(items))
+      return .orderedList(startIndex: orderedList.startIndex, items: Array(items))
     case let unorderedList as Markdown.UnorderedList:
       let items = unorderedList.listItems.map { item in
         let children = item.children.map { markupContent(markup: $0) }
@@ -145,7 +144,7 @@ public enum MarkdownViewParser {
     case let htmlBlock as Markdown.HTMLBlock:
       return .htmlBlock(text: htmlBlock.rawHTML)
     default:
-      return .unknown(plainText: markup.format())
+      fatalError()
     }
   }
 }

@@ -5,7 +5,7 @@
 import SwiftUI
 import MarkdownViewParser
 
-public struct UnorderedListView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
+public struct UnorderedListView: View {
   public let items: [ListItemContent]
   public let listDepth: Int
   public let unOrderedMark: [Int: String]
@@ -25,7 +25,7 @@ public struct UnorderedListView<InlineMarkupContentView: InlineMarkupContentView
       ForEach(items.indexed(), id: \.index) { _, item in
         VStack(alignment: .leading, spacing: 5) {
           ForEach(item.children.indexed(), id: \.index) { _, child in
-            HStack(alignment: .center, spacing: 5) {
+            HStack(alignment: .top, spacing: 5) {
               if case .unorderedList(_) = child {
                 Spacer().frame(width: 10)
               } else {
@@ -35,8 +35,9 @@ public struct UnorderedListView<InlineMarkupContentView: InlineMarkupContentView
                   SwiftUI.Text(unOrderedMark[listDepth] ?? unOrderedMark[unOrderedMark.count - 1]!)
                 }
               }
-
-              MarkupContentView<InlineMarkupContentView>(content: child, listDepth: listDepth + 1, isNested: true)
+              VStack(alignment: .leading) {
+                MarkupContentView(content: child, listDepth: listDepth + 1, isNested: true)
+              }
             }
           }
         }

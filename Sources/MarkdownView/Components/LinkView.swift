@@ -6,7 +6,7 @@ import SwiftUI
 import MarkdownViewParser
 import Markdown
 
-public struct LinkView<InlineMarkupContentView: InlineMarkupContentViewProtocol>: View {
+public struct LinkView: View {
   let destination: String?
   let children: [InlineMarkupContent]
   
@@ -23,24 +23,16 @@ public struct LinkView<InlineMarkupContentView: InlineMarkupContentViewProtocol>
        let url = URL(string: destination)
     {
       SwiftUI.Link(destination: url) {
-        FlowLayout {
-          ForEach(children.indexed(), id: \.index) { _, content in
-            InlineMarkupContentView(content: content)
-          }
-        }
+        MultiInlineMarkupContentView(inlineContents: children)
       }
     } else {
-      FlowLayout {
-        ForEach(children.indexed(), id: \.index) { _, content in
-          InlineMarkupContentView(content: content)
-        }
-      }
+      MultiInlineMarkupContentView(inlineContents: children)
     }
   }
 }
 
 #Preview {
-  LinkView<InlineMarkupContentView>(destination: "https://apple.com", children: [
+  LinkView(destination: "https://apple.com", children: [
     .text(text: "Apple Link")
   ])
 }
