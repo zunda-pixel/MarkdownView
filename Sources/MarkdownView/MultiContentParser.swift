@@ -49,13 +49,13 @@ public enum MultiContentParser {
         multiContents.append(contentsOf: contents)
       case .inlineCode(let code):
         var container = container
-        container.backgroundColor = .gray // TODO Fix Color
+        container.backgroundColor = .code
         let attributedString = AttributedString(code, attributes: container)
         multiContents.append(.attributedString(attributedString))
       case .symbolLink(let destination):
         if let destination {
           var container = container
-          container.backgroundColor = .gray // TODO Fix Color
+          container.backgroundColor = .symbolLink
           let attributedString = AttributedString(destination, attributes: container)
           multiContents.append(.attributedString(attributedString))
         }
