@@ -59,10 +59,10 @@ struct MultiInlineMarkupContentView: View {
         case .inlineHTML(let html, let link):
           if let link {
             SwiftUI.Link(destination: link) {
-              Text(html)
+              HTMLView(html: html)
             }
           } else {
-            Text(html)
+            HTMLView(html: html)
           }
         }
       }

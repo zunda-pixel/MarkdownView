@@ -54,8 +54,8 @@ public struct MarkupContentView: View {
       }
     case .blockDirective(let name, let arguments, let children):
       BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
-    case .htmlBlock(let text):
-      SwiftUI.Text(text)
+    case .htmlBlock(let html):
+      HTMLView(html: html)
     case .codeBlock(let language, let sourceCode):
       CodeBlockView(language: language, sourceCode: sourceCode)
     case .link(let destination, let children):
