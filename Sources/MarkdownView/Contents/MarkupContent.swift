@@ -11,7 +11,7 @@ public enum MarkupContent: Hashable, Sendable {
   case link(destination: String?, children: [InlineMarkupContent])
   case heading(level: Int, children: [InlineMarkupContent])
   case paragraph(children: [InlineMarkupContent])
-  case blockQuote(kind:Aside.Kind, children: [MarkupContent])
+  case blockQuote(kind: Aside.Kind, children: [MarkupContent])
   case softBreak
   case orderedList(startIndex: UInt, items: [ListItemContent])
   case unorderedList(items: [ListItemContent])

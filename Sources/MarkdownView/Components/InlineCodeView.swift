@@ -10,7 +10,7 @@ struct InlineCodeView: View {
   public init(code: String) {
     self.code = code
   }
-  
+
   public var body: some View {
     Text(code)
       .padding(.vertical, 2)
@@ -22,6 +22,6 @@ struct InlineCodeView: View {
   }
 }
 
-#Preview {
+#Preview{
   InlineCodeView(code: "Hello,, World!")
 }

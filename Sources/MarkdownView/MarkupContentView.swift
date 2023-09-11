@@ -69,7 +69,7 @@ public struct MarkupContentView: View {
     case .orderedList(let startIndex, let items):
       OrderedListView(startIndex: startIndex, items: items, listDepth: listDepth)
     case .unorderedList(let items):
-      UnorderedListView(items: items,  listDepth: listDepth)
+      UnorderedListView(items: items, listDepth: listDepth)
     case .table(let head, let body):
       TableView(headItems: head, bodyItems: body)
     case .softBreak:

@@ -7,7 +7,7 @@ import SwiftUI
 public struct HTMLView: View {
   public let html: String
   public let failure: (String) -> AttributedString
-  
+
   public init(
     html: String,
     failure: @escaping (String) -> AttributedString = { AttributedString($0) }
@@ -15,7 +15,7 @@ public struct HTMLView: View {
     self.html = html
     self.failure = failure
   }
-  
+
   var attributedString: AttributedString {
     let data = Data(html.utf8)
 
@@ -29,20 +29,20 @@ public struct HTMLView: View {
 
     return attributedString
   }
-  
+
   public var body: some View {
     Text(attributedString)
   }
 }
 
-#Preview {
+#Preview{
   let html = """
-  <html>
-  <body>
-  <h1>Hello, world!</h1>
-  </body>
-  </html>
-  """
-  
+    <html>
+    <body>
+    <h1>Hello, world!</h1>
+    </body>
+    </html>
+    """
+
   return HTMLView(html: html)
 }

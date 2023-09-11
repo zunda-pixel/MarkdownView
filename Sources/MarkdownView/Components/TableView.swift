@@ -2,16 +2,16 @@
 //  TableView.swift
 //
 
-import SwiftUI
-import MarkdownViewParser
 import Markdown
+import MarkdownViewParser
+import SwiftUI
 
 public struct TableView: View {
   public let headItems: [InlineMarkupContent]
   public let bodyItems: [[[InlineMarkupContent]]]
   public let horizontalSpacing: CGFloat = 10
   public let verticalSpacing: CGFloat = 8
-  
+
   public init(
     headItems: [InlineMarkupContent],
     bodyItems: [[[InlineMarkupContent]]]
@@ -19,7 +19,7 @@ public struct TableView: View {
     self.headItems = headItems
     self.bodyItems = bodyItems
   }
-  
+
   public var body: some View {
     Grid(verticalSpacing: verticalSpacing) {
       GridRow {
@@ -43,15 +43,15 @@ public struct TableView: View {
         GridRow {
           ForEach(items.indexed(), id: \.index) { index, items in
             MultiInlineMarkupContentView(inlineContents: items)
-            .if(index == 0) {
-              $0.padding(.leading, horizontalSpacing)
-            }
-            .if(index == headItems.count - 1) {
-              $0.padding(.trailing, horizontalSpacing)
-            }
+              .if(index == 0) {
+                $0.padding(.leading, horizontalSpacing)
+              }
+              .if(index == headItems.count - 1) {
+                $0.padding(.trailing, horizontalSpacing)
+              }
           }
         }
-        
+
         if index < bodyItems.count - 1 {
           Divider()
             .gridCellUnsizedAxes(.horizontal)
@@ -64,9 +64,11 @@ public struct TableView: View {
   }
 }
 
-private extension View {
+extension View {
   @ViewBuilder
-  func `if`<Content: View>(_ condition: Bool, @ViewBuilder content: (Self) -> Content) -> some View {
+  fileprivate func `if`<Content: View>(_ condition: Bool, @ViewBuilder content: (Self) -> Content)
+    -> some View
+  {
     if condition {
       content(self)
     } else {
@@ -75,7 +77,7 @@ private extension View {
   }
 }
 
-#Preview {
+#Preview{
   TableView(
     headItems: [
       .text(text: "Head1"),
@@ -84,21 +86,21 @@ private extension View {
     ],
     bodyItems: [
       [
-        [.text(text: "Body1"),],
-        [.text(text: "Body2"),],
-        [.text(text: "Body3"),],
+        [.text(text: "Body1")],
+        [.text(text: "Body2")],
+        [.text(text: "Body3")],
       ],
       [
-        [.text(text: "Body4"),],
-        [.text(text: "Body5"),],
-        [.text(text: "Body6"),],
+        [.text(text: "Body4")],
+        [.text(text: "Body5")],
+        [.text(text: "Body6")],
       ],
     ]
   )
   .padding(10)
 }
 
-#Preview {
+#Preview{
   let table = Markdown.Table(
     header: .init([
       Markdown.Table.Cell([Markdown.Text("Head1")]),
@@ -118,21 +120,21 @@ private extension View {
       ]),
     ])
   )
-  
+
   let document = Document([table])
-    
+
   return MarkdownView(document: document).padding(10)
 }
 
-#Preview {
-  let document = Document(parsing: """
-| Head1 | Head2 | Head3 |
-| ----- | ----- | ----- |
-| Body1 | Body2 | Body3 |
-| Body4 | Body5 | Body6 |
-| Body7 | Body8 | Body9 |
-""")
+#Preview{
+  let document = Document(
+    parsing: """
+      | Head1 | Head2 | Head3 |
+      | ----- | ----- | ----- |
+      | Body1 | Body2 | Body3 |
+      | Body4 | Body5 | Body6 |
+      | Body7 | Body8 | Body9 |
+      """)
 
   return MarkdownView(document: document).padding(50)
 }
-
