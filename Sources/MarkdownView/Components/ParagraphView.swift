@@ -3,7 +3,6 @@
 //
 
 import Algorithms
-import MarkdownViewParser
 import SwiftUI
 
 public struct ParagraphView: View {

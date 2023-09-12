@@ -3,7 +3,6 @@
 //
 
 import Markdown
-import MarkdownViewParser
 import SwiftUI
 
 public struct OrderedListView: View {
@@ -102,13 +101,14 @@ public struct OrderedListView: View {
    - First nested list item
      - Second nested list item
      - Second nested list item
-
 1. Item1
 1. Item2
 1. Item4
 """)
 
-  return List {
-    MarkdownView(document: document)
+  return ScrollView {
+    LazyVStack(alignment: .leading, spacing: 10) {
+      MarkdownView(document: document)
+    }
   }
 }

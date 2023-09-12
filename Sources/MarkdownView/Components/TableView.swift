@@ -3,7 +3,6 @@
 //
 
 import Markdown
-import MarkdownViewParser
 import SwiftUI
 
 public struct TableView: View {

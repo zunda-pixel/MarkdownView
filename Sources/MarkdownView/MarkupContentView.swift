@@ -3,7 +3,6 @@
 //
 
 import Algorithms
-import MarkdownViewParser
 import SwiftUI
 
 public struct MarkupContentView: View {
@@ -39,19 +38,9 @@ public struct MarkupContentView: View {
       MultiInlineMarkupContentView(inlineContents: children)
         .italic()
     case .doxygenParameter(let name, let children):
-      FlowLayout {
-        SwiftUI.Text("\\param \(name)")
-        ForEach(children.indexed(), id: \.index) { _, child in
-          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
-        }
-      }
+      DoxygenParameterView(name: name, children: children, listDepth: listDepth)
     case .doxygenReturns(let children):
-      FlowLayout {
-        SwiftUI.Text("\\returns")
-        ForEach(children.indexed(), id: \.index) { _, child in
-          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
-        }
-      }
+      DoxygenReturnsView(children: children, listDepth: listDepth)
     case .blockDirective(let name, let arguments, let children):
       BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
     case .htmlBlock(let html):

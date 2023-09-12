@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import MarkdownViewParser
 
 public enum MultiContent {
   case attributedString(AttributedString)

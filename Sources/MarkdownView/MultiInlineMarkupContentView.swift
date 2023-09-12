@@ -2,7 +2,6 @@
 //  MultiInlineMarkupContentView.swift
 //
 
-import MarkdownViewParser
 import SwiftUI
 
 struct MultiInlineMarkupContentView: View {
