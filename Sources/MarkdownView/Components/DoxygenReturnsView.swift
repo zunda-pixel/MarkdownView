@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import Markdown
 
 public struct DoxygenReturnsView: View {
   public let children: [MarkupContent]
@@ -15,13 +16,27 @@ public struct DoxygenReturnsView: View {
     self.children = children
     self.listDepth = listDepth
   }
-  
+
   public var body: some View {
-    FlowLayout {
-      SwiftUI.Text("\\returns")
-      ForEach(children.indexed(), id: \.index) { _, child in
-        MarkupContentView(content: child, listDepth: listDepth, isNested: true)
-      }
+    ForEach(children.indexed(), id: \.index) { _, child in
+      MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+    }
+  }
+}
+
+#Preview{
+  let source = """
+\\returns A freshly-created object.
+"""
+
+  let document = Document(
+    parsing: source,
+    options: [.parseBlockDirectives, .parseMinimalDoxygen]
+  )
+  
+  return ScrollView {
+    LazyVStack(alignment: .leading) {
+      MarkdownView(document: document)
     }
   }
 }

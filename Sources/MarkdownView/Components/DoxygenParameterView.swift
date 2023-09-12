@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import Markdown
 
 public struct DoxygenParameterView: View {
   public let name: String
@@ -18,13 +19,32 @@ public struct DoxygenParameterView: View {
     self.children = children
     self.listDepth = listDepth
   }
-  
+
   public var body: some View {
-    FlowLayout {
-      SwiftUI.Text("\\param \(name)")
+    VStack(alignment: .leading, spacing: 0) {
+      Text(name)
+        .bold()
       ForEach(children.indexed(), id: \.index) { _, child in
         MarkupContentView(content: child, listDepth: listDepth, isNested: true)
       }
+    }
+  }
+}
+
+#Preview{
+  let source = """
+\\param coordinate The coordinate used to center the transformation.
+\\param matrix The transformation matrix that describes the transformation.
+"""
+
+  let document = Document(
+    parsing: source,
+    options: [.parseBlockDirectives, .parseMinimalDoxygen]
+  )
+  
+  return ScrollView {
+    LazyVStack(alignment: .leading) {
+      MarkdownView(document: document)
     }
   }
 }
