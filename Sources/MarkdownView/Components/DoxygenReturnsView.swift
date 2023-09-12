@@ -19,7 +19,7 @@ public struct DoxygenReturnsView: View {
 
   public var body: some View {
     ForEach(children.indexed(), id: \.index) { _, child in
-      MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+      MarkupContentView(content: child, listDepth: listDepth)
     }
   }
 }

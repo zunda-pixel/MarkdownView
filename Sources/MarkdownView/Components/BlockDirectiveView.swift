@@ -29,7 +29,7 @@ public struct BlockDirectiveView: View {
       ForEach(children.indexed(), id: \.index) { _, child in
         HStack(alignment: .center, spacing: 0) {
           Spacer().frame(maxWidth: 10)
-          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+          MarkupContentView(content: child, listDepth: listDepth)
         }
       }
       SwiftUI.Text("}")

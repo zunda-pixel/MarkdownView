@@ -8,16 +8,13 @@ import SwiftUI
 public struct MarkupContentView: View {
   public let content: MarkupContent
   public let listDepth: Int
-  public let isNested: Bool
 
   public init(
     content: MarkupContent,
-    listDepth: Int,
-    isNested: Bool
+    listDepth: Int
   ) {
     self.content = content
     self.listDepth = listDepth
-    self.isNested = isNested
   }
 
   public var body: some View {
@@ -52,7 +49,7 @@ public struct MarkupContentView: View {
     case .heading(let level, let children):
       HeadingView(level: level, children: children)
     case .paragraph(let children):
-      ParagraphView(children: children, isNested: isNested)
+      MultiInlineMarkupContentView(inlineContents: children)
     case .blockQuote(let kind, let children):
       BlockQuoteView(kind: kind, children: children, listDepth: listDepth)
     case .orderedList(let startIndex, let items):

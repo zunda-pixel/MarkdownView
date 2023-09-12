@@ -19,7 +19,7 @@ public struct MarkdownView: View {
 
   public var body: some View {
     ForEach(contents.indexed(), id: \.index) { _, content in
-      MarkupContentView(content: content, listDepth: 0, isNested: false)
+      MarkupContentView(content: content, listDepth: 0)
     }
   }
 }

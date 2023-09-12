@@ -33,7 +33,7 @@ public struct BlockQuoteView: View {
         }
 
         ForEach(children.indexed(), id: \.index) { _, child in
-          MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+          MarkupContentView(content: child, listDepth: listDepth)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
       }
@@ -86,7 +86,7 @@ extension Aside.Kind {
           children: [
             .text(text: kind.rawValue)
           ])
-        MarkupContentView(content: blockQuote, listDepth: 0, isNested: false)
+        MarkupContentView(content: blockQuote, listDepth: 0)
       }
     }
     .padding(10)
