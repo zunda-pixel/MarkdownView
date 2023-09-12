@@ -1,10 +1,10 @@
 //
-//  MultiInlineMarkupContentView.swift
+//  InlineMarkupContentView.swift
 //
 
 import SwiftUI
 
-struct MultiInlineMarkupContentView: View {
+struct InlineMarkupContentView: View {
   @Environment(\.font) var font
 
   let inlineContents: [InlineMarkupContent]
@@ -18,7 +18,8 @@ struct MultiInlineMarkupContentView: View {
 
     return contents.map { content in
       let multiContents = MultiContentParser.multiContents(
-        contents: Array(content), container: container
+        contents: content,
+        container: container
       ) { _, container in return container }
       let compressedMultiContents = MultiContentParser.compressMultiContents(
         multiContents: multiContents)

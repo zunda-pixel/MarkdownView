@@ -23,7 +23,7 @@ public struct TableView: View {
     Grid(verticalSpacing: verticalSpacing) {
       GridRow {
         ForEach(headItems.indexed(), id: \.index) { index, item in
-          MultiInlineMarkupContentView(inlineContents: [item])
+          InlineMarkupContentView(inlineContents: [item])
             .if(index == 0) {
               $0.padding(.leading, horizontalSpacing)
             }
@@ -41,7 +41,7 @@ public struct TableView: View {
       ForEach(bodyItems.indexed(), id: \.index) { index, items in
         GridRow {
           ForEach(items.indexed(), id: \.index) { index, items in
-            MultiInlineMarkupContentView(inlineContents: items)
+            InlineMarkupContentView(inlineContents: items)
               .if(index == 0) {
                 $0.padding(.leading, horizontalSpacing)
               }

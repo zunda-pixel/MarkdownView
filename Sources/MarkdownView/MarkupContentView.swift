@@ -26,13 +26,13 @@ public struct MarkupContentView: View {
     case .inlineCode(let code):
       InlineCodeView(code: code)
     case .strong(let children):
-      MultiInlineMarkupContentView(inlineContents: children)
+      InlineMarkupContentView(inlineContents: children)
         .bold()
     case .strikethrough(let children):
-      MultiInlineMarkupContentView(inlineContents: children)
+      InlineMarkupContentView(inlineContents: children)
         .strikethrough(pattern: .dash, color: .secondary)
     case .emphasis(let children):
-      MultiInlineMarkupContentView(inlineContents: children)
+      InlineMarkupContentView(inlineContents: children)
         .italic()
     case .doxygenParameter(let name, let children):
       DoxygenParameterView(name: name, children: children, listDepth: listDepth)
@@ -49,7 +49,7 @@ public struct MarkupContentView: View {
     case .heading(let level, let children):
       HeadingView(level: level, children: children)
     case .paragraph(let children):
-      MultiInlineMarkupContentView(inlineContents: children)
+      InlineMarkupContentView(inlineContents: children)
     case .blockQuote(let kind, let children):
       BlockQuoteView(kind: kind, children: children, listDepth: listDepth)
     case .orderedList(let startIndex, let items):

@@ -22,7 +22,7 @@ public struct HeadingView: View {
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      MultiInlineMarkupContentView(inlineContents: children)
+      InlineMarkupContentView(inlineContents: children)
         .bold()
         .frame(maxWidth: .infinity, alignment: .leading)
 

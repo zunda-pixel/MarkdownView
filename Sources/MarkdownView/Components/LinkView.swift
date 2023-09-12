@@ -22,10 +22,10 @@ public struct LinkView: View {
       let url = URL(string: destination)
     {
       SwiftUI.Link(destination: url) {
-        MultiInlineMarkupContentView(inlineContents: children)
+        InlineMarkupContentView(inlineContents: children)
       }
     } else {
-      MultiInlineMarkupContentView(inlineContents: children)
+      InlineMarkupContentView(inlineContents: children)
     }
   }
 }
