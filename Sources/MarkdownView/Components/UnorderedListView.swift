@@ -6,16 +6,13 @@ import SwiftUI
 
 public struct UnorderedListView: View {
   public let items: [ListItemContent]
-  public let listDepth: Int
   public let unOrderedMark: [Int: String]
 
   public init(
     items: [ListItemContent],
-    listDepth: Int,
     unOrderedMark: [Int: String] = [0: "•", 1: "◦", 2: "▫︎"]
   ) {
     self.items = items
-    self.listDepth = listDepth
     self.unOrderedMark = unOrderedMark
   }
 
@@ -35,7 +32,7 @@ public struct UnorderedListView: View {
                 }
               }
               VStack(alignment: .leading) {
-                MarkupContentView(content: child, listDepth: listDepth + 1)
+                MarkupContentView(content: child)
               }
             }
           }

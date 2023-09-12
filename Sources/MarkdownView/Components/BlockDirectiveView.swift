@@ -9,18 +9,15 @@ public struct BlockDirectiveView: View {
   public let name: String
   public let arguments: [Substring]
   public let children: [MarkupContent]
-  public let listDepth: Int
 
   public init(
     name: String,
     arguments: [Substring],
-    children: [MarkupContent],
-    listDepth: Int
+    children: [MarkupContent]
   ) {
     self.name = name
     self.arguments = arguments
     self.children = children
-    self.listDepth = listDepth
   }
 
   public var body: some View {
@@ -29,7 +26,7 @@ public struct BlockDirectiveView: View {
       ForEach(children.indexed(), id: \.index) { _, child in
         HStack(alignment: .center, spacing: 0) {
           Spacer().frame(maxWidth: 10)
-          MarkupContentView(content: child, listDepth: listDepth)
+          MarkupContentView(content: child)
         }
       }
       SwiftUI.Text("}")

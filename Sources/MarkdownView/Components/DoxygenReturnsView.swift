@@ -7,19 +7,16 @@ import Markdown
 
 public struct DoxygenReturnsView: View {
   public let children: [MarkupContent]
-  public let listDepth: Int
   
   public init(
-    children: [MarkupContent],
-    listDepth: Int
+    children: [MarkupContent]
   ) {
     self.children = children
-    self.listDepth = listDepth
   }
 
   public var body: some View {
     ForEach(children.indexed(), id: \.index) { _, child in
-      MarkupContentView(content: child, listDepth: listDepth)
+      MarkupContentView(content: child)
     }
   }
 }

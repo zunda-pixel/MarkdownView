@@ -7,14 +7,11 @@ import SwiftUI
 
 public struct MarkupContentView: View {
   public let content: MarkupContent
-  public let listDepth: Int
 
   public init(
-    content: MarkupContent,
-    listDepth: Int
+    content: MarkupContent
   ) {
     self.content = content
-    self.listDepth = listDepth
   }
 
   public var body: some View {
@@ -35,11 +32,11 @@ public struct MarkupContentView: View {
       InlineMarkupContentView(inlineContents: children)
         .italic()
     case .doxygenParameter(let name, let children):
-      DoxygenParameterView(name: name, children: children, listDepth: listDepth)
+      DoxygenParameterView(name: name, children: children)
     case .doxygenReturns(let children):
-      DoxygenReturnsView(children: children, listDepth: listDepth)
+      DoxygenReturnsView(children: children)
     case .blockDirective(let name, let arguments, let children):
-      BlockDirectiveView(name: name, arguments: arguments, children: children, listDepth: listDepth)
+      BlockDirectiveView(name: name, arguments: arguments, children: children)
     case .htmlBlock(let html):
       HTMLView(html: html)
     case .codeBlock(let language, let sourceCode):
@@ -51,11 +48,11 @@ public struct MarkupContentView: View {
     case .paragraph(let children):
       InlineMarkupContentView(inlineContents: children)
     case .blockQuote(let kind, let children):
-      BlockQuoteView(kind: kind, children: children, listDepth: listDepth)
+      BlockQuoteView(kind: kind, children: children)
     case .orderedList(let startIndex, let items):
-      OrderedListView(startIndex: startIndex, items: items, listDepth: listDepth)
+      OrderedListView(startIndex: startIndex, items: items)
     case .unorderedList(let items):
-      UnorderedListView(items: items, listDepth: listDepth)
+      UnorderedListView(items: items)
     case .table(let head, let body):
       TableView(headItems: head, bodyItems: body)
     case .softBreak:

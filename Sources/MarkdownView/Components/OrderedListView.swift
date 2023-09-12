@@ -8,16 +8,13 @@ import SwiftUI
 public struct OrderedListView: View {
   public let startIndex: UInt
   public let items: [ListItemContent]
-  public let listDepth: Int
 
   public init(
     startIndex: UInt,
-    items: [ListItemContent],
-    listDepth: Int
+    items: [ListItemContent]
   ) {
     self.startIndex = startIndex
     self.items = items
-    self.listDepth = listDepth
   }
 
   public var body: some View {
@@ -38,7 +35,7 @@ public struct OrderedListView: View {
             if let child = item.children.first {
               FlowLayout {
                 SwiftUI.Text("\(Int(startIndex) + index).")
-                MarkupContentView(content: child, listDepth: listDepth)
+                MarkupContentView(content: child)
               }
             }
 
@@ -47,7 +44,7 @@ public struct OrderedListView: View {
                 let child = item.children[i]
                 HStack(alignment: .center, spacing: 5) {
                   Spacer().frame(width: 10)
-                  MarkupContentView(content: child, listDepth: listDepth + 1)
+                  MarkupContentView(content: child)
                 }
               }
             }
@@ -56,7 +53,7 @@ public struct OrderedListView: View {
           HStack(alignment: .center, spacing: 5) {
             SwiftUI.Text("\(Int(startIndex) + index).")
             ForEach(item.children.indexed(), id: \.index) { _, child in
-              MarkupContentView(content: child, listDepth: listDepth)
+              MarkupContentView(content: child)
             }
           }
         }
@@ -75,8 +72,7 @@ public struct OrderedListView: View {
         .init(children: [.text(text: "Hello3")]),
         .init(children: [.text(text: "Hello4")]),
         .init(children: [.text(text: "Hello5")]),
-      ],
-      listDepth: 0
+      ]
     )
   }
 }

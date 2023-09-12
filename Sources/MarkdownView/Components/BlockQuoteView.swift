@@ -8,16 +8,13 @@ import SwiftUI
 public struct BlockQuoteView: View {
   public let kind: Aside.Kind
   public let children: [MarkupContent]
-  public let listDepth: Int
 
   public init(
     kind: Aside.Kind,
-    children: [MarkupContent],
-    listDepth: Int
+    children: [MarkupContent]
   ) {
     self.kind = kind
     self.children = children
-    self.listDepth = listDepth
   }
 
   public var body: some View {
@@ -33,7 +30,7 @@ public struct BlockQuoteView: View {
         }
 
         ForEach(children.indexed(), id: \.index) { _, child in
-          MarkupContentView(content: child, listDepth: listDepth)
+          MarkupContentView(content: child)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
       }
@@ -86,7 +83,7 @@ extension Aside.Kind {
           children: [
             .text(text: kind.rawValue)
           ])
-        MarkupContentView(content: blockQuote, listDepth: 0)
+        MarkupContentView(content: blockQuote)
       }
     }
     .padding(10)
