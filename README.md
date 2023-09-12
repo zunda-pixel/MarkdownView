@@ -27,7 +27,7 @@ struct MarkdownView: View {
     ScrollView {
       LazyVStack(alignment: .leading, spacing: 10) {
         ForEach(contents.indexed(), id: \.index) { _, content in
-          MarkupContentView(content: content, listDepth: 0)
+          MarkupContentView(content: content)
         }
       }
     }

@@ -5,17 +5,15 @@
 import SwiftUI
 
 public struct UnorderedListView: View {
+  @Environment(\.listDepth) var listDepth
   public let items: [ListItemContent]
-  public let listDepth: Int
-  public let unOrderedMark: [Int: String]
+  public let unOrderedMark: [UInt: String]
 
   public init(
     items: [ListItemContent],
-    listDepth: Int,
-    unOrderedMark: [Int: String] = [0: "•", 1: "◦", 2: "▫︎"]
+    unOrderedMark: [UInt: String] = [0: "•", 1: "◦", 2: "▫︎"]
   ) {
     self.items = items
-    self.listDepth = listDepth
     self.unOrderedMark = unOrderedMark
   }
 
@@ -31,11 +29,12 @@ public struct UnorderedListView: View {
                 if let checkbox = item.checkbox {
                   Image(systemName: checkbox == .checked ? "checkmark.square" : "square")
                 } else {
-                  SwiftUI.Text(unOrderedMark[listDepth] ?? unOrderedMark[unOrderedMark.count - 1]!)
+                  Text(unOrderedMark[listDepth] ?? unOrderedMark[UInt(unOrderedMark.count - 1)]!)
                 }
               }
               VStack(alignment: .leading) {
-                MarkupContentView(content: child, listDepth: listDepth + 1)
+                MarkupContentView(content: child)
+                  .environment(\.listDepth, listDepth + 1)
               }
             }
           }
