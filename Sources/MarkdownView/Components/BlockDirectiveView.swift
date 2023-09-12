@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import Markdown
 
 public struct BlockDirectiveView: View {
   public let name: String
@@ -24,7 +25,7 @@ public struct BlockDirectiveView: View {
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      SwiftUI.Text("@\(name)(\(arguments.joined())) {")
+      SwiftUI.Text("\(Text("@\(name)").bold())(\(arguments.joined())) {")
       ForEach(children.indexed(), id: \.index) { _, child in
         HStack(alignment: .center, spacing: 0) {
           Spacer().frame(maxWidth: 10)
@@ -32,6 +33,28 @@ public struct BlockDirectiveView: View {
         }
       }
       SwiftUI.Text("}")
+    }
+  }
+}
+
+#Preview {
+  let markdown = """
+@Wrapped(paperStyle: shin) {
+}
+
+
+@Outer {
+  @TwoSpaces {
+      @FourSpaces
+  }
+}
+"""
+  
+  let document = Document(parsing: markdown, options: [.parseBlockDirectives])
+  
+  return ScrollView {
+    LazyVStack(alignment: .leading, spacing: 10) {
+      MarkdownView(document: document)
     }
   }
 }
