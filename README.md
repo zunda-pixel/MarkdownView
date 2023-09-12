@@ -2,7 +2,9 @@
 
 MarkdownView uses [swift-markdown](https://github.com/apple/swift-markdown) as Parser
 
-<img width="343" alt="Markdown Sample" src="https://github.com/zunda-pixel/MarkdownView/assets/47569369/611c1fbb-fd7f-40e5-85d8-256ed25e4be5">
+<img width="644" alt="Markdown Sample" src="https://github.com/zunda-pixel/MarkdownView/assets/47569369/38bd1d7f-ec8d-4380-90ef-dc882375fa59">
+
+
 
 ```swift
 import Algorithms
