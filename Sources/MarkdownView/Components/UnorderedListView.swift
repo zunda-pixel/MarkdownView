@@ -35,7 +35,7 @@ public struct UnorderedListView: View {
                 }
               }
               VStack(alignment: .leading) {
-                MarkupContentView(content: child, listDepth: listDepth + 1, isNested: true)
+                MarkupContentView(content: child, listDepth: listDepth + 1)
               }
             }
           }

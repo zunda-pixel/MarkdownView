@@ -25,7 +25,7 @@ public struct DoxygenParameterView: View {
       Text(name)
         .bold()
       ForEach(children.indexed(), id: \.index) { _, child in
-        MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+        MarkupContentView(content: child, listDepth: listDepth)
       }
     }
   }

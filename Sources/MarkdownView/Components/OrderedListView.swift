@@ -38,7 +38,7 @@ public struct OrderedListView: View {
             if let child = item.children.first {
               FlowLayout {
                 SwiftUI.Text("\(Int(startIndex) + index).")
-                MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+                MarkupContentView(content: child, listDepth: listDepth)
               }
             }
 
@@ -47,7 +47,7 @@ public struct OrderedListView: View {
                 let child = item.children[i]
                 HStack(alignment: .center, spacing: 5) {
                   Spacer().frame(width: 10)
-                  MarkupContentView(content: child, listDepth: listDepth + 1, isNested: true)
+                  MarkupContentView(content: child, listDepth: listDepth + 1)
                 }
               }
             }
@@ -56,7 +56,7 @@ public struct OrderedListView: View {
           HStack(alignment: .center, spacing: 5) {
             SwiftUI.Text("\(Int(startIndex) + index).")
             ForEach(item.children.indexed(), id: \.index) { _, child in
-              MarkupContentView(content: child, listDepth: listDepth, isNested: true)
+              MarkupContentView(content: child, listDepth: listDepth)
             }
           }
         }
