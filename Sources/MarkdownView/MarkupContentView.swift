@@ -49,7 +49,7 @@ public struct MarkupContentView: View {
     case .heading(let level, let children):
       HeadingView(level: level, children: children)
     case .paragraph(let children):
-      ParagraphView(children: children)
+      MultiInlineMarkupContentView(inlineContents: children)
     case .blockQuote(let kind, let children):
       BlockQuoteView(kind: kind, children: children, listDepth: listDepth)
     case .orderedList(let startIndex, let items):
