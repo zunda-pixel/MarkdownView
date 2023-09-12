@@ -8,6 +8,8 @@ import SwiftUI
 public struct OrderedListView: View {
   public let startIndex: UInt
   public let items: [ListItemContent]
+  
+  @Environment(\.listDepth) var listDepth
 
   public init(
     startIndex: UInt,
@@ -45,6 +47,7 @@ public struct OrderedListView: View {
                 HStack(alignment: .center, spacing: 5) {
                   Spacer().frame(width: 10)
                   MarkupContentView(content: child)
+                    .environment(\.listDepth, listDepth + 1)
                 }
               }
             }
