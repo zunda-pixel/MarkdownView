@@ -4,7 +4,6 @@
 
 import Algorithms
 import Markdown
-import MarkdownViewParser
 import SwiftUI
 
 public struct MarkdownView: View {

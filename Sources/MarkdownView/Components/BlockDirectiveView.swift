@@ -2,7 +2,6 @@
 //  BlockDirectiveView.swift
 //
 
-import MarkdownViewParser
 import SwiftUI
 
 public struct BlockDirectiveView: View {

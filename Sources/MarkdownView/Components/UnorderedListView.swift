@@ -2,7 +2,6 @@
 //  UnorderedListView.swift
 //
 
-import MarkdownViewParser
 import SwiftUI
 
 public struct UnorderedListView: View {
