@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-struct InlineCodeView: View {
+public struct InlineCodeView: View {
   public let code: String
 
   public init(code: String) {

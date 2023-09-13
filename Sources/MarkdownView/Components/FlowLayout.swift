@@ -6,11 +6,11 @@ import SwiftUI
 
 /// FlowLayout
 /// https://github.com/apple/sample-food-truck/blob/main/App/General/FlowLayout.swift
-struct FlowLayout: Layout {
-  var alignment: Alignment = .center
-  var spacing: CGFloat?
-
-  func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Void) -> CGSize {
+public struct FlowLayout: Layout {
+  public var alignment: Alignment = .center
+  public var spacing: CGFloat?
+  
+  public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Void) -> CGSize {
     let result = FlowResult(
       in: proposal.replacingUnspecifiedDimensions().width,
       subviews: subviews,
@@ -20,7 +20,7 @@ struct FlowLayout: Layout {
     return result.bounds
   }
 
-  func placeSubviews(
+  public func placeSubviews(
     in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout Void
   ) {
     let result = FlowResult(

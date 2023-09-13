@@ -6,8 +6,8 @@ import Markdown
 import SwiftUI
 
 public struct LinkView: View {
-  let destination: String?
-  let children: [InlineMarkupContent]
+  public let destination: String?
+  public let children: [InlineMarkupContent]
 
   public init(
     destination: String?,

@@ -4,13 +4,25 @@
 
 import SwiftUI
 
-struct CustomRoundedRectangle: Shape {
-  let topLeftRadius: CGFloat
-  let topRightRadius: CGFloat
-  let bottomLeftRadius: CGFloat
-  let bottomRightRadius: CGFloat
+public struct CustomRoundedRectangle: Shape {
+  public let topLeftRadius: CGFloat
+  public let topRightRadius: CGFloat
+  public let bottomLeftRadius: CGFloat
+  public let bottomRightRadius: CGFloat
 
-  func path(in rect: CGRect) -> Path {
+  public init(
+    topLeftRadius: CGFloat,
+    topRightRadius: CGFloat,
+    bottomLeftRadius: CGFloat,
+    bottomRightRadius: CGFloat
+  ) {
+    self.topLeftRadius = topLeftRadius
+    self.topRightRadius = topRightRadius
+    self.bottomLeftRadius = bottomLeftRadius
+    self.bottomRightRadius = bottomRightRadius
+  }
+  
+  public func path(in rect: CGRect) -> Path {
     var path = Path()
 
     let topLeft = rect.origin

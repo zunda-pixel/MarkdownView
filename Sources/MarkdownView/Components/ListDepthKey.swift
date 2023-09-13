@@ -4,11 +4,11 @@
 
 import SwiftUI
 
-struct ListDepthKey: EnvironmentKey {
-  static var defaultValue: UInt = 0
+public struct ListDepthKey: EnvironmentKey {
+  static public var defaultValue: UInt = 0
 }
 
-extension EnvironmentValues {
+public extension EnvironmentValues {
   var listDepth: UInt {
     get { return self[ListDepthKey.self] }
     set { self[ListDepthKey.self] = newValue }
