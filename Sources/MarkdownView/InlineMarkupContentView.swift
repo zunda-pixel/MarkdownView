@@ -4,11 +4,15 @@
 
 import SwiftUI
 
-struct InlineMarkupContentView: View {
+public struct InlineMarkupContentView: View {
   @Environment(\.font) var font
 
-  let inlineContents: [InlineMarkupContent]
+  public let inlineContents: [InlineMarkupContent]
 
+  public init(inlineContents: [InlineMarkupContent]) {
+    self.inlineContents = inlineContents
+  }
+  
   var contents: [[MultiContent]] {
     var container = AttributeContainer()
     container.font = font
@@ -27,7 +31,7 @@ struct InlineMarkupContentView: View {
     }
   }
 
-  var body: some View {
+  public var body: some View {
     ForEach(contents.indexed(), id: \.index) { _, element in
       ForEach(element.indexed(), id: \.index) { _, content in
         switch content {
