@@ -40,7 +40,7 @@ struct MarkdownView: View {
 To use the MarkdownView plugin in a SwiftPM project, add the following line to the dependencies in your Package.swift file:
 
 ```swift
-.package(url: "https://github.com/zunda-pixel/MarkdownView", from: "0.0.3"),
+.package(url: "https://github.com/zunda-pixel/MarkdownView", from: "0.0.4"),
 ```
 Include "MarkdownView" as a dependency for your target:
 
