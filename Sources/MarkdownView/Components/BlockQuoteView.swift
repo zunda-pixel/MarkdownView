@@ -74,7 +74,7 @@ extension Aside.Kind {
   }
 }
 
-#Preview{
+#Preview {
   ScrollView {
     VStack(spacing: 10) {
       ForEach(Aside.Kind.allCases, id: \.self) { kind in

@@ -35,7 +35,7 @@ public struct HTMLView: View {
   }
 }
 
-#Preview{
+#Preview {
   let html = """
     <html>
     <body>

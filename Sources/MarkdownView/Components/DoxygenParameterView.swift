@@ -2,13 +2,13 @@
 //  DoxygenParameterView.swift
 //
 
-import SwiftUI
 import Markdown
+import SwiftUI
 
 public struct DoxygenParameterView: View {
   public let name: String
   public let children: [MarkupContent]
-  
+
   public init(
     name: String,
     children: [MarkupContent]
@@ -28,7 +28,7 @@ public struct DoxygenParameterView: View {
   }
 }
 
-#Preview{
+#Preview {
   let source = """
 \\param coordinate The coordinate used to center the transformation.
 \\param matrix The transformation matrix that describes the transformation.
@@ -38,7 +38,7 @@ public struct DoxygenParameterView: View {
     parsing: source,
     options: [.parseBlockDirectives, .parseMinimalDoxygen]
   )
-  
+
   return ScrollView {
     LazyVStack(alignment: .leading) {
       MarkdownView(document: document)

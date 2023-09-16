@@ -80,7 +80,7 @@ public struct CodeBlockView: View {
   }
 }
 
-#Preview{
+#Preview {
   CodeBlockView(
     language: "swift: Sample.swift",
     sourceCode: """
@@ -89,7 +89,7 @@ public struct CodeBlockView: View {
       """)
 }
 
-#Preview{
+#Preview {
   let codeBlock = CodeBlock(
     language: "swift: Sample.swift",
     """
@@ -102,7 +102,7 @@ public struct CodeBlockView: View {
   return MarkdownView(document: document)
 }
 
-#Preview{
+#Preview {
   let document = Document(
     parsing: """
 ```swift: Sample.swift

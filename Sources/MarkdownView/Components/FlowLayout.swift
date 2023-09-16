@@ -9,8 +9,10 @@ import SwiftUI
 public struct FlowLayout: Layout {
   public var alignment: Alignment = .center
   public var spacing: CGFloat?
-  
-  public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Void) -> CGSize {
+
+  public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout Void)
+    -> CGSize
+  {
     let result = FlowResult(
       in: proposal.replacingUnspecifiedDimensions().width,
       subviews: subviews,

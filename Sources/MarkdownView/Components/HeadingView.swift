@@ -52,7 +52,7 @@ extension View {
   }
 }
 
-#Preview{
+#Preview {
   VStack {
     ForEach(1..<6) { level in
       HeadingView(
@@ -66,7 +66,7 @@ extension View {
   }
 }
 
-#Preview{
+#Preview {
   let document = Document(
     (1..<6).map { i in
       Heading(
@@ -82,7 +82,7 @@ extension View {
   }
 }
 
-#Preview{
+#Preview {
   let document = Document(
     parsing: """
 # Title1 [Apple Link](https://apple.com) `code` *italic*

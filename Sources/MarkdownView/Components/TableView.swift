@@ -76,7 +76,7 @@ extension View {
   }
 }
 
-#Preview{
+#Preview {
   TableView(
     headItems: [
       .text(text: "Head1"),
@@ -99,7 +99,7 @@ extension View {
   .padding(10)
 }
 
-#Preview{
+#Preview {
   let table = Markdown.Table(
     header: .init([
       Markdown.Table.Cell([Markdown.Text("Head1")]),
@@ -125,7 +125,7 @@ extension View {
   return MarkdownView(document: document).padding(10)
 }
 
-#Preview{
+#Preview {
   let document = Document(
     parsing: """
 | Head1 | Head2 | Head3 |

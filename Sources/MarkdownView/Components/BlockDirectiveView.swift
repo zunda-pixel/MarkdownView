@@ -2,8 +2,8 @@
 //  BlockDirectiveView.swift
 //
 
-import SwiftUI
 import Markdown
+import SwiftUI
 
 public struct BlockDirectiveView: View {
   public let name: String
@@ -47,8 +47,9 @@ public struct BlockDirectiveView: View {
 }
 """
   
+
   let document = Document(parsing: markdown, options: [.parseBlockDirectives])
-  
+
   return ScrollView {
     LazyVStack(alignment: .leading, spacing: 10) {
       MarkdownView(document: document)

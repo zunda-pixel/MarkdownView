@@ -30,7 +30,7 @@ public struct LinkView: View {
   }
 }
 
-#Preview{
+#Preview {
   LinkView(
     destination: "https://apple.com",
     children: [
@@ -38,13 +38,13 @@ public struct LinkView: View {
     ])
 }
 
-#Preview{
+#Preview {
   let link = Markdown.Link(destination: "https://apple.com", [Markdown.Text("Apple Link")])
   let document = Markdown.Document([Paragraph(link)])
   return MarkdownView(document: document)
 }
 
-#Preview{
+#Preview {
   let document = Document(parsing: "[Apple Link](https://apple.com)")
 
   return MarkdownView(document: document)

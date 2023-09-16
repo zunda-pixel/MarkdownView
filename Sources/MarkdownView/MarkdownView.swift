@@ -24,7 +24,7 @@ public struct MarkdownView: View {
   }
 }
 
-#Preview{
+#Preview {
   let source = """
 # Title1
 

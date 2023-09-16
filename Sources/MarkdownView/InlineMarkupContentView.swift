@@ -12,7 +12,7 @@ public struct InlineMarkupContentView: View {
   public init(inlineContents: [InlineMarkupContent]) {
     self.inlineContents = inlineContents
   }
-  
+
   var contents: [[MultiContent]] {
     var container = AttributeContainer()
     container.font = font

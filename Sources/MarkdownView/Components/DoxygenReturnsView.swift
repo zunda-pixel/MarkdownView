@@ -2,12 +2,12 @@
 //  DoxygenReturnsView.swift
 //
 
-import SwiftUI
 import Markdown
+import SwiftUI
 
 public struct DoxygenReturnsView: View {
   public let children: [MarkupContent]
-  
+
   public init(
     children: [MarkupContent]
   ) {
@@ -21,7 +21,7 @@ public struct DoxygenReturnsView: View {
   }
 }
 
-#Preview{
+#Preview {
   let source = """
 \\returns A freshly-created object.
 """
@@ -30,7 +30,7 @@ public struct DoxygenReturnsView: View {
     parsing: source,
     options: [.parseBlockDirectives, .parseMinimalDoxygen]
   )
-  
+
   return ScrollView {
     LazyVStack(alignment: .leading) {
       MarkdownView(document: document)

@@ -22,6 +22,6 @@ public struct InlineCodeView: View {
   }
 }
 
-#Preview{
+#Preview {
   InlineCodeView(code: "Hello,, World!")
 }

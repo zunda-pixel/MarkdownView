@@ -21,7 +21,7 @@ public struct CustomRoundedRectangle: Shape {
     self.bottomLeftRadius = bottomLeftRadius
     self.bottomRightRadius = bottomRightRadius
   }
-  
+
   public func path(in rect: CGRect) -> Path {
     var path = Path()
 
@@ -72,7 +72,7 @@ public struct CustomRoundedRectangle: Shape {
   }
 }
 
-#Preview{
+#Preview {
   VStack {
     CustomRoundedRectangle(
       topLeftRadius: 10,

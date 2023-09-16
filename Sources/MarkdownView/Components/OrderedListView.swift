@@ -8,7 +8,7 @@ import SwiftUI
 public struct OrderedListView: View {
   public let startIndex: UInt
   public let items: [ListItemContent]
-  
+
   @Environment(\.listDepth) var listDepth
 
   public init(
@@ -65,7 +65,7 @@ public struct OrderedListView: View {
   }
 }
 
-#Preview{
+#Preview {
   List {
     OrderedListView(
       startIndex: 1,
@@ -80,7 +80,7 @@ public struct OrderedListView: View {
   }
 }
 
-#Preview{
+#Preview {
   let orderedList = OrderedList(
     (1..<6).map { i in
       ListItem(Paragraph([Markdown.Text("Hello\(i)")]))
@@ -93,7 +93,7 @@ public struct OrderedListView: View {
   }
 }
 
-#Preview{
+#Preview {
   let document = Document(
     parsing: """
 1. First list item
