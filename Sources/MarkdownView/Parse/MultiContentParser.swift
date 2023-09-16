@@ -4,7 +4,7 @@
 
 import Foundation
 
-public enum MultiContent {
+public enum MultiContent: Hashable, Sendable {
   case attributedString(AttributedString)
   case image(title: String, source: String?, link: URL?)
   case inlineHTML(html: String, link: URL?)
