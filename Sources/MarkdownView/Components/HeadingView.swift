@@ -59,7 +59,7 @@ extension View {
         level: level,
         children: [
           .text(text: "Title\(level)"),
-          .link(destination: "https://apple.com", children: [.text(text: "Apple Link")]),
+          .link(destination: "https://apple.com", title: "Title", children: [.text(text: "Apple Link")]),
         ]
       )
     }

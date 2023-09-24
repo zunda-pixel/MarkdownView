@@ -41,8 +41,8 @@ func printInlineMarkupContent(content: InlineMarkupContent, depth: Int) {
     print("\(String(repeating: "\t", count: depth * 2))LineBreak")
   case .softBreak:
     print("\(String(repeating: "\t", count: depth * 2))SoftBreak")
-  case .link(let destination, let children):
-    print("\(String(repeating: "\t", count: depth * 2))Link \(destination ?? "")")
+  case .link(let destination, let title, let children):
+    print("\(String(repeating: "\t", count: depth * 2))Link \(destination ?? "") \(title ?? "")")
     for child in children {
       printInlineMarkupContent(content: child, depth: depth + 1)
     }
@@ -91,8 +91,8 @@ func printMarkupContent(content: MarkupContent, depth: Int) {
     print("\(String(repeating: "\t", count: depth * 2))Code Block \(sourceCode)")
   case .text(let text):
     print("\(String(repeating: "\t", count: depth * 2))Text \(text)")
-  case .link(let destination, let children):
-    print("\(String(repeating: "\t", count: depth * 2))Link \(destination ?? "")")
+  case .link(let destination, let title, let children):
+    print("\(String(repeating: "\t", count: depth * 2))Link \(destination ?? "") \(title ?? "")")
     for child in children {
       printInlineMarkupContent(content: child, depth: depth + 1)
     }

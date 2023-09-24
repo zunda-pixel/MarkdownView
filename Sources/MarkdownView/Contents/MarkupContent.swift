@@ -8,7 +8,7 @@ import Markdown
 public enum MarkupContent: Hashable, Sendable {
   case text(text: String)
   case codeBlock(language: String?, sourceCode: String)
-  case link(destination: String?, children: [InlineMarkupContent])
+  case link(destination: String?, title: String?, children: [InlineMarkupContent])
   case heading(level: Int, children: [InlineMarkupContent])
   case paragraph(children: [InlineMarkupContent])
   case blockQuote(kind: Aside.Kind, children: [MarkupContent])
