@@ -38,20 +38,6 @@ public struct HeadingView: View {
   }
 }
 
-extension View {
-  @ViewBuilder
-  fileprivate func ifLet<Value, Content: View>(
-    _ value: Value?,
-    @ViewBuilder content: (Self, Value) -> Content
-  ) -> some View {
-    if let value {
-      content(self, value)
-    } else {
-      self
-    }
-  }
-}
-
 #Preview {
   VStack {
     ForEach(1..<6) { level in
@@ -59,7 +45,7 @@ extension View {
         level: level,
         children: [
           .text(text: "Title\(level)"),
-          .link(destination: "https://apple.com", children: [.text(text: "Apple Link")]),
+          .link(destination: "https://apple.com", title: "Title", children: [.text(text: "Apple Link")]),
         ]
       )
     }

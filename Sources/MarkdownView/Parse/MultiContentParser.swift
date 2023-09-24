@@ -27,28 +27,41 @@ public enum MultiContentParser {
         var container = container
         container.font = .bold(container.font ?? .body)()
         let contents = self.multiContents(
-          contents: children, container: container, customAttribute: customAttribute)
+          contents: children,
+          container: container,
+          customAttribute: customAttribute
+        )
         multiContents.append(contentsOf: contents)
       case .emphasis(let children):
         var container = container
         container.font = .italic(container.font ?? .body)()
         let contents = self.multiContents(
-          contents: children, container: container, customAttribute: customAttribute)
+          contents: children,
+          container: container,
+          customAttribute: customAttribute
+        )
         multiContents.append(contentsOf: contents)
       case .strikethrough(let children):
         var container = container
         container.strikethroughStyle = .single
         let contents = self.multiContents(
-          contents: children, container: container, customAttribute: customAttribute)
+          contents: children,
+          container: container,
+          customAttribute: customAttribute
+        )
         multiContents.append(contentsOf: contents)
-      case .link(let destination, let children):
+      case .link(let destination, let title, let children):
         var container = container
         if let url = destination.map({ URL(string: $0) }) {
           container.link = url
+          container.alternateDescription = title
         }
 
         let contents = self.multiContents(
-          contents: children, container: container, customAttribute: customAttribute)
+          contents: children,
+          container: container,
+          customAttribute: customAttribute
+        )
         multiContents.append(contentsOf: contents)
       case .inlineCode(let code):
         var container = container
@@ -67,7 +80,10 @@ public enum MultiContentParser {
       case .inlineAttributes(let attributes, let children):
         let container = customAttribute(attributes, container)
         let contents = self.multiContents(
-          contents: children, container: container, customAttribute: customAttribute)
+          contents: children,
+          container: container,
+          customAttribute: customAttribute
+        )
         multiContents.append(contentsOf: contents)
       case .softBreak, .lineBreak:
         continue

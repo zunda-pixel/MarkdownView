@@ -7,13 +7,16 @@ import SwiftUI
 
 public struct LinkView: View {
   public let destination: String?
+  public let title: String?
   public let children: [InlineMarkupContent]
 
   public init(
     destination: String?,
+    title: String?,
     children: [InlineMarkupContent]
   ) {
     self.destination = destination
+    self.title = title
     self.children = children
   }
 
@@ -24,8 +27,14 @@ public struct LinkView: View {
       SwiftUI.Link(destination: url) {
         InlineMarkupContentView(inlineContents: children)
       }
+      .ifLet(title) { view, title in
+        view.accessibilityLabel(title)
+      }
     } else {
       InlineMarkupContentView(inlineContents: children)
+        .ifLet(title) { view, title in
+          view.accessibilityLabel(title)
+        }
     }
   }
 }
@@ -33,6 +42,7 @@ public struct LinkView: View {
 #Preview {
   LinkView(
     destination: "https://apple.com",
+    title: "Apple Link Destination",
     children: [
       .text(text: "Apple Link")
     ])

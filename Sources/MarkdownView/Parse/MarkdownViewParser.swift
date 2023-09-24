@@ -33,7 +33,7 @@ public enum MarkdownViewParser {
       return .lineBreak
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }
-      return .link(destination: link.destination, children: Array(children))
+      return .link(destination: link.destination, title: link.title, children: Array(children))
     case let strong as Markdown.Strong:
       let children = strong.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .strong(children: Array(children))
@@ -69,7 +69,7 @@ public enum MarkdownViewParser {
       return .emphasis(children: Array(children))
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }
-      return .link(destination: link.destination, children: Array(children))
+      return .link(destination: link.destination, title: link.title ,children: Array(children))
     case let doxygenParameter as Markdown.DoxygenParameter:
       let children = doxygenParameter.children.map { markupContent(markup: $0) }
       return .doxygenParameter(name: doxygenParameter.name, children: children)

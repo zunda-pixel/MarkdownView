@@ -41,8 +41,8 @@ public struct MarkupContentView: View {
       HTMLView(html: html)
     case .codeBlock(let language, let sourceCode):
       CodeBlockView(language: language, sourceCode: sourceCode)
-    case .link(let destination, let children):
-      LinkView(destination: destination, children: children)
+    case .link(let destination, let title, let children):
+      LinkView(destination: destination, title: title, children: children)
     case .heading(let level, let children):
       HeadingView(level: level, children: children)
     case .paragraph(let children):
