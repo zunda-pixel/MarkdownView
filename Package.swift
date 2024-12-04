@@ -20,8 +20,8 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/zunda-pixel/swift-markdown", branch: "main"), // TODO replace to apple
-    .package(url: "https://github.com/apple/swift-algorithms", .upToNextMajor(from: "1.0.0")),
+    .package(url: "https://github.com/apple/swift-markdown", from: "0.5.0"),
+    .package(url: "https://github.com/apple/swift-algorithms", from: "1.0.0"),
   ],
   targets: [
     .target(

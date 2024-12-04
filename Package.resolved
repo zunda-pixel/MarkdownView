@@ -14,17 +14,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-cmark.git",
       "state" : {
-        "branch" : "gfm",
-        "revision" : "3bc2f3e25df0cecc5dc269f7ccae65d0f386f06a"
+        "revision" : "3ccff77b2dc5b96b77db3da0d68d28068593fa53",
+        "version" : "0.5.0"
       }
     },
     {
       "identity" : "swift-markdown",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/zunda-pixel/swift-markdown",
+      "location" : "https://github.com/apple/swift-markdown",
       "state" : {
-        "branch" : "main",
-        "revision" : "1575af83f6caf5e0706e200a57c6611b72b54a7a"
+        "revision" : "8f79cb175981458a0a27e76cb42fee8e17b1a993",
+        "version" : "0.5.0"
       }
     },
     {
