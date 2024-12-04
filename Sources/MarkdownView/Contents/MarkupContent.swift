@@ -26,3 +26,5 @@ public enum MarkupContent: Hashable, Sendable {
   case strikethrough(children: [InlineMarkupContent])
   case inlineCode(code: String)
 }
+
+extension Aside.Kind: @retroactive @unchecked Sendable, @retroactive Hashable {}
