@@ -5,7 +5,7 @@
 import SwiftUI
 
 public struct ListDepthKey: EnvironmentKey {
-  static public var defaultValue: UInt = 0
+  static public let defaultValue: UInt = 0
 }
 
 extension EnvironmentValues {
