@@ -45,7 +45,8 @@ public struct HeadingView: View {
         level: level,
         children: [
           .text(text: "Title\(level)"),
-          .link(destination: "https://apple.com", title: "Title", children: [.text(text: "Apple Link")]),
+          .link(
+            destination: "https://apple.com", title: "Title", children: [.text(text: "Apple Link")]),
         ]
       )
     }
@@ -71,12 +72,12 @@ public struct HeadingView: View {
 #Preview {
   let document = Document(
     parsing: """
-# Title1 [Apple Link](https://apple.com) `code` *italic*
-## Title2
-### Title3
-#### Title4
-##### Title5
-""")
+      # Title1 [Apple Link](https://apple.com) `code` *italic*
+      ## Title2
+      ### Title3
+      #### Title4
+      ##### Title5
+      """)
 
   return VStack {
     MarkdownView(document: document)

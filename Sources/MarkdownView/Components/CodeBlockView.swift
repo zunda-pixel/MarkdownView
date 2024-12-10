@@ -28,19 +28,21 @@ public struct CodeBlockView: View {
     self.sourceCode = sourceCode
   }
 
-  var copyButton: some View {
-    Button {
-      #if canImport(AppKit)
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(sourceCode, forType: .string)
-      #else
-        UIPasteboard.general.string = sourceCode
-      #endif
-    } label: {
-      Image(systemName: "clipboard")
-        .foregroundStyle(.gray)
+  #if os(iOS) || os(macOS) || os(visionOS)
+    var copyButton: some View {
+      Button {
+        #if os(macOS)
+          NSPasteboard.general.clearContents()
+          NSPasteboard.general.setString(sourceCode, forType: .string)
+        #elseif os(iOS) || os(visionOS)
+          UIPasteboard.general.string = sourceCode
+        #endif
+      } label: {
+        Image(systemName: "clipboard")
+          .foregroundStyle(.gray)
+      }
     }
-  }
+  #endif
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
@@ -72,10 +74,12 @@ public struct CodeBlockView: View {
           )
           .foregroundStyle(.foreground)
         }
-        .overlay(alignment: .topTrailing) {
-          copyButton
+        #if os(iOS) || os(macOS) || os(visionOS)
+          .overlay(alignment: .topTrailing) {
+            copyButton
             .padding(10)
-        }
+          }
+        #endif
     }
   }
 }
@@ -105,11 +109,11 @@ public struct CodeBlockView: View {
 #Preview {
   let document = Document(
     parsing: """
-```swift: Sample.swift
-import Foundation
-print(Date.now)
-```
-""")
+      ```swift: Sample.swift
+      import Foundation
+      print(Date.now)
+      ```
+      """)
 
   return MarkdownView(document: document)
 }

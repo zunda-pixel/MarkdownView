@@ -36,17 +36,16 @@ public struct BlockDirectiveView: View {
 
 #Preview {
   let markdown = """
-@Wrapped(paperStyle: shin) {
-}
+    @Wrapped(paperStyle: shin) {
+    }
 
 
-@Outer {
-  @TwoSpaces {
-      @FourSpaces
-  }
-}
-"""
-  
+    @Outer {
+      @TwoSpaces {
+          @FourSpaces
+      }
+    }
+    """
 
   let document = Document(parsing: markdown, options: [.parseBlockDirectives])
 
