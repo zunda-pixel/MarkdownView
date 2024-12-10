@@ -28,12 +28,13 @@ public struct CodeBlockView: View {
     self.sourceCode = sourceCode
   }
 
+  #if os(iOS) || os(macOS) || os(visionOS)
   var copyButton: some View {
     Button {
-      #if canImport(AppKit)
+      #if os(macOS)
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(sourceCode, forType: .string)
-      #else
+      #elseif os(iOS) || os(visionOS)
         UIPasteboard.general.string = sourceCode
       #endif
     } label: {
@@ -41,6 +42,7 @@ public struct CodeBlockView: View {
         .foregroundStyle(.gray)
     }
   }
+  #endif
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
@@ -72,10 +74,12 @@ public struct CodeBlockView: View {
           )
           .foregroundStyle(.foreground)
         }
+        #if os(iOS) || os(macOS) || os(visionOS)
         .overlay(alignment: .topTrailing) {
           copyButton
             .padding(10)
         }
+        #endif
     }
   }
 }
