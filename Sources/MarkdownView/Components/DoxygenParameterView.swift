@@ -21,7 +21,7 @@ public struct DoxygenParameterView: View {
     VStack(alignment: .leading, spacing: 0) {
       Text(name)
         .bold()
-      ForEach(children.indexed(), id: \.index) { _, child in
+      ForEach(children, id: \.self) { child in
         MarkupContentView(content: child)
       }
     }

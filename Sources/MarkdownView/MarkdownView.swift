@@ -2,7 +2,6 @@
 //  MarkdownView.swift
 //
 
-import Algorithms
 import Markdown
 import SwiftUI
 
@@ -18,7 +17,7 @@ public struct MarkdownView: View {
   }
 
   public var body: some View {
-    ForEach(contents.indexed(), id: \.index) { _, content in
+    ForEach(contents, id: \.self) { content in
       MarkupContentView(content: content)
     }
   }

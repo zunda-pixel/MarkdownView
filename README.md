@@ -9,7 +9,6 @@ MarkdownView uses [swift-markdown](https://github.com/apple/swift-markdown) as P
 <img width="644" alt="Markdown Sample" src="https://github.com/zunda-pixel/MarkdownView/assets/47569369/38bd1d7f-ec8d-4380-90ef-dc882375fa59">
 
 ```swift
-import Algorithms
 import MarkdownView
 import Markdown
 import SwiftUI
@@ -28,7 +27,7 @@ struct MarkdownView: View {
   var body: some View {
     ScrollView {
       LazyVStack(alignment: .leading, spacing: 10) {
-        ForEach(contents.indexed(), id: \.index) { _, content in
+        ForEach(contents, id: \.self) { content in
           MarkupContentView(content: content)
         }
       }
