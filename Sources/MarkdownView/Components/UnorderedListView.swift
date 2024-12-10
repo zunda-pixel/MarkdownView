@@ -19,9 +19,9 @@ public struct UnorderedListView: View {
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 5) {
-      ForEach(items.indexed(), id: \.index) { _, item in
+      ForEach(items, id: \.self) { item in
         VStack(alignment: .leading, spacing: 5) {
-          ForEach(item.children.indexed(), id: \.index) { _, child in
+          ForEach(item.children, id: \.self) { child in
             HStack(alignment: .top, spacing: 5) {
               if case .unorderedList(_) = child {
                 Spacer().frame(width: 10)

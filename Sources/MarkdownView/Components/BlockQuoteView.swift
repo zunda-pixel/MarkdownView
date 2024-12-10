@@ -29,7 +29,7 @@ public struct BlockQuoteView: View {
             .foregroundStyle(label.2)
         }
 
-        ForEach(children.indexed(), id: \.index) { _, child in
+        ForEach(children, id: \.self) { child in
           MarkupContentView(content: child)
             .frame(maxWidth: .infinity, alignment: .leading)
         }

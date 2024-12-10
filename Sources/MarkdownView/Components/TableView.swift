@@ -4,6 +4,7 @@
 
 import Markdown
 import SwiftUI
+import Algorithms
 
 public struct TableView: View {
   public let headItems: [InlineMarkupContent]

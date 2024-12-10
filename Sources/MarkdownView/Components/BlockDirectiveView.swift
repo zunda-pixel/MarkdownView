@@ -23,7 +23,7 @@ public struct BlockDirectiveView: View {
   public var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       SwiftUI.Text("\(Text("@\(name)").bold())(\(arguments.joined())) {")
-      ForEach(children.indexed(), id: \.index) { _, child in
+      ForEach(children, id: \.self) { child in
         HStack(alignment: .center, spacing: 0) {
           Spacer().frame(maxWidth: 10)
           MarkupContentView(content: child)

@@ -2,7 +2,6 @@
 //  MarkupContentView.swift
 //
 
-import Algorithms
 import SwiftUI
 
 public struct MarkupContentView: View {

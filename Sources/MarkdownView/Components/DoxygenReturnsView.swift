@@ -15,7 +15,7 @@ public struct DoxygenReturnsView: View {
   }
 
   public var body: some View {
-    ForEach(children.indexed(), id: \.index) { _, child in
+    ForEach(children, id: \.self) { child in
       MarkupContentView(content: child)
     }
   }

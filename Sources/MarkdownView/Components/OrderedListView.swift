@@ -21,7 +21,7 @@ public struct OrderedListView: View {
 
   public var body: some View {
     VStack(alignment: .leading, spacing: 5) {
-      ForEach(items.indexed(), id: \.index) { index, item in
+      ForEach(items.indexed(), id: \.element) { index, item in
         var unorderedListContains: Bool {
           item.children.contains { child in
             if case .unorderedList(_) = child {
@@ -55,7 +55,7 @@ public struct OrderedListView: View {
         } else {
           HStack(alignment: .center, spacing: 5) {
             SwiftUI.Text("\(Int(startIndex) + index).")
-            ForEach(item.children.indexed(), id: \.index) { _, child in
+            ForEach(item.children, id: \.self) { child in
               MarkupContentView(content: child)
             }
           }
