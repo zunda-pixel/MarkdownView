@@ -128,12 +128,12 @@ extension View {
 #Preview {
   let document = Document(
     parsing: """
-| Head1 | Head2 | Head3 |
-| ----- | ----- | ----- |
-| Body1 | Body2 | Body3 |
-| Body4 | Body5 | Body6 |
-| Body7 | Body8 | Body9 |
-""")
+      | Head1 | Head2 | Head3 |
+      | ----- | ----- | ----- |
+      | Body1 | Body2 | Body3 |
+      | Body4 | Body5 | Body6 |
+      | Body7 | Body8 | Body9 |
+      """)
 
   return MarkdownView(document: document).padding(50)
 }

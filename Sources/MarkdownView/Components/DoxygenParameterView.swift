@@ -30,9 +30,9 @@ public struct DoxygenParameterView: View {
 
 #Preview {
   let source = """
-\\param coordinate The coordinate used to center the transformation.
-\\param matrix The transformation matrix that describes the transformation.
-"""
+    \\param coordinate The coordinate used to center the transformation.
+    \\param matrix The transformation matrix that describes the transformation.
+    """
 
   let document = Document(
     parsing: source,

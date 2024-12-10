@@ -17,7 +17,7 @@ let package = Package(
     .library(
       name: "MarkdownView",
       targets: ["MarkdownView"]
-    ),
+    )
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-markdown", from: "0.5.0"),
@@ -34,7 +34,7 @@ let package = Package(
     .testTarget(
       name: "MarkdownViewTests",
       dependencies: [
-        .target(name: "MarkdownView"),
+        .target(name: "MarkdownView")
       ]
     ),
   ]

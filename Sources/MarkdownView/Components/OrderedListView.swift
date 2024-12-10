@@ -96,14 +96,14 @@ public struct OrderedListView: View {
 #Preview {
   let document = Document(
     parsing: """
-1. First list item
-   - First nested list item
-     - Second nested list item
-     - Second nested list item
-1. Item1
-1. Item2
-1. Item4
-""")
+      1. First list item
+         - First nested list item
+           - Second nested list item
+           - Second nested list item
+      1. Item1
+      1. Item2
+      1. Item4
+      """)
 
   return ScrollView {
     LazyVStack(alignment: .leading, spacing: 10) {

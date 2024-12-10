@@ -23,8 +23,8 @@ public struct DoxygenReturnsView: View {
 
 #Preview {
   let source = """
-\\returns A freshly-created object.
-"""
+    \\returns A freshly-created object.
+    """
 
   let document = Document(
     parsing: source,
