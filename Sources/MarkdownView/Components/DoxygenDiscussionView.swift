@@ -1,11 +1,11 @@
 //
-//  DoxygenReturnsView.swift
+//  DoxygenDiscussionView.swift
 //
 
 import Markdown
 import SwiftUI
 
-public struct DoxygenReturnsView: View {
+public struct DoxygenDiscussionView: View {
   public let children: [MarkupContent]
 
   public init(
@@ -15,16 +15,17 @@ public struct DoxygenReturnsView: View {
   }
 
   public var body: some View {
-    ForEach(children, id: \.self) { child in
-      MarkupContentView(content: child)
+    GroupBox("Discussion") {
+      ForEach(children, id: \.self) { child in
+        MarkupContentView(content: child)
+      }
     }
   }
 }
 
 #Preview {
   let source = """
-    \\returns A freshly-created object1.
-    \\returns A freshly-created object2.
+    \\discussion This object can give other objects in your program magical powers.
     """
 
   let document = Document(
