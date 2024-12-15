@@ -76,11 +76,20 @@ public enum MarkdownViewParser {
     case let doxygenReturns as Markdown.DoxygenReturns:
       let children = doxygenReturns.children.map { markupContent(markup: $0) }
       return .doxygenReturns(children: children)
+    case let doxygenDiscussion as Markdown.DoxygenDiscussion:
+      let children = doxygenDiscussion.children.map { markupContent(markup: $0) }
+      return .doxygenDiscussion(children: children)
+    case let doxygenNote as Markdown.DoxygenNote:
+      let children = doxygenNote.children.map { markupContent(markup: $0) }
+      return .doxygenNote(children: children)
     case let blockDirective as Markdown.BlockDirective:
       let arguments = blockDirective.argumentText.segments.map { $0.trimmedText }
       let children = blockDirective.blockChildren.map { markupContent(markup: $0) }
       return .blockDirective(
-        name: blockDirective.name, arguments: arguments, children: Array(children))
+        name: blockDirective.name,
+        arguments: arguments,
+        children: Array(children)
+      )
     case _ as Markdown.ThematicBreak:
       return .thematicBreak
     case let heading as Markdown.Heading:

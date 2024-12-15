@@ -1,11 +1,11 @@
 //
-//  DoxygenReturnsView.swift
+//  DoxygenNoteView.swift
 //
 
 import Markdown
 import SwiftUI
 
-public struct DoxygenReturnsView: View {
+public struct DoxygenNoteView: View {
   public let children: [MarkupContent]
 
   public init(
@@ -15,16 +15,17 @@ public struct DoxygenReturnsView: View {
   }
 
   public var body: some View {
-    ForEach(children, id: \.self) { child in
-      MarkupContentView(content: child)
+    GroupBox("Note") {
+      ForEach(children, id: \.self) { child in
+        MarkupContentView(content: child)
+      }
     }
   }
 }
 
 #Preview {
   let source = """
-    \\returns A freshly-created object1.
-    \\returns A freshly-created object2.
+    \\note This method is only meant to be called an odd number of times.
     """
 
   let document = Document(

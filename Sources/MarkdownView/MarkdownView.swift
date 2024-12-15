@@ -75,6 +75,21 @@ public struct MarkdownView: View {
     1. First list item
        - First nested list item
          - Second nested list item
+    
+    ## Doxygen Documentation
+    
+    \\discussion This object can give other objects in your program magical powers.
+    
+    
+    \\note This method is only meant to be called an odd number of times.
+    
+    ### Parameters
+    
+    \\param matrix The transformation matrix that describes the transformation.
+    
+    ### Returns
+    
+    \\returns A freshly-created object.
     """
 
   let document = Document(

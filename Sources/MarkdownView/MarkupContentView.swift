@@ -34,6 +34,10 @@ public struct MarkupContentView: View {
       DoxygenParameterView(name: name, children: children)
     case .doxygenReturns(let children):
       DoxygenReturnsView(children: children)
+    case .doxygenNote(let children):
+      DoxygenNoteView(children: children)
+    case .doxygenDiscussion(let children):
+      DoxygenDiscussionView(children: children)
     case .blockDirective(let name, let arguments, let children):
       BlockDirectiveView(name: name, arguments: arguments, children: children)
     case .htmlBlock(let html):
