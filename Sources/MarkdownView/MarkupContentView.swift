@@ -60,6 +60,8 @@ public struct MarkupContentView: View {
       TableView(headItems: head, bodyItems: body)
     case .softBreak:
       EmptyView()
+    case .unordered(let content):
+      Text(content)
     }
   }
 }
