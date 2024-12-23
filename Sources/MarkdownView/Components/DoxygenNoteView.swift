@@ -15,10 +15,8 @@ public struct DoxygenNoteView: View {
   }
 
   public var body: some View {
-    GroupBox("Note") {
-      ForEach(children, id: \.self) { child in
-        MarkupContentView(content: child)
-      }
+    ForEach(children, id: \.self) { child in
+      MarkupContentView(content: child)
     }
   }
 }
