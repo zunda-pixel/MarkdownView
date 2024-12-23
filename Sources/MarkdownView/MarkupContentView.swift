@@ -60,7 +60,7 @@ public struct MarkupContentView: View {
       TableView(headItems: head, bodyItems: body)
     case .softBreak:
       EmptyView()
-    case .unordered(let content):
+    case .unhandled(let content):
       Text(content)
     }
   }
