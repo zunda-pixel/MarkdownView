@@ -89,6 +89,8 @@ public enum MultiContentParser {
         continue
       case .inlineHTML(let html):
         multiContents.append(.inlineHTML(html: html, link: container.link))
+      case .unhandled(let rawMarkup):
+        multiContents.append(.attributedString(.init(rawMarkup)))
       }
     }
 
