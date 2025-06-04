@@ -3,12 +3,20 @@ name: CI
 on: pull_request
 
 jobs:
-  test:
+  build:
     runs-on: macos-15
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - iOS
+          - macOS
+          - watchOS
+          - tvOS
     steps:
     - uses: actions/checkout@v4
-    - run: swift build --build-tests
-    - run: swift test --skip-build --enable-swift-testing --parallel
+    - run: sudo xcode-select --switch /Applications/Xcode_16.4.app
+    - run: xcodebuild -scheme MarkdownView -destination 'generic/platform=${{ matrix.os }}' build
   lint:
     runs-on: ubuntu-24.04-arm
     container: swift:latest
