@@ -63,6 +63,8 @@ func printInlineMarkupContent(content: InlineMarkupContent, depth: Int) {
     for child in children {
       printInlineMarkupContent(content: child, depth: depth + 1)
     }
+  case .unhandled(let rawMarkup):
+    print("\(String(repeating: "\t", count: depth * 2))Unhandled \(rawMarkup)")
   }
 }
 
@@ -147,5 +149,17 @@ func printMarkupContent(content: MarkupContent, depth: Int) {
     }
   case .inlineCode(let code):
     print("\(String(repeating: "\t", count: depth * 2))InlineCode \(code)")
+  case .doxygenNote(let children):
+    print("\(String(repeating: "\t", count: depth * 2))DoxygenNote")
+    for child in children {
+      printMarkupContent(content: child, depth: depth + 1)
+    }
+  case .doxygenDiscussion(let children):
+    print("\(String(repeating: "\t", count: depth * 2))DoxygenDiscussion")
+    for child in children {
+      printMarkupContent(content: child, depth: depth + 1)
+    }
+  case .unhandled(let content):
+    print("\(String(repeating: "\t", count: depth * 2))Unhandled \(content)")
   }
 }

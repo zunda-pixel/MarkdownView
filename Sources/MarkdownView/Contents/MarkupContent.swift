@@ -30,4 +30,4 @@ public enum MarkupContent: Hashable, Sendable {
   case unhandled(content: String)
 }
 
-extension Aside.Kind: @retroactive @unchecked Sendable, @retroactive Hashable {}
+extension Aside.Kind: @unchecked Sendable, Hashable {}
