@@ -14,12 +14,12 @@ jobs:
           - watchOS
           - tvOS
     steps:
-    - uses: actions/checkout@v6.0.2
+    - uses: actions/checkout@v6.0.3
     - run: sudo xcode-select --switch /Applications/Xcode_16.4.app
     - run: xcodebuild -scheme MarkdownView -destination 'generic/platform=${{ matrix.os }}' build
   lint:
     runs-on: ubuntu-24.04-arm
     container: swift:latest
     steps:
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v6.0.3
       - run: swift format lint -r -p -s .
