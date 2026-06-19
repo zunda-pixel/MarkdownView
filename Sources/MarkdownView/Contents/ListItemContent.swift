@@ -17,5 +17,3 @@ public struct ListItemContent: Hashable, Sendable {
     self.children = children
   }
 }
-
-extension Checkbox: @unchecked @retroactive Sendable {}
