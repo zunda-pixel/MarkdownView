@@ -149,6 +149,11 @@ func printMarkupContent(content: MarkupContent, depth: Int) {
     }
   case .inlineCode(let code):
     print("\(String(repeating: "\t", count: depth * 2))InlineCode \(code)")
+  case .doxygenAbstract(let children):
+    print("\(String(repeating: "\t", count: depth * 2))DoxygenAbstract")
+    for child in children {
+      printMarkupContent(content: child, depth: depth + 1)
+    }
   case .doxygenNote(let children):
     print("\(String(repeating: "\t", count: depth * 2))DoxygenNote")
     for child in children {

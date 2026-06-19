@@ -78,6 +78,8 @@ public struct MarkdownView: View {
 
     ## Doxygen Documentation
 
+    \\abstract This object can give other objects in your program magical powers.
+
     ### Parameters
 
     \\param string The input Markdown text to parse.
