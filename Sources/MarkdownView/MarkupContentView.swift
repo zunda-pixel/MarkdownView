@@ -30,6 +30,8 @@ public struct MarkupContentView: View {
     case .emphasis(let children):
       InlineMarkupContentView(inlineContents: children)
         .italic()
+    case .doxygenAbstract(let children):
+      DoxygenAbstractView(children: children)
     case .doxygenParameter(let name, let children):
       DoxygenParameterView(name: name, children: children)
     case .doxygenReturns(let children):

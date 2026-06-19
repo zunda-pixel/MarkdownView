@@ -70,6 +70,9 @@ public enum MarkdownViewParser {
     case let link as Markdown.Link:
       let children = link.inlineChildren.map { inlineMarkupContent(markup: $0) }
       return .link(destination: link.destination, title: link.title, children: Array(children))
+    case let doxygenAbstract as Markdown.DoxygenAbstract:
+      let children = doxygenAbstract.children.map { markupContent(markup: $0) }
+      return .doxygenAbstract(children: children)
     case let doxygenParameter as Markdown.DoxygenParameter:
       let children = doxygenParameter.children.map { markupContent(markup: $0) }
       return .doxygenParameter(name: doxygenParameter.name, children: children)
