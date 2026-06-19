@@ -18,4 +18,4 @@ public struct ListItemContent: Hashable, Sendable {
   }
 }
 
-extension Checkbox: @unchecked Sendable {}
+extension Checkbox: @unchecked @retroactive Sendable {}
